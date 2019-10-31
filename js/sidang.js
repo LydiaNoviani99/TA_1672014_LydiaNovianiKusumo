@@ -544,7 +544,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                                                 //alert("test");
 
                                                                 HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang);
-                                                                HitungNilaiAkhirSidang1(gTopikId, idSidang);                 
+                                                                HitungNilaiAkhirSidang1(gTopikId, idSidang);                
 
 
                                                             } else {
@@ -747,6 +747,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                                                 HitungTotalNilaiSidang3_Pemb1(nrpSidang, idSidang);
                                                                 HitungNilaiAkhirSidang3(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
+                                                                
                                                             } else {
                                                                 alert("Masih ada nilai yang belum diisi.");
                                                             }
@@ -3068,29 +3069,29 @@ function HitungNilaiAkhirSidang3(gTopikId, idSidang) {
     });
 
     alert("Nilai Sidang 3 berhasil tersimpan");
-    location.reload();
 }
 
 
 //NA Sidang3
 function HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang) {
     var hasilNilaiAkhirTAMahasiswa = 0;
-    var lihatSidangRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang);
+    var lihatSidangRef = firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId);
     lihatSidangRef.on("value", function (snap) {
         obj = [];
         if (snap.exists()) {
             var obj = snap.val();
-            var hasilNilaiAkhirSidang1 = obj.hasilNilaiAkhirSidang1;
-            var hasilNilaiAkhirSidang2 = obj.hasilNilaiAkhirSidang2;
-            var hasilNilaiAkhirSidang3 = obj.hasilNilaiAkhirSidang3;
+            var nilaiSidang1 = obj.nilaiSidang1;
+            var nilaiSidang2 = obj.nilaiSidang2;
+            var nilaiSidang3 = obj.nilaiSidang3;
 
-            hasilNilaiAkhirTAMahasiswa = (parseFloat(hasilNilaiAkhirSidang1) * 0.3) + (parseFloat(hasilNilaiAkhirSidang2) * 0.3) + (parseFloat(hasilNilaiAkhirSidang3) * 0.4);
+            hasilNilaiAkhirTAMahasiswa = (parseFloat(nilaiSidang1) * 0.3) + (parseFloat(nilaiSidang2) * 0.3) + (parseFloat(nilaiSidang3) * 0.4);
         }
     });
 
     if (isNaN(hasilNilaiAkhirTAMahasiswa)) {
         hasilNilaiAkhirTAMahasiswa = 0;
     }
+    console.log("akhir: ", hasilNilaiAkhirTAMahasiswa)
 
     firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
         hasilNilaiAkhirTAMahasiswa: hasilNilaiAkhirTAMahasiswa.toFixed(2)

@@ -58,16 +58,20 @@ function view_nilai_table() {
                 obj = [];
                 snap.forEach(function (childSnap) {
                     var c2 = childSnap.val();
-                    obj2 = {'id': c2.id,
+                    obj2 = {
+                        'id': c2.id,
                         'judul_topik': c2.judul_topik,
                         'mahasiswa': c2.mahasiswa,
                         'nilaiSidang1': c2.nilaiSidang1,
                         'nilaiSidang2': c2.nilaiSidang2,
-                        'nilaiSidang3': c2.nilaiSidang3}
+                        'nilaiSidang3': c2.nilaiSidang3,
+                        'nilaiTA': c2.nilaiTA
+                    };
 
                     obj.push(obj2);
-                    addViewNilaiAkhir(obj);
                 });
+//                console.log(obj);
+                addViewNilaiAkhir(obj);
             }
         });
     }

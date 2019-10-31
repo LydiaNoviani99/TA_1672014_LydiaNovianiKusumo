@@ -224,8 +224,8 @@
                                                     {
                                                         data: 'null',
                                                         render: function (data, type, row) {
-                                                            if (typeof row.hasilNilaiAkhirTAMahasiswa !== 'undefined') {
-                                                                return row.hasilNilaiAkhirTAMahasiswa;
+                                                            if (typeof row.nilaiTA !== 'undefined') {
+                                                                return '<label><b>' +  row.nilaiTA + '</b></label>';
                                                             } else {
                                                                 return '<span class="noPerwalian"> - </span>';
                                                             }
