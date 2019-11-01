@@ -84,7 +84,7 @@
                     Dosen
                 </div>
                 <li>
-                    <a href="sidang.php" id="page_sidang"><i class="fa fa-check-circle-o  "></i> Sidang Anda</a>
+                    <a href="sidang.php" id="page_sidang"><i class="fa fa-check-circle-o  "></i> Sidang Dosen</a>
                 </li>
                 <li>
                     <a href="nilai.php" id="page_Nilai"><i class="fa fa-table "></i> Nilai</a>
@@ -160,8 +160,8 @@
 <!-- Custom Fonts -->
 <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
 
 <!-- jQuery -->
 <script src="../vendor/jquery/jquery.min.js"></script>

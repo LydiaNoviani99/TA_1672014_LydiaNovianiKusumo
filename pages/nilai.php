@@ -11,7 +11,6 @@
         <link rel="icon" href="../images/Icon IT.png" type="image/x-icon"/>
 
         <title>Sistem Pengelolaan Tugas Akhir</title>
-
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
     </head>

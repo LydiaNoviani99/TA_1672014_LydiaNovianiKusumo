@@ -35,9 +35,7 @@
         <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
         <link href="../dist/css/mystyle.css" rel="stylesheet">
 
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
-
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use

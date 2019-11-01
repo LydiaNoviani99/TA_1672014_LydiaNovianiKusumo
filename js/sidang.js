@@ -2931,9 +2931,9 @@ function HitungTotalNilaiProduk_Peng2(nrpSidang, idSidang) {
 
 //NA Sidang1
 function HitungNilaiAkhirSidang1(gTopikId, idSidang) {
-    var totalProsesSidang1 = 0;
-    var totalSidang1 = 0;
-    var hasilNilaiAkhirSidang1 = 0;
+    var totalProsesSidang1 = "Belum lengkap";
+    var totalSidang1 = "Belum lengkap";
+    var hasilNilaiAkhirSidang1 = "Belum lengkap";
     var lihatSidangRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang);
     lihatSidangRef.on("value", function (snap) {
         obj = [];
@@ -2962,9 +2962,9 @@ function HitungNilaiAkhirSidang1(gTopikId, idSidang) {
 //    console.log("1 : " + hasilNilaiAkhirSidang1)
 
     if (isNaN(totalProsesSidang1) || isNaN(totalSidang1) || isNaN(hasilNilaiAkhirSidang1)) {
-        totalProsesSidang1 = 0;
-        totalSidang1 = 0;
-        hasilNilaiAkhirSidang1 = 0;
+        totalProsesSidang1 = "Belum lengkap";
+        totalSidang1 = "Belum lengkap";
+        hasilNilaiAkhirSidang1 = "Belum lengkap";
     }
 
     firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
@@ -2982,9 +2982,9 @@ function HitungNilaiAkhirSidang1(gTopikId, idSidang) {
 
 //NA Sidang2
 function HitungNilaiAkhirSidang2(gTopikId, idSidang) {
-    var totalProsesSidang2 = 0;
-    var totalSidang2 = 0;
-    var hasilNilaiAkhirSidang2 = 0;
+    var totalProsesSidang2 = "Belum lengkap";
+    var totalSidang2 = "Belum lengkap";
+    var hasilNilaiAkhirSidang2 = "Belum lengkap";
     var lihatSidangRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang);
     lihatSidangRef.on("value", function (snap) {
         obj = [];
@@ -3004,9 +3004,9 @@ function HitungNilaiAkhirSidang2(gTopikId, idSidang) {
 
 
     if (isNaN(totalProsesSidang2) || isNaN(totalSidang2) || isNaN(hasilNilaiAkhirSidang2)) {
-        totalProsesSidang2 = 0;
-        totalSidang2 = 0;
-        hasilNilaiAkhirSidang2 = 0;
+        totalProsesSidang2 = "Belum lengkap";
+        totalSidang2 = "Belum lengkap";
+        hasilNilaiAkhirSidang2 = "Belum lengkap";
     }
 
     firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
@@ -3024,10 +3024,10 @@ function HitungNilaiAkhirSidang2(gTopikId, idSidang) {
 
 //NA Sidang3
 function HitungNilaiAkhirSidang3(gTopikId, idSidang) {
-    var totalProsesSidang3 = 0;
-    var totalSidang3 = 0;
-    var totalProduk = 0;
-    var hasilNilaiAkhirSidang3 = 0;
+    var totalProsesSidang3 = "Belum lengkap";
+    var totalSidang3 = "Belum lengkap";
+    var totalProduk = "Belum lengkap";
+    var hasilNilaiAkhirSidang3 = "Belum lengkap";
     var lihatSidangRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang);
     lihatSidangRef.on("value", function (snap) {
         obj = [];
@@ -3052,10 +3052,10 @@ function HitungNilaiAkhirSidang3(gTopikId, idSidang) {
     });
 
     if (isNaN(totalProsesSidang3) || isNaN(totalSidang3) || isNaN(totalProduk) || isNaN(hasilNilaiAkhirSidang3)) {
-        totalProsesSidang3 = 0;
-        totalSidang3 = 0;
-        totalProduk = 0;
-        hasilNilaiAkhirSidang3 = 0;
+        totalProsesSidang3 = "Belum lengkap";
+        totalSidang3 = "Belum lengkap";
+        totalProduk = "Belum lengkap";
+        hasilNilaiAkhirSidang3 = "Belum lengkap";
     }
 
     firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
@@ -3074,7 +3074,7 @@ function HitungNilaiAkhirSidang3(gTopikId, idSidang) {
 
 //NA Sidang3
 function HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang) {
-    var hasilNilaiAkhirTAMahasiswa = 0;
+    var hasilNilaiAkhirTAMahasiswa = "Belum lengkap";
     var lihatSidangRef = firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId);
     lihatSidangRef.on("value", function (snap) {
         obj = [];
@@ -3089,7 +3089,7 @@ function HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang) {
     });
 
     if (isNaN(hasilNilaiAkhirTAMahasiswa)) {
-        hasilNilaiAkhirTAMahasiswa = 0;
+        hasilNilaiAkhirTAMahasiswa =  "Belum lengkap";
     }
     console.log("akhir: ", hasilNilaiAkhirTAMahasiswa)
 
