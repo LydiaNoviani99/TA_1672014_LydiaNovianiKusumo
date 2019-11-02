@@ -85,7 +85,7 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Jabatan</th>
-                                            <th colspan="2">Action</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -184,12 +184,6 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 return '<button type="button"  class="btn btn-warning" onClick="updateDosen(\'' + row.nik + '\')">Update</button>'
-                            }
-                        },
-                        {
-                            data: 'null',
-                            render: function (data, type, row) {
-                                return '<button type="button" class="btn btn-danger" onClick="deleteDosen(\'' + row.nik + '\')">Delete</button>'
                             }
                         }
                     ]

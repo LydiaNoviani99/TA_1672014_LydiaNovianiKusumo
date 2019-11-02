@@ -91,7 +91,7 @@
                                             <th>Pemb 1</th>
                                             <th>Pemb 2</th>
                                             <th>Topik</th>
-                                            <th colspan="2">Action</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -235,12 +235,6 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 return '<button id="updateTopik" class="btn btn-warning" onClick="updateTopik(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\')">Update</button>'
-                            }
-                        },
-                        {
-                            data: 'null',
-                            render: function (data, type, row) {
-                                return '<button id="deleteTopik" class="btn btn-danger" onClick="deleteTopik(\'' + row.id + '\')">Delete</button>'
                             }
                         }
                     ]

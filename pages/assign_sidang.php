@@ -446,43 +446,48 @@
     <script src="../js/assign_sidang.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function () {
-            var table = $('#assign_sidangTable').DataTable({
-                columns: [
-                    {
-                        data: 'null',
-                        render: function (data, type, row) {
-                            return '<button class="btn btn-info" onClick="lihatDetailSidang(\'' + row.id_topik + '\')"><span class="glyphicon glyphicon-info-sign"></span > Detail</button>'
-                        }
-                    },
-                    {data: 'mahasiswa.nrp'},
-                    {data: 'mahasiswa.name'},
-                    {data: 'judul_topik'},
-                    {
-                        data: 'null',
-                        render: function (data, type, row) {
+                                                        $(document).ready(function () {
+                                                            var table = $('#assign_sidangTable').DataTable({
+                                                                columns: [
+                                                                    {
+                                                                        data: 'null',
+                                                                        render: function (data, type, row) {
+                                                                            return '<button class="btn btn-info" onClick="lihatDetailSidang(\'' + row.id_topik + '\')"><span class="glyphicon glyphicon-info-sign"></span > Detail</button>'
+                                                                        }
+                                                                    },
+                                                                    {data: 'mahasiswa.nrp'},
+                                                                    {data: 'mahasiswa.name'},
+                                                                    {data: 'judul_topik'},
+                                                                    {
+                                                                        data: 'null',
+                                                                        render: function (data, type, row) {
 //                            if(substr(row.sidang1.id,-4) == 'sdg1'){
 //                                return '<button id="btn_assignSidang1" class="btn btn-success btn-circle" style="background-color:red" onClick="assignSidang1(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\')"><b>1</b></button>'
 //                            } else {
-                                return '<button id="btn_assignSidang1" class="btn btn-success btn-circle" onClick="assignSidang1(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>1</b></button>'
+                                                                            return '<button id="btn_assignSidang1" class="btn btn-success btn-circle" onClick="assignSidang1(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>1</b></button>'
 //                            }
-                        }
-                    },
-                    {
-                        data: 'null',
-                        render: function (data, type, row) {
-                            return '<button class="btn btn-success btn-circle" onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>2</b></button>'
-                        }
-                    },
-                    {
-                        data: 'null',
-                        render: function (data, type, row) {
-                            return '<button class="btn btn-success btn-circle" onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
-                        }
-                    }
-                ]
-            });
-        });                                                                     
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        data: 'null',
+                                                                        render: function (data, type, row) {
+//                                                                            console.log(row.hasilNilaiAkhirSidang1)
+//                                                                            if (row.hasilNilaiAkhirSidang1 == "Belum Lengkap" || row.hasilNilaiAkhirSidang1 == "0.00" || typeof row.hasilNilaiAkhirSidang1 == "undefined") {
+//                                                                                return '<button id="btn_assignSidang2" class="btn btn-success btn-circle" style="background-color:red" onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\')"><b>2</b></button>'
+//                                                                            } else {
+                                                                                return '<button id="btn_assignSidang2" class="btn btn-success btn-circle" onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>2</b></button>'
+//                                                                            }
+                                                                        }
+                                                                    },
+                                                                    {
+                                                                        data: 'null',
+                                                                        render: function (data, type, row) {
+                                                                            return '<button class="btn btn-success btn-circle" onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
+                                                                        }
+                                                                    }
+                                                                ]
+                                                            });
+                                                        });
     </script>
 
 </body>

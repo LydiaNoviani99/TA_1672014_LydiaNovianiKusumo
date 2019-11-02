@@ -45,7 +45,7 @@
                                             <!--<th>ID</th>-->
                                             <th>Name</th>
                                             <th>Status</th>
-                                            <th colspan="2">Action</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -141,12 +141,6 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 return '<button type="button"  class="btn btn-warning" onClick="updateTahun_Ajaran(\'' + row.id + '\')">Update</button>'
-                            }
-                        },
-                        {
-                            data: 'null',
-                            render: function (data, type, row) {
-                                return '<button type="button" class="btn btn-danger" id="btnDelete" onClick="deleteTahun_Ajaran(\'' + row.id + '\')">Delete</button>'
                             }
                         }
                     ]

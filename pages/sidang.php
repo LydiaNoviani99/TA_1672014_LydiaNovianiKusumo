@@ -246,6 +246,7 @@
                                             <?php
                                         }
                                         ?>
+                                            
                                         <li id="nilai_sidang_2"><a href="#sidang_2_tab" data-toggle="tab">Sidang 2</a></li>
                                         <li id="nilai_sidang_3"><a href="#sidang_3_tab" data-toggle="tab">Sidang 3</a></li>
                                         <li id="nilai_proses_1"><a href="#nilai_proses_sidang_1_tab" data-toggle="tab">Nilai Proses Sidang 1</a></li>

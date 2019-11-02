@@ -83,7 +83,7 @@
                                         <tr>
                                             <th>NRP</th>
                                             <th>Nama</th>
-                                            <th colspan="2">Action</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -163,12 +163,6 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 return '<button type="button"  class="btn btn-warning" onClick="updateMahasiswa(\'' + row.nrp + '\')">Update</button>'
-                            }
-                        },
-                        {
-                            data: 'null',
-                            render: function (data, type, row) {
-                                return '<button type="button"  class="btn btn-danger" onClick="deleteMahasiswa(\'' + row.nrp + '\')">Delete</button>'
                             }
                         }
                     ]

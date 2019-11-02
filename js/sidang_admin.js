@@ -1,5 +1,6 @@
 
 var tahun_ajaranGlobal;
+var dosenGlobal;
 var filterDosenGlobal;
 var nikFilterDosen;
 var nameFilterDosen;
@@ -190,6 +191,9 @@ function addComboTahun_Ajaran(data) {
 
 var tanggal_dipilih;
 function view_sidang_table_filter_tanggal() {
+
+    var dosenPilih = $('#filterDosen option:selected').val();
+    dosenGlobal = dosenPilih;
     $('#viewSidangTableFilterTanggal').DataTable().clear().draw();
     var p_id = $('#filterTahun_Ajaran option:selected').val();
     tanggal_dipilih = $('#filterTanggalSidang').val();
@@ -268,6 +272,8 @@ var obj2AAA;
 var ketemuEmailDosenPenguji1 = false;
 var emailDosenSemua;
 function view_sidang_table() {
+    var dosenPilih = $('#filterDosen option:selected').val();
+    dosenGlobal = dosenPilih;
     $('#viewSidangTable').DataTable().clear().draw();
     var p_id = $('#filterTahun_Ajaran option:selected').val();
     $('#viewSidangTable').DataTable().clear().draw();
@@ -367,6 +373,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
     $('#halaman_sidang').hide();
     $('#halaman_nilai').show();
 
+    var dosenPilih = $('#filterDosen option:selected').val();
+    dosenGlobal = dosenPilih;
     var topikDataRef = firebase.database().ref('topik/').child(tahun_ajaranGlobal).child(tempKeyTopik);
     topikDataRef.on('value', function (snap) {
         objTopik = [];
@@ -386,6 +394,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
         sidangDataRef.on("value", function (snaps) {
             objSidang = [];
             if (snaps.exists()) {
+
                 snaps.forEach(function (childSnaps) {
                     var c2Sidang = childSnaps.val();
                     obj2Sidang = {
@@ -399,1647 +408,1604 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                         'dosen_penguji1': c2Sidang.dosen_penguji1,
                         'dosen_penguji2': c2Sidang.dosen_penguji2
                     };
-                    //alert(c2Sidang.idTopik+"-"+gTopikId);
-
                     if (c2Sidang.idTopik === gTopikId && ketemu == 0) {
                         ketemu = 1;
                         var gTopikDosenPeng1Nik = c2Sidang.dosen_penguji1.nik;
                         var gTopikDosenPeng2Nik = c2Sidang.dosen_penguji2.nik;
-                        var dosenDataRef = firebase.database().ref('dosen/');
-                        dosenDataRef.on('value', function (snap) {
-                            if (snap.exists()) {
-                                snap.forEach(function (childSnap) {
-                                    var c2d = childSnap.val();
-                                    if (gTopikDosenPemb1Nik === c2d.nik) {
-                                        email_dosen_beri_nilai = c2d.email;
-                                        if (c2Sidang.idTopik === gTopikId) {
-                                            var user = firebase.auth().currentUser;
-                                            if (user != null) {
-                                                user.providerData.forEach(function (profile) {
-                                                    if (profile.email === email_dosen_beri_nilai) {
 
-                                                        document.getElementById('nilaiSidangName').innerHTML = jenisSidang;
-                                                        document.getElementById('nilaiBiodataDosen').innerHTML = gTopikDosenPemb1Nik + " - " + gTopikDosenPemb1Name;
-                                                        document.getElementById('nilaiSebagaiDosen').innerHTML = "Pembimbing 1";
-                                                        document.getElementById('nilaiMahasiswaNrp').innerHTML = gTopikMahasiswaNrp;
-                                                        document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
-                                                        document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
+                        if (gTopikDosenPemb1Nik === dosenGlobal) {
+                            if (c2Sidang.idTopik === gTopikId) {
+                                document.getElementById('nilaiSidangName').innerHTML = jenisSidang;
+                                document.getElementById('nilaiBiodataDosen').innerHTML = gTopikDosenPemb1Nik + " - " + gTopikDosenPemb1Name;
+                                document.getElementById('nilaiSebagaiDosen').innerHTML = "Pembimbing 1";
+                                document.getElementById('nilaiMahasiswaNrp').innerHTML = gTopikMahasiswaNrp;
+                                document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
+                                document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
 
-                                                        if (jenisSidang === "Sidang 1") {
-                                                            $('.nav-tabs li:eq(0) a').tab('show');
-                                                            $('#nilai_sidang_2').hide();
-                                                            $('#nilai_proses_2').hide();
-                                                            $('#nilai_sidang_3').hide();
-                                                            $('#nilai_proses_3').hide();
-                                                            $('#nilai_produk').hide();
-                                                        } else if (jenisSidang === "Sidang 2") {
-                                                            $('.nav-tabs li:eq(1) a').tab('show');
-                                                            $('#nilai_sidang_1').hide();
-                                                            $('#nilai_proses_1').hide();
-                                                            $('#nilai_sidang_3').hide();
-                                                            $('#nilai_proses_3').hide();
-                                                            $('#nilai_produk').hide();
-                                                        } else if (jenisSidang === "Sidang 3") {
-                                                            $('.nav-tabs li:eq(2) a').tab('show');
-                                                            $('#nilai_sidang_1').hide();
-                                                            $('#nilai_proses_1').hide();
-                                                            $('#nilai_sidang_2').hide();
-                                                            $('#nilai_proses_2').hide();
-                                                        }
+                                if (jenisSidang === "Sidang 1") {
+                                    $('.nav-tabs li:eq(0) a').tab('show');
+                                    $('#nilai_sidang_2').hide();
+                                    $('#nilai_proses_2').hide();
+                                    $('#nilai_sidang_3').hide();
+                                    $('#nilai_proses_3').hide();
+                                    $('#nilai_produk').hide();
+                                } else if (jenisSidang === "Sidang 2") {
+                                    $('.nav-tabs li:eq(1) a').tab('show');
+                                    $('#nilai_sidang_1').hide();
+                                    $('#nilai_proses_1').hide();
+                                    $('#nilai_sidang_3').hide();
+                                    $('#nilai_proses_3').hide();
+                                    $('#nilai_produk').hide();
+                                } else if (jenisSidang === "Sidang 3") {
+                                    $('.nav-tabs li:eq(2) a').tab('show');
+                                    $('#nilai_sidang_1').hide();
+                                    $('#nilai_proses_1').hide();
+                                    $('#nilai_sidang_2').hide();
+                                    $('#nilai_proses_2').hide();
+                                }
 
-                                                        $("#btnSaveNilaiSidang1").click(function () {
-                                                            var SD1RP1 = $('#nilai1Sidang1').val();
-                                                            var SD1PD1 = $('#nilai2aSidang1').val();
-                                                            var SD1PD2 = $('#nilai2bSidang1').val();
-                                                            var SD1AM1 = $('#nilai3aSidang1').val();
-                                                            var SD1AM2 = $('#nilai3bSidang1').val();
-                                                            var SD1AM3 = $('#nilai3cSidang1').val();
-                                                            var SD1AM4 = $('#nilai3dSidang1').val();
-                                                            var SD1AM5 = $('#nilai3eSidang1').val();
-                                                            var SD1AM6 = $('#nilai3fSidang1').val();
-                                                            var SD1PR1 = $('#nilai4aSidang1').val();
-                                                            var SD1PR2 = $('#nilai4bSidang1').val();
+                                $("#btnSaveNilaiSidang1").click(function () {
+                                    var SD1RP1 = $('#nilai1Sidang1').val();
+                                    var SD1PD1 = $('#nilai2aSidang1').val();
+                                    var SD1PD2 = $('#nilai2bSidang1').val();
+                                    var SD1AM1 = $('#nilai3aSidang1').val();
+                                    var SD1AM2 = $('#nilai3bSidang1').val();
+                                    var SD1AM3 = $('#nilai3cSidang1').val();
+                                    var SD1AM4 = $('#nilai3dSidang1').val();
+                                    var SD1AM5 = $('#nilai3eSidang1').val();
+                                    var SD1AM6 = $('#nilai3fSidang1').val();
+                                    var SD1PR1 = $('#nilai4aSidang1').val();
+                                    var SD1PR2 = $('#nilai4bSidang1').val();
 
-                                                            if (SD1RP1 !== ''
-                                                                    && SD1PD1 !== '' && SD1PD2 !== ''
-                                                                    && SD1AM1 !== '' && SD1AM2 !== '' && SD1AM3 !== '' && SD1AM4 !== '' && SD1AM5 !== '' && SD1AM6 !== ''
-                                                                    && SD1PR1 !== '' && SD1PR2 !== '') {
+                                    if (SD1RP1 !== ''
+                                            && SD1PD1 !== '' && SD1PD2 !== ''
+                                            && SD1AM1 !== '' && SD1AM2 !== '' && SD1AM3 !== '' && SD1AM4 !== '' && SD1AM5 !== '' && SD1AM6 !== ''
+                                            && SD1PR1 !== '' && SD1PR2 !== '') {
 
-                                                                nrpSidang = gTopikMahasiswaNrp + "Sidang1";
+                                        nrpSidang = gTopikMahasiswaNrp + "Sidang1";
 
-                                                                firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
-                                                                    SD1RP1: {
-                                                                        id: "SD1RP1",
-                                                                        nilai: SD1RP1
-                                                                    },
-                                                                    SD1PD1: {
-                                                                        id: "SD1PD1",
-                                                                        nilai: SD1PD1
-                                                                    },
-                                                                    SD1PD2: {
-                                                                        id: "SD1PD2",
-                                                                        nilai: SD1PD2
-                                                                    },
-                                                                    SD1AM1: {
-                                                                        id: "SD1AM1",
-                                                                        nilai: SD1AM1
-                                                                    },
-                                                                    SD1AM2: {
-                                                                        id: "SD1AM2",
-                                                                        nilai: SD1AM2
-                                                                    },
-                                                                    SD1AM3: {
-                                                                        id: "SD1AM3",
-                                                                        nilai: SD1AM3
-                                                                    },
-                                                                    SD1AM4: {
-                                                                        id: "SD1AM4",
-                                                                        nilai: SD1AM4
-                                                                    },
-                                                                    SD1AM5: {
-                                                                        id: "SD1AM5",
-                                                                        nilai: SD1AM5
-                                                                    },
-                                                                    SD1AM6: {
-                                                                        id: "SD1AM6",
-                                                                        nilai: SD1AM6
-                                                                    },
-                                                                    SD1PR1: {
-                                                                        id: "SD1PR1",
-                                                                        nilai: SD1PR1
-                                                                    },
-                                                                    SD1PR2: {
-                                                                        id: "SD1PR2",
-                                                                        nilai: SD1PR2
-                                                                    }
-                                                                });
-                                                                //alert("test");
-
-                                                                HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang);
-
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-
-                                                        $("#btnSaveNilaiSidang2").click(function () {
-                                                            var SD2GK1 = $('#nilaiA1Sidang2').val();
-                                                            var SD2GK2 = $('#nilaiA2bSidang2').val();
-                                                            var SD2GK3 = $('#nilaiA3Sidang2').val();
-                                                            var SD2GK4 = $('#nilaiA4Sidang2').val();
-                                                            var SD2GP1 = $('#nilaiB1Sidang2').val();
-                                                            var SD2GP2 = $('#nilaiB2Sidang2').val();
-                                                            var SD2GP3 = $('#nilaiB3Sidang2').val();
-                                                            var SD2GP4 = $('#nilaiB4Sidang2').val();
-                                                            var SD2GP5 = $('#nilaiB5Sidang2').val();
-                                                            var SD2GP6 = $('#nilaiB6Sidang2').val();
-                                                            var SD2GP7 = $('#nilaiB7Sidang2').val();
-                                                            var SD2GP8 = $('#nilaiB8Sidang2').val();
-                                                            var SD2LJ1 = $('#nilaiC1Sidang2').val();
-                                                            var SD2LJ2 = $('#nilaiC2Sidang2').val();
-                                                            var SD2LJ3 = $('#nilaiC3Sidang2').val();
-                                                            var SD2PP1 = $('#nilaiD1Sidang2').val();
-                                                            var SD2PP2 = $('#nilaiD2Sidang2').val();
-                                                            var SD2PP3 = $('#nilaiD3Sidang2').val();
-                                                            var SD2PD1 = $('#nilaiE1Sidang2').val();
-                                                            var SD2PD2 = $('#nilaiE2Sidang2').val();
-                                                            var SD2PD3 = $('#nilaiE3Sidang2').val();
-                                                            var SD2PD4 = $('#nilaiE4Sidang2').val();
-                                                            var SD2PD5 = $('#nilaiE5Sidang2').val();
-                                                            var SD2PD6 = $('#nilaiE6Sidang2').val();
-                                                            var SD2PD7 = $('#nilaiE7Sidang2').val();
-                                                            if (SD2GK1 !== '' && SD2GK2 !== '' && SD2GK3 !== '' && SD2GK4 !== ''
-                                                                    && SD2GP1 !== '' && SD2GP2 !== '' && SD2GP3 !== '' && SD2GP4 !== ''
-                                                                    && SD2GP5 !== '' && SD2GP6 !== '' && SD2GP7 !== '' && SD2GP8 !== ''
-                                                                    && SD2LJ1 !== '' && SD2LJ2 !== '' && SD2LJ3 !== ''
-                                                                    && SD2PP1 !== '' && SD2PP2 !== '' && SD2PP3 !== ''
-                                                                    && SD2PD1 !== '' && SD2PD2 !== '' && SD2PD3 !== '' && SD2PD4 !== ''
-                                                                    && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '') {
-
-                                                                nrpSidang = gTopikMahasiswaNrp + "Sidang2";
-                                                                firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
-                                                                    SD2GK1: {
-                                                                        id: "SD2GK1",
-                                                                        nilai: SD2GK1
-                                                                    },
-                                                                    SD2GK2: {
-                                                                        id: "SD2GK2",
-                                                                        nilai: SD2GK2
-                                                                    },
-                                                                    SD2GK3: {
-                                                                        id: "SD2GK3",
-                                                                        nilai: SD2GK3
-                                                                    },
-                                                                    SD2GK4: {
-                                                                        id: "SD2GK4",
-                                                                        nilai: SD2GK4
-                                                                    },
-                                                                    SD2GP1: {
-                                                                        id: "SD2GP1",
-                                                                        nilai: SD2GP1
-                                                                    },
-                                                                    SD2GP2: {
-                                                                        id: "SD2GP2",
-                                                                        nilai: SD2GP2
-                                                                    },
-                                                                    SD2GP3: {
-                                                                        id: "SD2GP3",
-                                                                        nilai: SD2GP3
-                                                                    },
-                                                                    SD2GP4: {
-                                                                        id: "SD2GP4",
-                                                                        nilai: SD2GP4
-                                                                    },
-                                                                    SD2GP5: {
-                                                                        id: "SD2GP5",
-                                                                        nilai: SD2GP5
-                                                                    },
-                                                                    SD2GP6: {
-                                                                        id: "SD2GP6",
-                                                                        nilai: SD2GP6
-                                                                    },
-                                                                    SD2GP7: {
-                                                                        id: "SD2GP7",
-                                                                        nilai: SD2GP7
-                                                                    },
-                                                                    SD2GP8: {
-                                                                        id: "SD2GP8",
-                                                                        nilai: SD2GP8
-                                                                    },
-                                                                    SD2LJ1: {
-                                                                        id: "SD2LJ1",
-                                                                        nilai: SD2LJ1
-                                                                    },
-                                                                    SD2LJ2: {
-                                                                        id: "SD2LJ2",
-                                                                        nilai: SD2LJ2
-                                                                    },
-                                                                    SD2LJ3: {
-                                                                        id: "SD2LJ3",
-                                                                        nilai: SD2LJ3
-                                                                    },
-                                                                    SD2PP1: {
-                                                                        id: "SD2PP1",
-                                                                        nilai: SD2PP1
-                                                                    },
-                                                                    SD2PP2: {
-                                                                        id: "SD2PP2",
-                                                                        nilai: SD2PP2
-                                                                    },
-                                                                    SD2PP3: {
-                                                                        id: "SD2PP3",
-                                                                        nilai: SD2PP3
-                                                                    },
-                                                                    SD2PD1: {
-                                                                        id: "SD2PD1",
-                                                                        nilai: SD2PD1
-                                                                    },
-                                                                    SD2PD2: {
-                                                                        id: "SD2PD2",
-                                                                        nilai: SD2PD2
-                                                                    },
-                                                                    SD2PD3: {
-                                                                        id: "SD2PD3",
-                                                                        nilai: SD2PD3
-                                                                    },
-                                                                    SD2PD4: {
-                                                                        id: "SD2PD4",
-                                                                        nilai: SD2PD4
-                                                                    },
-                                                                    SD2PD5: {
-                                                                        id: "SD2PD5",
-                                                                        nilai: SD2PD5
-                                                                    },
-                                                                    SD2PD6: {
-                                                                        id: "SD2PD6",
-                                                                        nilai: SD2PD6
-                                                                    },
-                                                                    SD2PD7: {
-                                                                        id: "SD2PD7",
-                                                                        nilai: SD2PD7
-                                                                    }
-                                                                });
-
-                                                                HitungTotalNilaiSidang2_Pemb1(nrpSidang, idSidang);
-
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-
-                                                        $("#btnSaveNilaiSidang3").click(function () {
-                                                            var SD3MP1 = $('#nilaiA1Sidang3').val();
-                                                            var SD3MP2 = $('#nilaiA2bSidang3').val();
-                                                            var SD3MJ1 = $('#nilaiB1Sidang3').val();
-                                                            var SD3MJ2 = $('#nilaiB2Sidang3').val();
-                                                            var SD3MJ3 = $('#nilaiB3Sidang3').val();
-                                                            var SD3MJ4 = $('#nilaiB4Sidang3').val();
-                                                            var SD3MJ5 = $('#nilaiB5Sidang3').val();
-
-
-                                                            if (SD3MP1 !== '' && SD3MP2 !== ''
-                                                                    && SD3MJ1 !== '' && SD3MJ2 !== '' && SD3MJ3 !== ''
-                                                                    && SD3MJ4 !== '' && SD3MJ5 !== '') {
-                                                                nrpSidang = gTopikMahasiswaNrp + "Sidang3";
-                                                                firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
-
-                                                                    SD3MP1: {
-                                                                        id: "SD3MP1",
-                                                                        nilai: SD3MP1
-                                                                    },
-                                                                    SD3MP2: {
-                                                                        id: "SD3MP2",
-                                                                        nilai: SD3MP2
-                                                                    },
-                                                                    SD3MJ1: {
-                                                                        id: "SD3MJ1",
-                                                                        nilai: SD3MJ1
-                                                                    },
-                                                                    SD3MJ2: {
-                                                                        id: "SD3MJ2",
-                                                                        nilai: SD3MJ2
-                                                                    },
-                                                                    SD3MJ3: {
-                                                                        id: "SD3MJ3",
-                                                                        nilai: SD3MJ3
-                                                                    },
-                                                                    SD3MJ4: {
-                                                                        id: "SD3MJ4",
-                                                                        nilai: SD3MJ4
-                                                                    },
-                                                                    SD3MJ5: {
-                                                                        id: "SD3MJ5",
-                                                                        nilai: SD3MJ5
-                                                                    }
-
-                                                                });
-                                                                HitungTotalNilaiSidang3_Pemb1(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-
-                                                        });
-
-                                                        $("#btnSaveNilaiProduk").click(function () {
-                                                            var PTAGK1 = $('#nilaiA1Produk').val();
-                                                            var PTAGK2 = $('#nilaiA2bProduk').val();
-                                                            var PTAGK3 = $('#nilaiA3Produk').val();
-                                                            var PTAGK4 = $('#nilaiA4Produk').val();
-                                                            var PTAGP1 = $('#nilaiB1Produk').val();
-                                                            var PTAGP2 = $('#nilaiB2Produk').val();
-                                                            var PTAGP3 = $('#nilaiB3Produk').val();
-                                                            var PTAGP4 = $('#nilaiB4Produk').val();
-                                                            var PTAGP5 = $('#nilaiB5Produk').val();
-                                                            var PTAGP6 = $('#nilaiB6Produk').val();
-                                                            var PTAGP7 = $('#nilaiB7Produk').val();
-                                                            var PTAGP8 = $('#nilaiB8Produk').val();
-                                                            var PTALJ1 = $('#nilaiC1Produk').val();
-                                                            var PTALJ2 = $('#nilaiC2Produk').val();
-                                                            var PTAMB1 = $('#nilaiD1Produk').val();
-                                                            var PTAMB2 = $('#nilaiD2Produk').val();
-                                                            var PTAMB3 = $('#nilaiD3Produk').val();
-
-                                                            if (PTAGK1 !== '' && PTAGK2 !== '' && PTAGK3 !== '' && PTAGK4 !== ''
-                                                                    && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== ''
-                                                                    && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
-                                                                    && PTALJ1 !== '' && PTALJ2 !== ''
-                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
-                                                                nrpSidang = gTopikMahasiswaNrp + "NProduk";
-                                                                firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
-                                                                    PTAGK1: {
-                                                                        id: "PTAGK1",
-                                                                        nilai: PTAGK1
-                                                                    },
-                                                                    PTAGK2: {
-                                                                        id: "PTAGK2",
-                                                                        nilai: PTAGK2
-                                                                    },
-                                                                    PTAGK3: {
-                                                                        id: "PTAGK3",
-                                                                        nilai: PTAGK3
-                                                                    },
-                                                                    PTAGK4: {
-                                                                        id: "PTAGK4",
-                                                                        nilai: PTAGK4
-                                                                    },
-                                                                    PTAGP1: {
-                                                                        id: "PTAGP1",
-                                                                        nilai: PTAGP1
-                                                                    },
-                                                                    PTAGP2: {
-                                                                        id: "PTAGP2",
-                                                                        nilai: PTAGP2
-                                                                    },
-                                                                    PTAGP3: {
-                                                                        id: "PTAGP3",
-                                                                        nilai: PTAGP3
-                                                                    },
-                                                                    PTAGP4: {
-                                                                        id: "PTAGP4",
-                                                                        nilai: PTAGP4
-                                                                    },
-                                                                    PTAGP5: {
-                                                                        id: "PTAGP5",
-                                                                        nilai: PTAGP5
-                                                                    },
-                                                                    PTAGP6: {
-                                                                        id: "PTAGP6",
-                                                                        nilai: PTAGP6
-                                                                    },
-                                                                    PTAGP7: {
-                                                                        id: "PTAGP7",
-                                                                        nilai: PTAGP7
-                                                                    },
-                                                                    PTAGP8: {
-                                                                        id: "PTAGP8",
-                                                                        nilai: PTAGP8
-                                                                    },
-                                                                    PTALJ1: {
-                                                                        id: "PTALJ1",
-                                                                        nilai: PTALJ1
-                                                                    },
-                                                                    PTALJ2: {
-                                                                        id: "PTALJ2",
-                                                                        nilai: PTALJ2
-                                                                    },
-                                                                    PTAMB1: {
-                                                                        id: "PTAMB1",
-                                                                        nilai: PTAMB1
-                                                                    },
-                                                                    PTAMB2: {
-                                                                        id: "PTAMB2",
-                                                                        nilai: PTAMB2
-                                                                    },
-                                                                    PTAMB3: {
-                                                                        id: "PTAMB3",
-                                                                        nilai: PTAMB3
-                                                                    }
-                                                                });
-                                                                HitungTotalNilaiProduk_Pemb1(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-
-                                                        });
-
-                                                        $("#btnSaveNilaiSidangProses1").click(function () {
-                                                            var NP1IN1 = $('#nilai1ProsesSidang1').val();
-                                                            var NP1IN2 = $('#nilai2ProsesSidang1').val();
-                                                            var NP1IN3 = $('#nilai3ProsesSidang1').val();
-                                                            var NP1IN4 = $('#nilai4ProsesSidang1').val();
-                                                            var NP1IN5 = $('#nilai5ProsesSidang1').val();
-
-                                                            if (NP1IN1 !== ''
-                                                                    && NP1IN2 !== '' && NP1IN3 !== ''
-                                                                    && NP1IN4 !== '' && NP1IN5 !== '') {
-                                                                nrpSidang = gTopikMahasiswaNrp + "Proses1";
-                                                                firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
-                                                                    NP1IN1: {
-                                                                        id: "NP1IN1",
-                                                                        nilai: NP1IN1
-                                                                    },
-                                                                    NP1IN2: {
-                                                                        id: "NP1IN2",
-                                                                        nilai: NP1IN2
-                                                                    },
-                                                                    NP1IN3: {
-                                                                        id: "NP1IN3",
-                                                                        nilai: NP1IN3
-                                                                    },
-                                                                    NP1IN4: {
-                                                                        id: "NP1IN4",
-                                                                        nilai: NP1IN4
-                                                                    },
-                                                                    NP1IN5: {
-                                                                        id: "NP1IN5",
-                                                                        nilai: NP1IN5
-                                                                    }
-                                                                });
-                                                                HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-
-
-                                                        });
-
-                                                        $("#btnSaveNilaiSidangProses2").click(function () {
-                                                            var NP2IN1 = $('#nilai1ProsesSidang2').val();
-                                                            var NP2IN2 = $('#nilai2ProsesSidang2').val();
-                                                            var NP2IN3 = $('#nilai3ProsesSidang2').val();
-                                                            var NP2IN4 = $('#nilai4ProsesSidang2').val();
-                                                            var NP2IN5 = $('#nilai5ProsesSidang2').val();
-                                                            var NP2IN6 = $('#nilai6ProsesSidang2').val();
-                                                            var NP2IN7 = $('#nilai7ProsesSidang2').val();
-                                                            var NP2IN8 = $('#nilai8ProsesSidang2').val();
-                                                            if (NP2IN1 !== ''
-                                                                    && NP2IN2 !== '' && NP2IN3 !== ''
-                                                                    && NP2IN4 !== '' && NP2IN5 !== ''
-                                                                    && NP2IN6 !== ''
-                                                                    && NP2IN7 !== '' && NP2IN8 !== '') {
-                                                                nrpSidang = gTopikMahasiswaNrp + "Proses2";
-                                                                firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
-                                                                    NP2IN1: {
-                                                                        id: "NP2IN1",
-                                                                        nilai: NP2IN1
-                                                                    },
-                                                                    NP2IN2: {
-                                                                        id: "NP2IN2",
-                                                                        nilai: NP2IN2
-                                                                    },
-                                                                    NP2IN3: {
-                                                                        id: "NP2IN3",
-                                                                        nilai: NP2IN3
-                                                                    },
-                                                                    NP2IN4: {
-                                                                        id: "NP2IN4",
-                                                                        nilai: NP2IN4
-                                                                    },
-                                                                    NP2IN5: {
-                                                                        id: "NP2IN5",
-                                                                        nilai: NP2IN5
-                                                                    },
-                                                                    NP2IN6: {
-                                                                        id: "NP2IN6",
-                                                                        nilai: NP2IN6
-                                                                    },
-                                                                    NP2IN7: {
-                                                                        id: "NP2IN7",
-                                                                        nilai: NP2IN7
-                                                                    },
-                                                                    NP2IN8: {
-                                                                        id: "NP2IN8",
-                                                                        nilai: NP2IN8
-                                                                    }
-                                                                });
-                                                                HitungTotalNilaiSidang2_Pemb1_Proses(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-
-                                                        });
-
-                                                        $("#btnSaveNilaiSidangProses3").click(function () {
-                                                            var NP3IN1 = $('#nilai1ProsesSidang3').val();
-                                                            var NP3IN2 = $('#nilai2ProsesSidang3').val();
-                                                            var NP3IN3 = $('#nilai3ProsesSidang3').val();
-
-                                                            if (NP3IN1 !== '' && NP3IN2 !== ''
-                                                                    && NP3IN3 !== '') {
-                                                                nrpSidang = gTopikMahasiswaNrp + "Proses3";
-                                                                firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
-                                                                    NP3IN1: {
-                                                                        id: "NP3IN1",
-                                                                        nilai: NP3IN1
-                                                                    },
-                                                                    NP3IN2: {
-                                                                        id: "NP3IN2",
-                                                                        nilai: NP3IN2
-                                                                    },
-                                                                    NP3IN3: {
-                                                                        id: "NP3IN3",
-                                                                        nilai: NP3IN3
-                                                                    },
-                                                                });
-                                                                HitungTotalNilaiSidang3_Pemb1_Proses(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-                                                    }
-                                                });
+                                        firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
+                                            SD1RP1: {
+                                                id: "SD1RP1",
+                                                nilai: SD1RP1
+                                            },
+                                            SD1PD1: {
+                                                id: "SD1PD1",
+                                                nilai: SD1PD1
+                                            },
+                                            SD1PD2: {
+                                                id: "SD1PD2",
+                                                nilai: SD1PD2
+                                            },
+                                            SD1AM1: {
+                                                id: "SD1AM1",
+                                                nilai: SD1AM1
+                                            },
+                                            SD1AM2: {
+                                                id: "SD1AM2",
+                                                nilai: SD1AM2
+                                            },
+                                            SD1AM3: {
+                                                id: "SD1AM3",
+                                                nilai: SD1AM3
+                                            },
+                                            SD1AM4: {
+                                                id: "SD1AM4",
+                                                nilai: SD1AM4
+                                            },
+                                            SD1AM5: {
+                                                id: "SD1AM5",
+                                                nilai: SD1AM5
+                                            },
+                                            SD1AM6: {
+                                                id: "SD1AM6",
+                                                nilai: SD1AM6
+                                            },
+                                            SD1PR1: {
+                                                id: "SD1PR1",
+                                                nilai: SD1PR1
+                                            },
+                                            SD1PR2: {
+                                                id: "SD1PR2",
+                                                nilai: SD1PR2
                                             }
-                                        }
+                                        });
+                                        //alert("test");
+
+                                        HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang);
+
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                                $("#btnSaveNilaiSidang2").click(function () {
+                                    var SD2GK1 = $('#nilaiA1Sidang2').val();
+                                    var SD2GK2 = $('#nilaiA2bSidang2').val();
+                                    var SD2GK3 = $('#nilaiA3Sidang2').val();
+                                    var SD2GK4 = $('#nilaiA4Sidang2').val();
+                                    var SD2GP1 = $('#nilaiB1Sidang2').val();
+                                    var SD2GP2 = $('#nilaiB2Sidang2').val();
+                                    var SD2GP3 = $('#nilaiB3Sidang2').val();
+                                    var SD2GP4 = $('#nilaiB4Sidang2').val();
+                                    var SD2GP5 = $('#nilaiB5Sidang2').val();
+                                    var SD2GP6 = $('#nilaiB6Sidang2').val();
+                                    var SD2GP7 = $('#nilaiB7Sidang2').val();
+                                    var SD2GP8 = $('#nilaiB8Sidang2').val();
+                                    var SD2LJ1 = $('#nilaiC1Sidang2').val();
+                                    var SD2LJ2 = $('#nilaiC2Sidang2').val();
+                                    var SD2LJ3 = $('#nilaiC3Sidang2').val();
+                                    var SD2PP1 = $('#nilaiD1Sidang2').val();
+                                    var SD2PP2 = $('#nilaiD2Sidang2').val();
+                                    var SD2PP3 = $('#nilaiD3Sidang2').val();
+                                    var SD2PD1 = $('#nilaiE1Sidang2').val();
+                                    var SD2PD2 = $('#nilaiE2Sidang2').val();
+                                    var SD2PD3 = $('#nilaiE3Sidang2').val();
+                                    var SD2PD4 = $('#nilaiE4Sidang2').val();
+                                    var SD2PD5 = $('#nilaiE5Sidang2').val();
+                                    var SD2PD6 = $('#nilaiE6Sidang2').val();
+                                    var SD2PD7 = $('#nilaiE7Sidang2').val();
+                                    if (SD2GK1 !== '' && SD2GK2 !== '' && SD2GK3 !== '' && SD2GK4 !== ''
+                                            && SD2GP1 !== '' && SD2GP2 !== '' && SD2GP3 !== '' && SD2GP4 !== ''
+                                            && SD2GP5 !== '' && SD2GP6 !== '' && SD2GP7 !== '' && SD2GP8 !== ''
+                                            && SD2LJ1 !== '' && SD2LJ2 !== '' && SD2LJ3 !== ''
+                                            && SD2PP1 !== '' && SD2PP2 !== '' && SD2PP3 !== ''
+                                            && SD2PD1 !== '' && SD2PD2 !== '' && SD2PD3 !== '' && SD2PD4 !== ''
+                                            && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '') {
+
+                                        nrpSidang = gTopikMahasiswaNrp + "Sidang2";
+                                        firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
+                                            SD2GK1: {
+                                                id: "SD2GK1",
+                                                nilai: SD2GK1
+                                            },
+                                            SD2GK2: {
+                                                id: "SD2GK2",
+                                                nilai: SD2GK2
+                                            },
+                                            SD2GK3: {
+                                                id: "SD2GK3",
+                                                nilai: SD2GK3
+                                            },
+                                            SD2GK4: {
+                                                id: "SD2GK4",
+                                                nilai: SD2GK4
+                                            },
+                                            SD2GP1: {
+                                                id: "SD2GP1",
+                                                nilai: SD2GP1
+                                            },
+                                            SD2GP2: {
+                                                id: "SD2GP2",
+                                                nilai: SD2GP2
+                                            },
+                                            SD2GP3: {
+                                                id: "SD2GP3",
+                                                nilai: SD2GP3
+                                            },
+                                            SD2GP4: {
+                                                id: "SD2GP4",
+                                                nilai: SD2GP4
+                                            },
+                                            SD2GP5: {
+                                                id: "SD2GP5",
+                                                nilai: SD2GP5
+                                            },
+                                            SD2GP6: {
+                                                id: "SD2GP6",
+                                                nilai: SD2GP6
+                                            },
+                                            SD2GP7: {
+                                                id: "SD2GP7",
+                                                nilai: SD2GP7
+                                            },
+                                            SD2GP8: {
+                                                id: "SD2GP8",
+                                                nilai: SD2GP8
+                                            },
+                                            SD2LJ1: {
+                                                id: "SD2LJ1",
+                                                nilai: SD2LJ1
+                                            },
+                                            SD2LJ2: {
+                                                id: "SD2LJ2",
+                                                nilai: SD2LJ2
+                                            },
+                                            SD2LJ3: {
+                                                id: "SD2LJ3",
+                                                nilai: SD2LJ3
+                                            },
+                                            SD2PP1: {
+                                                id: "SD2PP1",
+                                                nilai: SD2PP1
+                                            },
+                                            SD2PP2: {
+                                                id: "SD2PP2",
+                                                nilai: SD2PP2
+                                            },
+                                            SD2PP3: {
+                                                id: "SD2PP3",
+                                                nilai: SD2PP3
+                                            },
+                                            SD2PD1: {
+                                                id: "SD2PD1",
+                                                nilai: SD2PD1
+                                            },
+                                            SD2PD2: {
+                                                id: "SD2PD2",
+                                                nilai: SD2PD2
+                                            },
+                                            SD2PD3: {
+                                                id: "SD2PD3",
+                                                nilai: SD2PD3
+                                            },
+                                            SD2PD4: {
+                                                id: "SD2PD4",
+                                                nilai: SD2PD4
+                                            },
+                                            SD2PD5: {
+                                                id: "SD2PD5",
+                                                nilai: SD2PD5
+                                            },
+                                            SD2PD6: {
+                                                id: "SD2PD6",
+                                                nilai: SD2PD6
+                                            },
+                                            SD2PD7: {
+                                                id: "SD2PD7",
+                                                nilai: SD2PD7
+                                            }
+                                        });
+
+                                        HitungTotalNilaiSidang2_Pemb1(nrpSidang, idSidang);
+
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                                $("#btnSaveNilaiSidang3").click(function () {
+                                    var SD3MP1 = $('#nilaiA1Sidang3').val();
+                                    var SD3MP2 = $('#nilaiA2bSidang3').val();
+                                    var SD3MJ1 = $('#nilaiB1Sidang3').val();
+                                    var SD3MJ2 = $('#nilaiB2Sidang3').val();
+                                    var SD3MJ3 = $('#nilaiB3Sidang3').val();
+                                    var SD3MJ4 = $('#nilaiB4Sidang3').val();
+                                    var SD3MJ5 = $('#nilaiB5Sidang3').val();
+
+
+                                    if (SD3MP1 !== '' && SD3MP2 !== ''
+                                            && SD3MJ1 !== '' && SD3MJ2 !== '' && SD3MJ3 !== ''
+                                            && SD3MJ4 !== '' && SD3MJ5 !== '') {
+                                        nrpSidang = gTopikMahasiswaNrp + "Sidang3";
+                                        firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
+
+                                            SD3MP1: {
+                                                id: "SD3MP1",
+                                                nilai: SD3MP1
+                                            },
+                                            SD3MP2: {
+                                                id: "SD3MP2",
+                                                nilai: SD3MP2
+                                            },
+                                            SD3MJ1: {
+                                                id: "SD3MJ1",
+                                                nilai: SD3MJ1
+                                            },
+                                            SD3MJ2: {
+                                                id: "SD3MJ2",
+                                                nilai: SD3MJ2
+                                            },
+                                            SD3MJ3: {
+                                                id: "SD3MJ3",
+                                                nilai: SD3MJ3
+                                            },
+                                            SD3MJ4: {
+                                                id: "SD3MJ4",
+                                                nilai: SD3MJ4
+                                            },
+                                            SD3MJ5: {
+                                                id: "SD3MJ5",
+                                                nilai: SD3MJ5
+                                            }
+
+                                        });
+                                        HitungTotalNilaiSidang3_Pemb1(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
                                     }
 
-                                    if (gTopikDosenPemb2Nik === c2d.nik) {
-                                        email_dosen_beri_nilai = c2d.email;
-                                        if (c2Sidang.idTopik === gTopikId) {
-                                            var user = firebase.auth().currentUser;
-                                            if (user != null) {
-                                                user.providerData.forEach(function (profile) {
-                                                    if (profile.email === email_dosen_beri_nilai) {
+                                });
 
-                                                        if (jenisSidang === "Sidang 1") {
-                                                            $('.nav-tabs li:eq(3) a').tab('show');
-                                                            $('#nilai_sidang_1').hide();
-                                                            $('#nilai_sidang_2').hide();
-                                                            $('#nilai_proses_2').hide();
-                                                            $('#nilai_sidang_3').hide();
-                                                            $('#nilai_proses_3').hide();
-                                                            $('#nilai_produk').hide();
-                                                        } else if (jenisSidang === "Sidang 2") {
-                                                            $('.nav-tabs li:eq(4) a').tab('show');
-                                                            $('#nilai_sidang_1').hide();
-                                                            $('#nilai_proses_1').hide();
-                                                            $('#nilai_sidang_2').hide();
-                                                            $('#nilai_sidang_3').hide();
-                                                            $('#nilai_proses_3').hide();
-                                                            $('#nilai_produk').hide();
-                                                        } else if (jenisSidang === "Sidang 3") {
-                                                            $('.nav-tabs li:eq(5) a').tab('show');
-                                                            $('#nilai_sidang_1').hide();
-                                                            $('#nilai_proses_1').hide();
-                                                            $('#nilai_sidang_2').hide();
-                                                            $('#nilai_proses_2').hide();
-                                                            $('#nilai_sidang_3').hide();
-                                                        }
+                                $("#btnSaveNilaiProduk").click(function () {
+                                    var PTAGK1 = $('#nilaiA1Produk').val();
+                                    var PTAGK2 = $('#nilaiA2bProduk').val();
+                                    var PTAGK3 = $('#nilaiA3Produk').val();
+                                    var PTAGK4 = $('#nilaiA4Produk').val();
+                                    var PTAGP1 = $('#nilaiB1Produk').val();
+                                    var PTAGP2 = $('#nilaiB2Produk').val();
+                                    var PTAGP3 = $('#nilaiB3Produk').val();
+                                    var PTAGP4 = $('#nilaiB4Produk').val();
+                                    var PTAGP5 = $('#nilaiB5Produk').val();
+                                    var PTAGP6 = $('#nilaiB6Produk').val();
+                                    var PTAGP7 = $('#nilaiB7Produk').val();
+                                    var PTAGP8 = $('#nilaiB8Produk').val();
+                                    var PTALJ1 = $('#nilaiC1Produk').val();
+                                    var PTALJ2 = $('#nilaiC2Produk').val();
+                                    var PTAMB1 = $('#nilaiD1Produk').val();
+                                    var PTAMB2 = $('#nilaiD2Produk').val();
+                                    var PTAMB3 = $('#nilaiD3Produk').val();
 
-                                                        document.getElementById('nilaiSidangName').innerHTML = c2Sidang.sidangName;
-                                                        document.getElementById('nilaiBiodataDosen').innerHTML = gTopikDosenPemb2Nik + " - " + gTopikDosenPemb2Name;
-                                                        document.getElementById('nilaiSebagaiDosen').innerHTML = "Pembimbing 2";
-                                                        document.getElementById('nilaiMahasiswaNrp').innerHTML = gTopikMahasiswaNrp;
-                                                        document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
-                                                        document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
-
-                                                        $("#btnSaveNilaiProduk").click(function () {
-                                                            var PTAGK1 = $('#nilaiA1Produk').val();
-                                                            var PTAGK2 = $('#nilaiA2bProduk').val();
-                                                            var PTAGK3 = $('#nilaiA3Produk').val();
-                                                            var PTAGK4 = $('#nilaiA4Produk').val();
-                                                            var PTAGP1 = $('#nilaiB1Produk').val();
-                                                            var PTAGP2 = $('#nilaiB2Produk').val();
-                                                            var PTAGP3 = $('#nilaiB3Produk').val();
-                                                            var PTAGP4 = $('#nilaiB4Produk').val();
-                                                            var PTAGP5 = $('#nilaiB5Produk').val();
-                                                            var PTAGP6 = $('#nilaiB6Produk').val();
-                                                            var PTAGP7 = $('#nilaiB7Produk').val();
-                                                            var PTAGP8 = $('#nilaiB8Produk').val();
-                                                            var PTALJ1 = $('#nilaiC1Produk').val();
-                                                            var PTALJ2 = $('#nilaiC2Produk').val();
-                                                            var PTAMB1 = $('#nilaiD1Produk').val();
-                                                            var PTAMB2 = $('#nilaiD2Produk').val();
-                                                            var PTAMB3 = $('#nilaiD3Produk').val();
-
-                                                            if (PTAGK1 !== '' && PTAGK2 !== '' && PTAGK3 !== '' && PTAGK4 !== ''
-                                                                    && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== ''
-                                                                    && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
-                                                                    && PTALJ1 !== '' && PTALJ2 !== ''
-                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
-                                                                nrpSidang = gTopikMahasiswaNrp + "NProduk";
-                                                                firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
-                                                                    PTAGK1: {
-                                                                        id: "PTAGK1",
-                                                                        nilai: PTAGK1
-                                                                    },
-                                                                    PTAGK2: {
-                                                                        id: "PTAGK2",
-                                                                        nilai: PTAGK2
-                                                                    },
-                                                                    PTAGK3: {
-                                                                        id: "PTAGK3",
-                                                                        nilai: PTAGK3
-                                                                    },
-                                                                    PTAGK4: {
-                                                                        id: "PTAGK4",
-                                                                        nilai: PTAGK4
-                                                                    },
-                                                                    PTAGP1: {
-                                                                        id: "PTAGP1",
-                                                                        nilai: PTAGP1
-                                                                    },
-                                                                    PTAGP2: {
-                                                                        id: "PTAGP2",
-                                                                        nilai: PTAGP2
-                                                                    },
-                                                                    PTAGP3: {
-                                                                        id: "PTAGP3",
-                                                                        nilai: PTAGP3
-                                                                    },
-                                                                    PTAGP4: {
-                                                                        id: "PTAGP4",
-                                                                        nilai: PTAGP4
-                                                                    },
-                                                                    PTAGP5: {
-                                                                        id: "PTAGP5",
-                                                                        nilai: PTAGP5
-                                                                    },
-                                                                    PTAGP6: {
-                                                                        id: "PTAGP6",
-                                                                        nilai: PTAGP6
-                                                                    },
-                                                                    PTAGP7: {
-                                                                        id: "PTAGP7",
-                                                                        nilai: PTAGP7
-                                                                    },
-                                                                    PTAGP8: {
-                                                                        id: "PTAGP8",
-                                                                        nilai: PTAGP8
-                                                                    },
-                                                                    PTALJ1: {
-                                                                        id: "PTALJ1",
-                                                                        nilai: PTALJ1
-                                                                    },
-                                                                    PTALJ2: {
-                                                                        id: "PTALJ2",
-                                                                        nilai: PTALJ2
-                                                                    },
-                                                                    PTAMB1: {
-                                                                        id: "PTAMB1",
-                                                                        nilai: PTAMB1
-                                                                    },
-                                                                    PTAMB2: {
-                                                                        id: "PTAMB2",
-                                                                        nilai: PTAMB2
-                                                                    },
-                                                                    PTAMB3: {
-                                                                        id: "PTAMB3",
-                                                                        nilai: PTAMB3
-                                                                    }
-                                                                });
-                                                                HitungTotalNilaiProduk_Pemb2(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-
-                                                        $("#btnSaveNilaiSidangProses1").click(function () {
-                                                            var NP1IN1 = $('#nilai1ProsesSidang1').val();
-                                                            var NP1IN2 = $('#nilai2ProsesSidang1').val();
-                                                            var NP1IN3 = $('#nilai3ProsesSidang1').val();
-                                                            var NP1IN4 = $('#nilai4ProsesSidang1').val();
-                                                            var NP1IN5 = $('#nilai5ProsesSidang1').val();
-                                                            if (NP1IN1 !== ''
-                                                                    && NP1IN2 !== '' && NP1IN3 !== ''
-                                                                    && NP1IN4 !== '' && NP1IN5 !== '') {
-
-                                                                nrpSidang = gTopikMahasiswaNrp + "Proses1";
-                                                                firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
-                                                                    NP1IN1: {
-                                                                        id: "NP1IN1",
-                                                                        nilai: NP1IN1
-                                                                    },
-                                                                    NP1IN2: {
-                                                                        id: "NP1IN2",
-                                                                        nilai: NP1IN2
-                                                                    },
-                                                                    NP1IN3: {
-                                                                        id: "NP1IN3",
-                                                                        nilai: NP1IN3
-                                                                    },
-                                                                    NP1IN4: {
-                                                                        id: "NP1IN4",
-                                                                        nilai: NP1IN4
-                                                                    },
-                                                                    NP1IN5: {
-                                                                        id: "NP1IN5",
-                                                                        nilai: NP1IN5
-                                                                    }
-                                                                });
-                                                                HitungTotalNilaiSidang1_Pemb2_Proses(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-
-                                                        $("#btnSaveNilaiSidangProses2").click(function () {
-                                                            var NP2IN1 = $('#nilai1ProsesSidang2').val();
-                                                            var NP2IN2 = $('#nilai2ProsesSidang2').val();
-                                                            var NP2IN3 = $('#nilai3ProsesSidang2').val();
-                                                            var NP2IN4 = $('#nilai4ProsesSidang2').val();
-                                                            var NP2IN5 = $('#nilai5ProsesSidang2').val();
-                                                            var NP2IN6 = $('#nilai6ProsesSidang2').val();
-                                                            var NP2IN7 = $('#nilai7ProsesSidang2').val();
-                                                            var NP2IN8 = $('#nilai8ProsesSidang2').val();
-
-                                                            if (NP2IN1 !== ''
-                                                                    && NP2IN2 !== '' && NP2IN3 !== ''
-                                                                    && NP2IN4 !== '' && NP2IN5 !== ''
-                                                                    && NP2IN6 !== ''
-                                                                    && NP2IN7 !== '' && NP2IN8 !== '') {
-                                                                nrpSidang = gTopikMahasiswaNrp + "Proses2";
-                                                                firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
-                                                                    NP2IN1: {
-                                                                        id: "NP2IN1",
-                                                                        nilai: NP2IN1
-                                                                    },
-                                                                    NP2IN2: {
-                                                                        id: "NP2IN2",
-                                                                        nilai: NP2IN2
-                                                                    },
-                                                                    NP2IN3: {
-                                                                        id: "NP2IN3",
-                                                                        nilai: NP2IN3
-                                                                    },
-                                                                    NP2IN4: {
-                                                                        id: "NP2IN4",
-                                                                        nilai: NP2IN4
-                                                                    },
-                                                                    NP2IN5: {
-                                                                        id: "NP2IN5",
-                                                                        nilai: NP2IN5
-                                                                    },
-                                                                    NP2IN6: {
-                                                                        id: "NP2IN6",
-                                                                        nilai: NP2IN6
-                                                                    },
-                                                                    NP2IN7: {
-                                                                        id: "NP2IN7",
-                                                                        nilai: NP2IN7
-                                                                    },
-                                                                    NP2IN8: {
-                                                                        id: "NP2IN8",
-                                                                        nilai: NP2IN8
-                                                                    }
-                                                                });
-                                                                HitungTotalNilaiSidang2_Pemb2_Proses(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-
-                                                        $("#btnSaveNilaiSidangProses3").click(function () {
-                                                            var NP3IN1 = $('#nilai1ProsesSidang3').val();
-                                                            var NP3IN2 = $('#nilai2ProsesSidang3').val();
-                                                            var NP3IN3 = $('#nilai3ProsesSidang3').val();
-                                                            if (NP3IN1 !== '' && NP3IN2 !== ''
-                                                                    && NP3IN3 !== '') {
-                                                                nrpSidang = gTopikMahasiswaNrp + "Proses3";
-                                                                firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
-                                                                    NP3IN1: {
-                                                                        id: "NP3IN1",
-                                                                        nilai: NP3IN1
-                                                                    },
-                                                                    NP3IN2: {
-                                                                        id: "NP3IN2",
-                                                                        nilai: NP3IN2
-                                                                    },
-                                                                    NP3IN3: {
-                                                                        id: "NP3IN3",
-                                                                        nilai: NP3IN3
-                                                                    },
-                                                                });
-                                                                HitungTotalNilaiSidang3_Pemb2_Proses(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-                                                    }
-                                                });
+                                    if (PTAGK1 !== '' && PTAGK2 !== '' && PTAGK3 !== '' && PTAGK4 !== ''
+                                            && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== ''
+                                            && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
+                                            && PTALJ1 !== '' && PTALJ2 !== ''
+                                            && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
+                                        nrpSidang = gTopikMahasiswaNrp + "NProduk";
+                                        firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
+                                            PTAGK1: {
+                                                id: "PTAGK1",
+                                                nilai: PTAGK1
+                                            },
+                                            PTAGK2: {
+                                                id: "PTAGK2",
+                                                nilai: PTAGK2
+                                            },
+                                            PTAGK3: {
+                                                id: "PTAGK3",
+                                                nilai: PTAGK3
+                                            },
+                                            PTAGK4: {
+                                                id: "PTAGK4",
+                                                nilai: PTAGK4
+                                            },
+                                            PTAGP1: {
+                                                id: "PTAGP1",
+                                                nilai: PTAGP1
+                                            },
+                                            PTAGP2: {
+                                                id: "PTAGP2",
+                                                nilai: PTAGP2
+                                            },
+                                            PTAGP3: {
+                                                id: "PTAGP3",
+                                                nilai: PTAGP3
+                                            },
+                                            PTAGP4: {
+                                                id: "PTAGP4",
+                                                nilai: PTAGP4
+                                            },
+                                            PTAGP5: {
+                                                id: "PTAGP5",
+                                                nilai: PTAGP5
+                                            },
+                                            PTAGP6: {
+                                                id: "PTAGP6",
+                                                nilai: PTAGP6
+                                            },
+                                            PTAGP7: {
+                                                id: "PTAGP7",
+                                                nilai: PTAGP7
+                                            },
+                                            PTAGP8: {
+                                                id: "PTAGP8",
+                                                nilai: PTAGP8
+                                            },
+                                            PTALJ1: {
+                                                id: "PTALJ1",
+                                                nilai: PTALJ1
+                                            },
+                                            PTALJ2: {
+                                                id: "PTALJ2",
+                                                nilai: PTALJ2
+                                            },
+                                            PTAMB1: {
+                                                id: "PTAMB1",
+                                                nilai: PTAMB1
+                                            },
+                                            PTAMB2: {
+                                                id: "PTAMB2",
+                                                nilai: PTAMB2
+                                            },
+                                            PTAMB3: {
+                                                id: "PTAMB3",
+                                                nilai: PTAMB3
                                             }
-                                        }
+                                        });
+                                        HitungTotalNilaiProduk_Pemb1(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
                                     }
 
-                                    if (gTopikDosenPeng1Nik === c2d.nik) {
-                                        email_dosen_beri_nilai = c2d.email;
-                                        if (c2Sidang.idTopik === gTopikId) {
-                                            var user = firebase.auth().currentUser;
-                                            if (user != null) {
-                                                user.providerData.forEach(function (profile) {
-                                                    if (profile.email === email_dosen_beri_nilai) {
+                                });
 
+                                $("#btnSaveNilaiSidangProses1").click(function () {
+                                    var NP1IN1 = $('#nilai1ProsesSidang1').val();
+                                    var NP1IN2 = $('#nilai2ProsesSidang1').val();
+                                    var NP1IN3 = $('#nilai3ProsesSidang1').val();
+                                    var NP1IN4 = $('#nilai4ProsesSidang1').val();
+                                    var NP1IN5 = $('#nilai5ProsesSidang1').val();
 
-                                                        $('#nilai_proses_1').hide();
-                                                        $('#nilai_proses_2').hide();
-                                                        $('#nilai_proses_3').hide();
-
-                                                        if (jenisSidang === "Sidang 1") {
-                                                            $('.nav-tabs li:eq(0) a').tab('show');
-                                                            $('#nilai_sidang_2').hide();
-                                                            $('#nilai_sidang_3').hide();
-                                                            $('#nilai_produk').hide();
-                                                        } else if (jenisSidang === "Sidang 2") {
-                                                            $('.nav-tabs li:eq(1) a').tab('show');
-                                                            $('#nilai_sidang_1').hide();
-                                                            $('#nilai_sidang_3').hide();
-                                                            $('#nilai_produk').hide();
-                                                        } else if (jenisSidang === "Sidang 3") {
-                                                            $('.nav-tabs li:eq(2) a').tab('show');
-                                                            $('#nilai_sidang_1').hide();
-                                                            $('#nilai_sidang_2').hide();
-                                                        }
-
-                                                        document.getElementById('nilaiSidangName').innerHTML = c2Sidang.sidangName;
-                                                        document.getElementById('nilaiBiodataDosen').innerHTML = c2Sidang.dosen_penguji1.nik + " - " + c2Sidang.dosen_penguji1.name;
-                                                        document.getElementById('nilaiSebagaiDosen').innerHTML = "Penguji 1";
-                                                        document.getElementById('nilaiMahasiswaNrp').innerHTML = gTopikMahasiswaNrp;
-                                                        document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
-                                                        document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
-
-
-                                                        $("#btnSaveNilaiSidang1").click(function () {
-                                                            var SD1RP1 = $('#nilai1Sidang1').val();
-                                                            var SD1PD1 = $('#nilai2aSidang1').val();
-                                                            var SD1PD2 = $('#nilai2bSidang1').val();
-                                                            var SD1AM1 = $('#nilai3aSidang1').val();
-                                                            var SD1AM2 = $('#nilai3bSidang1').val();
-                                                            var SD1AM3 = $('#nilai3cSidang1').val();
-                                                            var SD1AM4 = $('#nilai3dSidang1').val();
-                                                            var SD1AM5 = $('#nilai3eSidang1').val();
-                                                            var SD1AM6 = $('#nilai3fSidang1').val();
-                                                            var SD1PR1 = $('#nilai4aSidang1').val();
-                                                            var SD1PR2 = $('#nilai4bSidang1').val();
-
-                                                            if (SD1RP1 !== ''
-                                                                    && SD1PD1 !== '' && SD1PD2 !== ''
-                                                                    && SD1AM1 !== '' && SD1AM2 !== '' && SD1AM3 !== '' && SD1AM4 !== '' && SD1AM5 !== '' && SD1AM6 !== ''
-                                                                    && SD1PR1 !== '' && SD1PR2 !== '') {
-
-                                                                nrpSidang = gTopikMahasiswaNrp + "Sidang1";
-
-                                                                firebase.database().ref('nilai_peng1/').child(nrpSidang).set({
-                                                                    SD1RP1: {
-                                                                        id: "SD1RP1",
-                                                                        nilai: SD1RP1
-                                                                    },
-                                                                    SD1PD1: {
-                                                                        id: "SD1PD1",
-                                                                        nilai: SD1PD1
-                                                                    },
-                                                                    SD1PD2: {
-                                                                        id: "SD1PD2",
-                                                                        nilai: SD1PD2
-                                                                    },
-                                                                    SD1AM1: {
-                                                                        id: "SD1AM1",
-                                                                        nilai: SD1AM1
-                                                                    },
-                                                                    SD1AM2: {
-                                                                        id: "SD1AM2",
-                                                                        nilai: SD1AM2
-                                                                    },
-                                                                    SD1AM3: {
-                                                                        id: "SD1AM3",
-                                                                        nilai: SD1AM3
-                                                                    },
-                                                                    SD1AM4: {
-                                                                        id: "SD1AM4",
-                                                                        nilai: SD1AM4
-                                                                    },
-                                                                    SD1AM5: {
-                                                                        id: "SD1AM5",
-                                                                        nilai: SD1AM5
-                                                                    },
-                                                                    SD1AM6: {
-                                                                        id: "SD1AM6",
-                                                                        nilai: SD1AM6
-                                                                    },
-                                                                    SD1PR1: {
-                                                                        id: "SD1PR1",
-                                                                        nilai: SD1PR1
-                                                                    },
-                                                                    SD1PR2: {
-                                                                        id: "SD1PR2",
-                                                                        nilai: SD1PR2
-                                                                    }
-                                                                });
-                                                                HitungTotalNilaiSidang1_Peng1(nrpSidang, idSidang);
-
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-
-                                                        $("#btnSaveNilaiSidang2").click(function () {
-                                                            var SD2GK1 = $('#nilaiA1Sidang2').val();
-                                                            var SD2GK2 = $('#nilaiA2bSidang2').val();
-                                                            var SD2GK3 = $('#nilaiA3Sidang2').val();
-                                                            var SD2GK4 = $('#nilaiA4Sidang2').val();
-                                                            var SD2GP1 = $('#nilaiB1Sidang2').val();
-                                                            var SD2GP2 = $('#nilaiB2Sidang2').val();
-                                                            var SD2GP3 = $('#nilaiB3Sidang2').val();
-                                                            var SD2GP4 = $('#nilaiB4Sidang2').val();
-                                                            var SD2GP5 = $('#nilaiB5Sidang2').val();
-                                                            var SD2GP6 = $('#nilaiB6Sidang2').val();
-                                                            var SD2GP7 = $('#nilaiB7Sidang2').val();
-                                                            var SD2GP8 = $('#nilaiB8Sidang2').val();
-                                                            var SD2LJ1 = $('#nilaiC1Sidang2').val();
-                                                            var SD2LJ2 = $('#nilaiC2Sidang2').val();
-                                                            var SD2LJ3 = $('#nilaiC3Sidang2').val();
-                                                            var SD2PP1 = $('#nilaiD1Sidang2').val();
-                                                            var SD2PP2 = $('#nilaiD2Sidang2').val();
-                                                            var SD2PP3 = $('#nilaiD3Sidang2').val();
-                                                            var SD2PD1 = $('#nilaiE1Sidang2').val();
-                                                            var SD2PD2 = $('#nilaiE2Sidang2').val();
-                                                            var SD2PD3 = $('#nilaiE3Sidang2').val();
-                                                            var SD2PD4 = $('#nilaiE4Sidang2').val();
-                                                            var SD2PD5 = $('#nilaiE5Sidang2').val();
-                                                            var SD2PD6 = $('#nilaiE6Sidang2').val();
-                                                            var SD2PD7 = $('#nilaiE7Sidang2').val();
-                                                            if (SD2GK1 !== '' && SD2GK2 !== '' && SD2GK3 !== '' && SD2GK4 !== ''
-                                                                    && SD2GP1 !== '' && SD2GP2 !== '' && SD2GP3 !== '' && SD2GP4 !== ''
-                                                                    && SD2GP5 !== '' && SD2GP6 !== '' && SD2GP7 !== '' && SD2GP8 !== ''
-                                                                    && SD2LJ1 !== '' && SD2LJ2 !== '' && SD2LJ3 !== ''
-                                                                    && SD2PP1 !== '' && SD2PP2 !== '' && SD2PP3 !== ''
-                                                                    && SD2PD1 !== '' && SD2PD2 !== '' && SD2PD3 !== '' && SD2PD4 !== ''
-                                                                    && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '') {
-                                                                nrpSidang = gTopikMahasiswaNrp + "Sidang2";
-                                                                firebase.database().ref('nilai_peng1/').child(nrpSidang).set({
-                                                                    SD2GK1: {
-                                                                        id: "SD2GK1",
-                                                                        nilai: SD2GK1
-                                                                    },
-                                                                    SD2GK2: {
-                                                                        id: "SD2GK2",
-                                                                        nilai: SD2GK2
-                                                                    },
-                                                                    SD2GK3: {
-                                                                        id: "SD2GK3",
-                                                                        nilai: SD2GK3
-                                                                    },
-                                                                    SD2GK4: {
-                                                                        id: "SD2GK4",
-                                                                        nilai: SD2GK4
-                                                                    },
-                                                                    SD2GP1: {
-                                                                        id: "SD2GP1",
-                                                                        nilai: SD2GP1
-                                                                    },
-                                                                    SD2GP2: {
-                                                                        id: "SD2GP2",
-                                                                        nilai: SD2GP2
-                                                                    },
-                                                                    SD2GP3: {
-                                                                        id: "SD2GP3",
-                                                                        nilai: SD2GP3
-                                                                    },
-                                                                    SD2GP4: {
-                                                                        id: "SD2GP4",
-                                                                        nilai: SD2GP4
-                                                                    },
-                                                                    SD2GP5: {
-                                                                        id: "SD2GP5",
-                                                                        nilai: SD2GP5
-                                                                    },
-                                                                    SD2GP6: {
-                                                                        id: "SD2GP6",
-                                                                        nilai: SD2GP6
-                                                                    },
-                                                                    SD2GP7: {
-                                                                        id: "SD2GP7",
-                                                                        nilai: SD2GP7
-                                                                    },
-                                                                    SD2GP8: {
-                                                                        id: "SD2GP8",
-                                                                        nilai: SD2GP8
-                                                                    },
-                                                                    SD2LJ1: {
-                                                                        id: "SD2LJ1",
-                                                                        nilai: SD2LJ1
-                                                                    },
-                                                                    SD2LJ2: {
-                                                                        id: "SD2LJ2",
-                                                                        nilai: SD2LJ2
-                                                                    },
-                                                                    SD2LJ3: {
-                                                                        id: "SD2LJ3",
-                                                                        nilai: SD2LJ3
-                                                                    },
-                                                                    SD2PP1: {
-                                                                        id: "SD2PP1",
-                                                                        nilai: SD2PP1
-                                                                    },
-                                                                    SD2PP2: {
-                                                                        id: "SD2PP2",
-                                                                        nilai: SD2PP2
-                                                                    },
-                                                                    SD2PP3: {
-                                                                        id: "SD2PP3",
-                                                                        nilai: SD2PP3
-                                                                    },
-                                                                    SD2PD1: {
-                                                                        id: "SD2PD1",
-                                                                        nilai: SD2PD1
-                                                                    },
-                                                                    SD2PD2: {
-                                                                        id: "SD2PD2",
-                                                                        nilai: SD2PD2
-                                                                    },
-                                                                    SD2PD3: {
-                                                                        id: "SD2PD3",
-                                                                        nilai: SD2PD3
-                                                                    },
-                                                                    SD2PD4: {
-                                                                        id: "SD2PD4",
-                                                                        nilai: SD2PD4
-                                                                    },
-                                                                    SD2PD5: {
-                                                                        id: "SD2PD5",
-                                                                        nilai: SD2PD5
-                                                                    },
-                                                                    SD2PD6: {
-                                                                        id: "SD2PD6",
-                                                                        nilai: SD2PD6
-                                                                    },
-                                                                    SD2PD7: {
-                                                                        id: "SD2PD7",
-                                                                        nilai: SD2PD7
-                                                                    }
-                                                                });
-                                                                HitungTotalNilaiSidang2_Peng1(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-
-                                                        });
-
-                                                        $("#btnSaveNilaiSidang3").click(function () {
-                                                            var SD3MP1 = $('#nilaiA1Sidang3').val();
-                                                            var SD3MP2 = $('#nilaiA2bSidang3').val();
-                                                            var SD3MJ1 = $('#nilaiB1Sidang3').val();
-                                                            var SD3MJ2 = $('#nilaiB2Sidang3').val();
-                                                            var SD3MJ3 = $('#nilaiB3Sidang3').val();
-                                                            var SD3MJ4 = $('#nilaiB4Sidang3').val();
-                                                            var SD3MJ5 = $('#nilaiB5Sidang3').val();
-                                                            if (SD3MP1 !== '' && SD3MP2 !== ''
-                                                                    && SD3MJ1 !== '' && SD3MJ2 !== '' && SD3MJ3 !== ''
-                                                                    && SD3MJ4 !== '' && SD3MJ5 !== '') {
-
-                                                                nrpSidang = gTopikMahasiswaNrp + "Sidang3";
-                                                                firebase.database().ref('nilai_peng1/').child(nrpSidang).set({
-
-                                                                    SD3MP1: {
-                                                                        id: "SD3MP1",
-                                                                        nilai: SD3MP1
-                                                                    },
-                                                                    SD3MP2: {
-                                                                        id: "SD3MP2",
-                                                                        nilai: SD3MP2
-                                                                    },
-                                                                    SD3MJ1: {
-                                                                        id: "SD3MJ1",
-                                                                        nilai: SD3MJ1
-                                                                    },
-                                                                    SD3MJ2: {
-                                                                        id: "SD3MJ2",
-                                                                        nilai: SD3MJ2
-                                                                    },
-                                                                    SD3MJ3: {
-                                                                        id: "SD3MJ3",
-                                                                        nilai: SD3MJ3
-                                                                    },
-                                                                    SD3MJ4: {
-                                                                        id: "SD3MJ4",
-                                                                        nilai: SD3MJ4
-                                                                    },
-                                                                    SD3MJ5: {
-                                                                        id: "SD3MJ5",
-                                                                        nilai: SD3MJ5
-                                                                    }
-
-                                                                });
-                                                                HitungTotalNilaiSidang3_Peng1(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-
-                                                        $("#btnSaveNilaiProduk").click(function () {
-                                                            var PTAGK1 = $('#nilaiA1Produk').val();
-                                                            var PTAGK2 = $('#nilaiA2bProduk').val();
-                                                            var PTAGK3 = $('#nilaiA3Produk').val();
-                                                            var PTAGK4 = $('#nilaiA4Produk').val();
-                                                            var PTAGP1 = $('#nilaiB1Produk').val();
-                                                            var PTAGP2 = $('#nilaiB2Produk').val();
-                                                            var PTAGP3 = $('#nilaiB3Produk').val();
-                                                            var PTAGP4 = $('#nilaiB4Produk').val();
-                                                            var PTAGP5 = $('#nilaiB5Produk').val();
-                                                            var PTAGP6 = $('#nilaiB6Produk').val();
-                                                            var PTAGP7 = $('#nilaiB7Produk').val();
-                                                            var PTAGP8 = $('#nilaiB8Produk').val();
-                                                            var PTALJ1 = $('#nilaiC1Produk').val();
-                                                            var PTALJ2 = $('#nilaiC2Produk').val();
-                                                            var PTAMB1 = $('#nilaiD1Produk').val();
-                                                            var PTAMB2 = $('#nilaiD2Produk').val();
-                                                            var PTAMB3 = $('#nilaiD3Produk').val();
-
-                                                            if (PTAGK1 !== '' && PTAGK2 !== '' && PTAGK3 !== '' && PTAGK4 !== ''
-                                                                    && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== ''
-                                                                    && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
-                                                                    && PTALJ1 !== '' && PTALJ2 !== ''
-                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
-
-                                                                nrpSidang = gTopikMahasiswaNrp + "NProduk";
-                                                                firebase.database().ref('nilai_peng1/').child(nrpSidang).set({
-                                                                    PTAGK1: {
-                                                                        id: "PTAGK1",
-                                                                        nilai: PTAGK1
-                                                                    },
-                                                                    PTAGK2: {
-                                                                        id: "PTAGK2",
-                                                                        nilai: PTAGK2
-                                                                    },
-                                                                    PTAGK3: {
-                                                                        id: "PTAGK3",
-                                                                        nilai: PTAGK3
-                                                                    },
-                                                                    PTAGK4: {
-                                                                        id: "PTAGK4",
-                                                                        nilai: PTAGK4
-                                                                    },
-                                                                    PTAGP1: {
-                                                                        id: "PTAGP1",
-                                                                        nilai: PTAGP1
-                                                                    },
-                                                                    PTAGP2: {
-                                                                        id: "PTAGP2",
-                                                                        nilai: PTAGP2
-                                                                    },
-                                                                    PTAGP3: {
-                                                                        id: "PTAGP3",
-                                                                        nilai: PTAGP3
-                                                                    },
-                                                                    PTAGP4: {
-                                                                        id: "PTAGP4",
-                                                                        nilai: PTAGP4
-                                                                    },
-                                                                    PTAGP5: {
-                                                                        id: "PTAGP5",
-                                                                        nilai: PTAGP5
-                                                                    },
-                                                                    PTAGP6: {
-                                                                        id: "PTAGP6",
-                                                                        nilai: PTAGP6
-                                                                    },
-                                                                    PTAGP7: {
-                                                                        id: "PTAGP7",
-                                                                        nilai: PTAGP7
-                                                                    },
-                                                                    PTAGP8: {
-                                                                        id: "PTAGP8",
-                                                                        nilai: PTAGP8
-                                                                    },
-                                                                    PTALJ1: {
-                                                                        id: "PTALJ1",
-                                                                        nilai: PTALJ1
-                                                                    },
-                                                                    PTALJ2: {
-                                                                        id: "PTALJ2",
-                                                                        nilai: PTALJ2
-                                                                    },
-                                                                    PTAMB1: {
-                                                                        id: "PTAMB1",
-                                                                        nilai: PTAMB1
-                                                                    },
-                                                                    PTAMB2: {
-                                                                        id: "PTAMB2",
-                                                                        nilai: PTAMB2
-                                                                    },
-                                                                    PTAMB3: {
-                                                                        id: "PTAMB3",
-                                                                        nilai: PTAMB3
-                                                                    }
-                                                                });
-                                                                HitungTotalNilaiProduk_Peng1(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-
-                                                    }
-                                                });
+                                    if (NP1IN1 !== ''
+                                            && NP1IN2 !== '' && NP1IN3 !== ''
+                                            && NP1IN4 !== '' && NP1IN5 !== '') {
+                                        nrpSidang = gTopikMahasiswaNrp + "Proses1";
+                                        firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
+                                            NP1IN1: {
+                                                id: "NP1IN1",
+                                                nilai: NP1IN1
+                                            },
+                                            NP1IN2: {
+                                                id: "NP1IN2",
+                                                nilai: NP1IN2
+                                            },
+                                            NP1IN3: {
+                                                id: "NP1IN3",
+                                                nilai: NP1IN3
+                                            },
+                                            NP1IN4: {
+                                                id: "NP1IN4",
+                                                nilai: NP1IN4
+                                            },
+                                            NP1IN5: {
+                                                id: "NP1IN5",
+                                                nilai: NP1IN5
                                             }
-                                        }
+                                        });
+                                        HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
                                     }
 
-                                    if (gTopikDosenPeng2Nik === c2d.nik) {
-                                        email_dosen_beri_nilai = c2d.email;
-                                        if (c2Sidang.idTopik === gTopikId) {
-                                            var user = firebase.auth().currentUser;
-                                            if (user != null) {
-                                                user.providerData.forEach(function (profile) {
-                                                    if (profile.email === email_dosen_beri_nilai) {
-                                                        $('#nilai_proses_1').hide();
-                                                        $('#nilai_proses_2').hide();
-                                                        $('#nilai_proses_3').hide();
 
-                                                        if (jenisSidang === "Sidang 1") {
-                                                            $('.nav-tabs li:eq(0) a').tab('show');
-                                                            $('#nilai_sidang_2').hide();
-                                                            $('#nilai_sidang_3').hide();
-                                                            $('#nilai_produk').hide();
-                                                        } else if (jenisSidang === "Sidang 2") {
-                                                            $('.nav-tabs li:eq(1) a').tab('show');
-                                                            $('#nilai_sidang_1').hide();
-                                                            $('#nilai_sidang_3').hide();
-                                                            $('#nilai_produk').hide();
-                                                        } else if (jenisSidang === "Sidang 3") {
-                                                            $('.nav-tabs li:eq(2) a').tab('show');
-                                                            $('#nilai_sidang_1').hide();
-                                                            $('#nilai_sidang_2').hide();
-                                                        }
+                                });
 
-                                                        document.getElementById('nilaiSidangName').innerHTML = c2Sidang.sidangName;
-                                                        document.getElementById('nilaiBiodataDosen').innerHTML = c2Sidang.dosen_penguji2.nik + " - " + c2Sidang.dosen_penguji2.name;
-                                                        document.getElementById('nilaiSebagaiDosen').innerHTML = "Penguji 2";
-                                                        document.getElementById('nilaiMahasiswaNrp').innerHTML = gTopikMahasiswaNrp;
-                                                        document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
-                                                        document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
-
-                                                        $("#btnSaveNilaiSidang1").click(function () {
-                                                            var SD1RP1 = $('#nilai1Sidang1').val();
-                                                            var SD1PD1 = $('#nilai2aSidang1').val();
-                                                            var SD1PD2 = $('#nilai2bSidang1').val();
-                                                            var SD1AM1 = $('#nilai3aSidang1').val();
-                                                            var SD1AM2 = $('#nilai3bSidang1').val();
-                                                            var SD1AM3 = $('#nilai3cSidang1').val();
-                                                            var SD1AM4 = $('#nilai3dSidang1').val();
-                                                            var SD1AM5 = $('#nilai3eSidang1').val();
-                                                            var SD1AM6 = $('#nilai3fSidang1').val();
-                                                            var SD1PR1 = $('#nilai4aSidang1').val();
-                                                            var SD1PR2 = $('#nilai4bSidang1').val();
-                                                            if (SD1RP1 !== ''
-                                                                    && SD1PD1 !== '' && SD1PD2 !== ''
-                                                                    && SD1AM1 !== '' && SD1AM2 !== '' && SD1AM3 !== '' && SD1AM4 !== '' && SD1AM5 !== '' && SD1AM6 !== ''
-                                                                    && SD1PR1 !== '' && SD1PR2 !== '') {
-
-                                                                nrpSidang = gTopikMahasiswaNrp + "Sidang1";
-                                                                firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
-                                                                    SD1RP1: {
-                                                                        id: "SD1RP1",
-                                                                        nilai: SD1RP1
-                                                                    },
-                                                                    SD1PD1: {
-                                                                        id: "SD1PD1",
-                                                                        nilai: SD1PD1
-                                                                    },
-                                                                    SD1PD2: {
-                                                                        id: "SD1PD2",
-                                                                        nilai: SD1PD2
-                                                                    },
-                                                                    SD1AM1: {
-                                                                        id: "SD1AM1",
-                                                                        nilai: SD1AM1
-                                                                    },
-                                                                    SD1AM2: {
-                                                                        id: "SD1AM2",
-                                                                        nilai: SD1AM2
-                                                                    },
-                                                                    SD1AM3: {
-                                                                        id: "SD1AM3",
-                                                                        nilai: SD1AM3
-                                                                    },
-                                                                    SD1AM4: {
-                                                                        id: "SD1AM4",
-                                                                        nilai: SD1AM4
-                                                                    },
-                                                                    SD1AM5: {
-                                                                        id: "SD1AM5",
-                                                                        nilai: SD1AM5
-                                                                    },
-                                                                    SD1AM6: {
-                                                                        id: "SD1AM6",
-                                                                        nilai: SD1AM6
-                                                                    },
-                                                                    SD1PR1: {
-                                                                        id: "SD1PR1",
-                                                                        nilai: SD1PR1
-                                                                    },
-                                                                    SD1PR2: {
-                                                                        id: "SD1PR2",
-                                                                        nilai: SD1PR2
-                                                                    }
-                                                                });
-
-                                                                HitungTotalNilaiSidang1_Peng2(nrpSidang, idSidang);
-
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-
-                                                        $("#btnSaveNilaiSidang2").click(function () {
-                                                            var SD2GK1 = $('#nilaiA1Sidang2').val();
-                                                            var SD2GK2 = $('#nilaiA2bSidang2').val();
-                                                            var SD2GK3 = $('#nilaiA3Sidang2').val();
-                                                            var SD2GK4 = $('#nilaiA4Sidang2').val();
-                                                            var SD2GP1 = $('#nilaiB1Sidang2').val();
-                                                            var SD2GP2 = $('#nilaiB2Sidang2').val();
-                                                            var SD2GP3 = $('#nilaiB3Sidang2').val();
-                                                            var SD2GP4 = $('#nilaiB4Sidang2').val();
-                                                            var SD2GP5 = $('#nilaiB5Sidang2').val();
-                                                            var SD2GP6 = $('#nilaiB6Sidang2').val();
-                                                            var SD2GP7 = $('#nilaiB7Sidang2').val();
-                                                            var SD2GP8 = $('#nilaiB8Sidang2').val();
-                                                            var SD2LJ1 = $('#nilaiC1Sidang2').val();
-                                                            var SD2LJ2 = $('#nilaiC2Sidang2').val();
-                                                            var SD2LJ3 = $('#nilaiC3Sidang2').val();
-                                                            var SD2PP1 = $('#nilaiD1Sidang2').val();
-                                                            var SD2PP2 = $('#nilaiD2Sidang2').val();
-                                                            var SD2PP3 = $('#nilaiD3Sidang2').val();
-                                                            var SD2PD1 = $('#nilaiE1Sidang2').val();
-                                                            var SD2PD2 = $('#nilaiE2Sidang2').val();
-                                                            var SD2PD3 = $('#nilaiE3Sidang2').val();
-                                                            var SD2PD4 = $('#nilaiE4Sidang2').val();
-                                                            var SD2PD5 = $('#nilaiE5Sidang2').val();
-                                                            var SD2PD6 = $('#nilaiE6Sidang2').val();
-                                                            var SD2PD7 = $('#nilaiE7Sidang2').val();
-                                                            if (SD2GK1 !== '' && SD2GK2 !== '' && SD2GK3 !== '' && SD2GK4 !== ''
-                                                                    && SD2GP1 !== '' && SD2GP2 !== '' && SD2GP3 !== '' && SD2GP4 !== ''
-                                                                    && SD2GP5 !== '' && SD2GP6 !== '' && SD2GP7 !== '' && SD2GP8 !== ''
-                                                                    && SD2LJ1 !== '' && SD2LJ2 !== '' && SD2LJ3 !== ''
-                                                                    && SD2PP1 !== '' && SD2PP2 !== '' && SD2PP3 !== ''
-                                                                    && SD2PD1 !== '' && SD2PD2 !== '' && SD2PD3 !== '' && SD2PD4 !== ''
-                                                                    && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '') {
-
-                                                                nrpSidang = gTopikMahasiswaNrp + "Sidang2";
-                                                                firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
-                                                                    SD2GK1: {
-                                                                        id: "SD2GK1",
-                                                                        nilai: SD2GK1
-                                                                    },
-                                                                    SD2GK2: {
-                                                                        id: "SD2GK2",
-                                                                        nilai: SD2GK2
-                                                                    },
-                                                                    SD2GK3: {
-                                                                        id: "SD2GK3",
-                                                                        nilai: SD2GK3
-                                                                    },
-                                                                    SD2GK4: {
-                                                                        id: "SD2GK4",
-                                                                        nilai: SD2GK4
-                                                                    },
-                                                                    SD2GP1: {
-                                                                        id: "SD2GP1",
-                                                                        nilai: SD2GP1
-                                                                    },
-                                                                    SD2GP2: {
-                                                                        id: "SD2GP2",
-                                                                        nilai: SD2GP2
-                                                                    },
-                                                                    SD2GP3: {
-                                                                        id: "SD2GP3",
-                                                                        nilai: SD2GP3
-                                                                    },
-                                                                    SD2GP4: {
-                                                                        id: "SD2GP4",
-                                                                        nilai: SD2GP4
-                                                                    },
-                                                                    SD2GP5: {
-                                                                        id: "SD2GP5",
-                                                                        nilai: SD2GP5
-                                                                    },
-                                                                    SD2GP6: {
-                                                                        id: "SD2GP6",
-                                                                        nilai: SD2GP6
-                                                                    },
-                                                                    SD2GP7: {
-                                                                        id: "SD2GP7",
-                                                                        nilai: SD2GP7
-                                                                    },
-                                                                    SD2GP8: {
-                                                                        id: "SD2GP8",
-                                                                        nilai: SD2GP8
-                                                                    },
-                                                                    SD2LJ1: {
-                                                                        id: "SD2LJ1",
-                                                                        nilai: SD2LJ1
-                                                                    },
-                                                                    SD2LJ2: {
-                                                                        id: "SD2LJ2",
-                                                                        nilai: SD2LJ2
-                                                                    },
-                                                                    SD2LJ3: {
-                                                                        id: "SD2LJ3",
-                                                                        nilai: SD2LJ3
-                                                                    },
-                                                                    SD2PP1: {
-                                                                        id: "SD2PP1",
-                                                                        nilai: SD2PP1
-                                                                    },
-                                                                    SD2PP2: {
-                                                                        id: "SD2PP2",
-                                                                        nilai: SD2PP2
-                                                                    },
-                                                                    SD2PP3: {
-                                                                        id: "SD2PP3",
-                                                                        nilai: SD2PP3
-                                                                    },
-                                                                    SD2PD1: {
-                                                                        id: "SD2PD1",
-                                                                        nilai: SD2PD1
-                                                                    },
-                                                                    SD2PD2: {
-                                                                        id: "SD2PD2",
-                                                                        nilai: SD2PD2
-                                                                    },
-                                                                    SD2PD3: {
-                                                                        id: "SD2PD3",
-                                                                        nilai: SD2PD3
-                                                                    },
-                                                                    SD2PD4: {
-                                                                        id: "SD2PD4",
-                                                                        nilai: SD2PD4
-                                                                    },
-                                                                    SD2PD5: {
-                                                                        id: "SD2PD5",
-                                                                        nilai: SD2PD5
-                                                                    },
-                                                                    SD2PD6: {
-                                                                        id: "SD2PD6",
-                                                                        nilai: SD2PD6
-                                                                    },
-                                                                    SD2PD7: {
-                                                                        id: "SD2PD7",
-                                                                        nilai: SD2PD7
-                                                                    }
-                                                                });
-
-                                                                HitungTotalNilaiSidang2_Peng2(nrpSidang, idSidang);
-
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-
-                                                        $("#btnSaveNilaiSidang3").click(function () {
-                                                            var SD3MP1 = $('#nilaiA1Sidang3').val();
-                                                            var SD3MP2 = $('#nilaiA2bSidang3').val();
-                                                            var SD3MJ1 = $('#nilaiB1Sidang3').val();
-                                                            var SD3MJ2 = $('#nilaiB2Sidang3').val();
-                                                            var SD3MJ3 = $('#nilaiB3Sidang3').val();
-                                                            var SD3MJ4 = $('#nilaiB4Sidang3').val();
-                                                            var SD3MJ5 = $('#nilaiB5Sidang3').val();
-                                                            if (SD3MP1 !== '' && SD3MP2 !== ''
-                                                                    && SD3MJ1 !== '' && SD3MJ2 !== '' && SD3MJ3 !== ''
-                                                                    && SD3MJ4 !== '' && SD3MJ5 !== '') {
-                                                                nrpSidang = gTopikMahasiswaNrp + "Sidang3";
-                                                                firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
-
-                                                                    SD3MP1: {
-                                                                        id: "SD3MP1",
-                                                                        nilai: SD3MP1
-                                                                    },
-                                                                    SD3MP2: {
-                                                                        id: "SD3MP2",
-                                                                        nilai: SD3MP2
-                                                                    },
-                                                                    SD3MJ1: {
-                                                                        id: "SD3MJ1",
-                                                                        nilai: SD3MJ1
-                                                                    },
-                                                                    SD3MJ2: {
-                                                                        id: "SD3MJ2",
-                                                                        nilai: SD3MJ2
-                                                                    },
-                                                                    SD3MJ3: {
-                                                                        id: "SD3MJ3",
-                                                                        nilai: SD3MJ3
-                                                                    },
-                                                                    SD3MJ4: {
-                                                                        id: "SD3MJ4",
-                                                                        nilai: SD3MJ4
-                                                                    },
-                                                                    SD3MJ5: {
-                                                                        id: "SD3MJ5",
-                                                                        nilai: SD3MJ5
-                                                                    }
-
-                                                                });
-                                                                HitungTotalNilaiSidang3_Peng2(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-
-                                                        $("#btnSaveNilaiProduk").click(function () {
-                                                            var PTAGK1 = $('#nilaiA1Produk').val();
-                                                            var PTAGK2 = $('#nilaiA2bProduk').val();
-                                                            var PTAGK3 = $('#nilaiA3Produk').val();
-                                                            var PTAGK4 = $('#nilaiA4Produk').val();
-                                                            var PTAGP1 = $('#nilaiB1Produk').val();
-                                                            var PTAGP2 = $('#nilaiB2Produk').val();
-                                                            var PTAGP3 = $('#nilaiB3Produk').val();
-                                                            var PTAGP4 = $('#nilaiB4Produk').val();
-                                                            var PTAGP5 = $('#nilaiB5Produk').val();
-                                                            var PTAGP6 = $('#nilaiB6Produk').val();
-                                                            var PTAGP7 = $('#nilaiB7Produk').val();
-                                                            var PTAGP8 = $('#nilaiB8Produk').val();
-                                                            var PTALJ1 = $('#nilaiC1Produk').val();
-                                                            var PTALJ2 = $('#nilaiC2Produk').val();
-                                                            var PTAMB1 = $('#nilaiD1Produk').val();
-                                                            var PTAMB2 = $('#nilaiD2Produk').val();
-                                                            var PTAMB3 = $('#nilaiD3Produk').val();
-
-                                                            if (PTAGK1 !== '' && PTAGK2 !== '' && PTAGK3 !== '' && PTAGK4 !== ''
-                                                                    && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== '' && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
-                                                                    && PTALJ1 !== '' && PTALJ2 !== ''
-                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
-                                                                nrpSidang = gTopikMahasiswaNrp + "NProduk";
-                                                                firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
-                                                                    PTAGK1: {
-                                                                        id: "PTAGK1",
-                                                                        nilai: PTAGK1
-                                                                    },
-                                                                    PTAGK2: {
-                                                                        id: "PTAGK2",
-                                                                        nilai: PTAGK2
-                                                                    },
-                                                                    PTAGK3: {
-                                                                        id: "PTAGK3",
-                                                                        nilai: PTAGK3
-                                                                    },
-                                                                    PTAGK4: {
-                                                                        id: "PTAGK4",
-                                                                        nilai: PTAGK4
-                                                                    },
-                                                                    PTAGP1: {
-                                                                        id: "PTAGP1",
-                                                                        nilai: PTAGP1
-                                                                    },
-                                                                    PTAGP2: {
-                                                                        id: "PTAGP2",
-                                                                        nilai: PTAGP2
-                                                                    },
-                                                                    PTAGP3: {
-                                                                        id: "PTAGP3",
-                                                                        nilai: PTAGP3
-                                                                    },
-                                                                    PTAGP4: {
-                                                                        id: "PTAGP4",
-                                                                        nilai: PTAGP4
-                                                                    },
-                                                                    PTAGP5: {
-                                                                        id: "PTAGP5",
-                                                                        nilai: PTAGP5
-                                                                    },
-                                                                    PTAGP6: {
-                                                                        id: "PTAGP6",
-                                                                        nilai: PTAGP6
-                                                                    },
-                                                                    PTAGP7: {
-                                                                        id: "PTAGP7",
-                                                                        nilai: PTAGP7
-                                                                    },
-                                                                    PTAGP8: {
-                                                                        id: "PTAGP8",
-                                                                        nilai: PTAGP8
-                                                                    },
-                                                                    PTALJ1: {
-                                                                        id: "PTALJ1",
-                                                                        nilai: PTALJ1
-                                                                    },
-                                                                    PTALJ2: {
-                                                                        id: "PTALJ2",
-                                                                        nilai: PTALJ2
-                                                                    },
-                                                                    PTAMB1: {
-                                                                        id: "PTAMB1",
-                                                                        nilai: PTAMB1
-                                                                    },
-                                                                    PTAMB2: {
-                                                                        id: "PTAMB2",
-                                                                        nilai: PTAMB2
-                                                                    },
-                                                                    PTAMB3: {
-                                                                        id: "PTAMB3",
-                                                                        nilai: PTAMB3
-                                                                    }
-                                                                });
-                                                                HitungTotalNilaiProduk_Peng2(nrpSidang, idSidang);
-                                                            } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
-                                                            }
-                                                        });
-                                                    }
-                                                });
+                                $("#btnSaveNilaiSidangProses2").click(function () {
+                                    var NP2IN1 = $('#nilai1ProsesSidang2').val();
+                                    var NP2IN2 = $('#nilai2ProsesSidang2').val();
+                                    var NP2IN3 = $('#nilai3ProsesSidang2').val();
+                                    var NP2IN4 = $('#nilai4ProsesSidang2').val();
+                                    var NP2IN5 = $('#nilai5ProsesSidang2').val();
+                                    var NP2IN6 = $('#nilai6ProsesSidang2').val();
+                                    var NP2IN7 = $('#nilai7ProsesSidang2').val();
+                                    var NP2IN8 = $('#nilai8ProsesSidang2').val();
+                                    if (NP2IN1 !== ''
+                                            && NP2IN2 !== '' && NP2IN3 !== ''
+                                            && NP2IN4 !== '' && NP2IN5 !== ''
+                                            && NP2IN6 !== ''
+                                            && NP2IN7 !== '' && NP2IN8 !== '') {
+                                        nrpSidang = gTopikMahasiswaNrp + "Proses2";
+                                        firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
+                                            NP2IN1: {
+                                                id: "NP2IN1",
+                                                nilai: NP2IN1
+                                            },
+                                            NP2IN2: {
+                                                id: "NP2IN2",
+                                                nilai: NP2IN2
+                                            },
+                                            NP2IN3: {
+                                                id: "NP2IN3",
+                                                nilai: NP2IN3
+                                            },
+                                            NP2IN4: {
+                                                id: "NP2IN4",
+                                                nilai: NP2IN4
+                                            },
+                                            NP2IN5: {
+                                                id: "NP2IN5",
+                                                nilai: NP2IN5
+                                            },
+                                            NP2IN6: {
+                                                id: "NP2IN6",
+                                                nilai: NP2IN6
+                                            },
+                                            NP2IN7: {
+                                                id: "NP2IN7",
+                                                nilai: NP2IN7
+                                            },
+                                            NP2IN8: {
+                                                id: "NP2IN8",
+                                                nilai: NP2IN8
                                             }
-                                        }
+                                        });
+                                        HitungTotalNilaiSidang2_Pemb1_Proses(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+
+                                });
+
+                                $("#btnSaveNilaiSidangProses3").click(function () {
+                                    var NP3IN1 = $('#nilai1ProsesSidang3').val();
+                                    var NP3IN2 = $('#nilai2ProsesSidang3').val();
+                                    var NP3IN3 = $('#nilai3ProsesSidang3').val();
+
+                                    if (NP3IN1 !== '' && NP3IN2 !== ''
+                                            && NP3IN3 !== '') {
+                                        nrpSidang = gTopikMahasiswaNrp + "Proses3";
+                                        firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
+                                            NP3IN1: {
+                                                id: "NP3IN1",
+                                                nilai: NP3IN1
+                                            },
+                                            NP3IN2: {
+                                                id: "NP3IN2",
+                                                nilai: NP3IN2
+                                            },
+                                            NP3IN3: {
+                                                id: "NP3IN3",
+                                                nilai: NP3IN3
+                                            },
+                                        });
+                                        HitungTotalNilaiSidang3_Pemb1_Proses(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
                                     }
                                 });
                             }
-                        });
+                        }
+
+                        if (gTopikDosenPemb2Nik === dosenGlobal) {
+                            if (c2Sidang.idTopik === gTopikId) {
+
+                                if (jenisSidang === "Sidang 1") {
+                                    $('.nav-tabs li:eq(3) a').tab('show');
+                                    $('#nilai_sidang_1').hide();
+                                    $('#nilai_sidang_2').hide();
+                                    $('#nilai_proses_2').hide();
+                                    $('#nilai_sidang_3').hide();
+                                    $('#nilai_proses_3').hide();
+                                    $('#nilai_produk').hide();
+                                } else if (jenisSidang === "Sidang 2") {
+                                    $('.nav-tabs li:eq(4) a').tab('show');
+                                    $('#nilai_sidang_1').hide();
+                                    $('#nilai_proses_1').hide();
+                                    $('#nilai_sidang_2').hide();
+                                    $('#nilai_sidang_3').hide();
+                                    $('#nilai_proses_3').hide();
+                                    $('#nilai_produk').hide();
+                                } else if (jenisSidang === "Sidang 3") {
+                                    $('.nav-tabs li:eq(5) a').tab('show');
+                                    $('#nilai_sidang_1').hide();
+                                    $('#nilai_proses_1').hide();
+                                    $('#nilai_sidang_2').hide();
+                                    $('#nilai_proses_2').hide();
+                                    $('#nilai_sidang_3').hide();
+                                }
+
+                                document.getElementById('nilaiSidangName').innerHTML = c2Sidang.sidangName;
+                                document.getElementById('nilaiBiodataDosen').innerHTML = gTopikDosenPemb2Nik + " - " + gTopikDosenPemb2Name;
+                                document.getElementById('nilaiSebagaiDosen').innerHTML = "Pembimbing 2";
+                                document.getElementById('nilaiMahasiswaNrp').innerHTML = gTopikMahasiswaNrp;
+                                document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
+                                document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
+
+                                $("#btnSaveNilaiProduk").click(function () {
+                                    var PTAGK1 = $('#nilaiA1Produk').val();
+                                    var PTAGK2 = $('#nilaiA2bProduk').val();
+                                    var PTAGK3 = $('#nilaiA3Produk').val();
+                                    var PTAGK4 = $('#nilaiA4Produk').val();
+                                    var PTAGP1 = $('#nilaiB1Produk').val();
+                                    var PTAGP2 = $('#nilaiB2Produk').val();
+                                    var PTAGP3 = $('#nilaiB3Produk').val();
+                                    var PTAGP4 = $('#nilaiB4Produk').val();
+                                    var PTAGP5 = $('#nilaiB5Produk').val();
+                                    var PTAGP6 = $('#nilaiB6Produk').val();
+                                    var PTAGP7 = $('#nilaiB7Produk').val();
+                                    var PTAGP8 = $('#nilaiB8Produk').val();
+                                    var PTALJ1 = $('#nilaiC1Produk').val();
+                                    var PTALJ2 = $('#nilaiC2Produk').val();
+                                    var PTAMB1 = $('#nilaiD1Produk').val();
+                                    var PTAMB2 = $('#nilaiD2Produk').val();
+                                    var PTAMB3 = $('#nilaiD3Produk').val();
+
+                                    if (PTAGK1 !== '' && PTAGK2 !== '' && PTAGK3 !== '' && PTAGK4 !== ''
+                                            && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== ''
+                                            && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
+                                            && PTALJ1 !== '' && PTALJ2 !== ''
+                                            && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
+                                        nrpSidang = gTopikMahasiswaNrp + "NProduk";
+                                        firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
+                                            PTAGK1: {
+                                                id: "PTAGK1",
+                                                nilai: PTAGK1
+                                            },
+                                            PTAGK2: {
+                                                id: "PTAGK2",
+                                                nilai: PTAGK2
+                                            },
+                                            PTAGK3: {
+                                                id: "PTAGK3",
+                                                nilai: PTAGK3
+                                            },
+                                            PTAGK4: {
+                                                id: "PTAGK4",
+                                                nilai: PTAGK4
+                                            },
+                                            PTAGP1: {
+                                                id: "PTAGP1",
+                                                nilai: PTAGP1
+                                            },
+                                            PTAGP2: {
+                                                id: "PTAGP2",
+                                                nilai: PTAGP2
+                                            },
+                                            PTAGP3: {
+                                                id: "PTAGP3",
+                                                nilai: PTAGP3
+                                            },
+                                            PTAGP4: {
+                                                id: "PTAGP4",
+                                                nilai: PTAGP4
+                                            },
+                                            PTAGP5: {
+                                                id: "PTAGP5",
+                                                nilai: PTAGP5
+                                            },
+                                            PTAGP6: {
+                                                id: "PTAGP6",
+                                                nilai: PTAGP6
+                                            },
+                                            PTAGP7: {
+                                                id: "PTAGP7",
+                                                nilai: PTAGP7
+                                            },
+                                            PTAGP8: {
+                                                id: "PTAGP8",
+                                                nilai: PTAGP8
+                                            },
+                                            PTALJ1: {
+                                                id: "PTALJ1",
+                                                nilai: PTALJ1
+                                            },
+                                            PTALJ2: {
+                                                id: "PTALJ2",
+                                                nilai: PTALJ2
+                                            },
+                                            PTAMB1: {
+                                                id: "PTAMB1",
+                                                nilai: PTAMB1
+                                            },
+                                            PTAMB2: {
+                                                id: "PTAMB2",
+                                                nilai: PTAMB2
+                                            },
+                                            PTAMB3: {
+                                                id: "PTAMB3",
+                                                nilai: PTAMB3
+                                            }
+                                        });
+                                        HitungTotalNilaiProduk_Pemb2(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                                $("#btnSaveNilaiSidangProses1").click(function () {
+                                    var NP1IN1 = $('#nilai1ProsesSidang1').val();
+                                    var NP1IN2 = $('#nilai2ProsesSidang1').val();
+                                    var NP1IN3 = $('#nilai3ProsesSidang1').val();
+                                    var NP1IN4 = $('#nilai4ProsesSidang1').val();
+                                    var NP1IN5 = $('#nilai5ProsesSidang1').val();
+                                    if (NP1IN1 !== ''
+                                            && NP1IN2 !== '' && NP1IN3 !== ''
+                                            && NP1IN4 !== '' && NP1IN5 !== '') {
+
+                                        nrpSidang = gTopikMahasiswaNrp + "Proses1";
+                                        firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
+                                            NP1IN1: {
+                                                id: "NP1IN1",
+                                                nilai: NP1IN1
+                                            },
+                                            NP1IN2: {
+                                                id: "NP1IN2",
+                                                nilai: NP1IN2
+                                            },
+                                            NP1IN3: {
+                                                id: "NP1IN3",
+                                                nilai: NP1IN3
+                                            },
+                                            NP1IN4: {
+                                                id: "NP1IN4",
+                                                nilai: NP1IN4
+                                            },
+                                            NP1IN5: {
+                                                id: "NP1IN5",
+                                                nilai: NP1IN5
+                                            }
+                                        });
+                                        HitungTotalNilaiSidang1_Pemb2_Proses(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                                $("#btnSaveNilaiSidangProses2").click(function () {
+                                    var NP2IN1 = $('#nilai1ProsesSidang2').val();
+                                    var NP2IN2 = $('#nilai2ProsesSidang2').val();
+                                    var NP2IN3 = $('#nilai3ProsesSidang2').val();
+                                    var NP2IN4 = $('#nilai4ProsesSidang2').val();
+                                    var NP2IN5 = $('#nilai5ProsesSidang2').val();
+                                    var NP2IN6 = $('#nilai6ProsesSidang2').val();
+                                    var NP2IN7 = $('#nilai7ProsesSidang2').val();
+                                    var NP2IN8 = $('#nilai8ProsesSidang2').val();
+
+                                    if (NP2IN1 !== ''
+                                            && NP2IN2 !== '' && NP2IN3 !== ''
+                                            && NP2IN4 !== '' && NP2IN5 !== ''
+                                            && NP2IN6 !== ''
+                                            && NP2IN7 !== '' && NP2IN8 !== '') {
+                                        nrpSidang = gTopikMahasiswaNrp + "Proses2";
+                                        firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
+                                            NP2IN1: {
+                                                id: "NP2IN1",
+                                                nilai: NP2IN1
+                                            },
+                                            NP2IN2: {
+                                                id: "NP2IN2",
+                                                nilai: NP2IN2
+                                            },
+                                            NP2IN3: {
+                                                id: "NP2IN3",
+                                                nilai: NP2IN3
+                                            },
+                                            NP2IN4: {
+                                                id: "NP2IN4",
+                                                nilai: NP2IN4
+                                            },
+                                            NP2IN5: {
+                                                id: "NP2IN5",
+                                                nilai: NP2IN5
+                                            },
+                                            NP2IN6: {
+                                                id: "NP2IN6",
+                                                nilai: NP2IN6
+                                            },
+                                            NP2IN7: {
+                                                id: "NP2IN7",
+                                                nilai: NP2IN7
+                                            },
+                                            NP2IN8: {
+                                                id: "NP2IN8",
+                                                nilai: NP2IN8
+                                            }
+                                        });
+                                        HitungTotalNilaiSidang2_Pemb2_Proses(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                                $("#btnSaveNilaiSidangProses3").click(function () {
+                                    var NP3IN1 = $('#nilai1ProsesSidang3').val();
+                                    var NP3IN2 = $('#nilai2ProsesSidang3').val();
+                                    var NP3IN3 = $('#nilai3ProsesSidang3').val();
+                                    if (NP3IN1 !== '' && NP3IN2 !== ''
+                                            && NP3IN3 !== '') {
+                                        nrpSidang = gTopikMahasiswaNrp + "Proses3";
+                                        firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
+                                            NP3IN1: {
+                                                id: "NP3IN1",
+                                                nilai: NP3IN1
+                                            },
+                                            NP3IN2: {
+                                                id: "NP3IN2",
+                                                nilai: NP3IN2
+                                            },
+                                            NP3IN3: {
+                                                id: "NP3IN3",
+                                                nilai: NP3IN3
+                                            },
+                                        });
+                                        HitungTotalNilaiSidang3_Pemb2_Proses(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+                            }
+                        }
+
+                        if (gTopikDosenPeng1Nik === dosenGlobal) {
+                            if (c2Sidang.idTopik === gTopikId) {
+                                $('#nilai_proses_1').hide();
+                                $('#nilai_proses_2').hide();
+                                $('#nilai_proses_3').hide();
+
+                                if (jenisSidang === "Sidang 1") {
+                                    $('.nav-tabs li:eq(0) a').tab('show');
+                                    $('#nilai_sidang_2').hide();
+                                    $('#nilai_sidang_3').hide();
+                                    $('#nilai_produk').hide();
+                                } else if (jenisSidang === "Sidang 2") {
+                                    $('.nav-tabs li:eq(1) a').tab('show');
+                                    $('#nilai_sidang_1').hide();
+                                    $('#nilai_sidang_3').hide();
+                                    $('#nilai_produk').hide();
+                                } else if (jenisSidang === "Sidang 3") {
+                                    $('.nav-tabs li:eq(2) a').tab('show');
+                                    $('#nilai_sidang_1').hide();
+                                    $('#nilai_sidang_2').hide();
+                                }
+
+                                document.getElementById('nilaiSidangName').innerHTML = c2Sidang.sidangName;
+                                document.getElementById('nilaiBiodataDosen').innerHTML = c2Sidang.dosen_penguji1.nik + " - " + c2Sidang.dosen_penguji1.name;
+                                document.getElementById('nilaiSebagaiDosen').innerHTML = "Penguji 1";
+                                document.getElementById('nilaiMahasiswaNrp').innerHTML = gTopikMahasiswaNrp;
+                                document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
+                                document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
+
+
+                                $("#btnSaveNilaiSidang1").click(function () {
+                                    var SD1RP1 = $('#nilai1Sidang1').val();
+                                    var SD1PD1 = $('#nilai2aSidang1').val();
+                                    var SD1PD2 = $('#nilai2bSidang1').val();
+                                    var SD1AM1 = $('#nilai3aSidang1').val();
+                                    var SD1AM2 = $('#nilai3bSidang1').val();
+                                    var SD1AM3 = $('#nilai3cSidang1').val();
+                                    var SD1AM4 = $('#nilai3dSidang1').val();
+                                    var SD1AM5 = $('#nilai3eSidang1').val();
+                                    var SD1AM6 = $('#nilai3fSidang1').val();
+                                    var SD1PR1 = $('#nilai4aSidang1').val();
+                                    var SD1PR2 = $('#nilai4bSidang1').val();
+
+                                    if (SD1RP1 !== ''
+                                            && SD1PD1 !== '' && SD1PD2 !== ''
+                                            && SD1AM1 !== '' && SD1AM2 !== '' && SD1AM3 !== '' && SD1AM4 !== '' && SD1AM5 !== '' && SD1AM6 !== ''
+                                            && SD1PR1 !== '' && SD1PR2 !== '') {
+
+                                        nrpSidang = gTopikMahasiswaNrp + "Sidang1";
+
+                                        firebase.database().ref('nilai_peng1/').child(nrpSidang).set({
+                                            SD1RP1: {
+                                                id: "SD1RP1",
+                                                nilai: SD1RP1
+                                            },
+                                            SD1PD1: {
+                                                id: "SD1PD1",
+                                                nilai: SD1PD1
+                                            },
+                                            SD1PD2: {
+                                                id: "SD1PD2",
+                                                nilai: SD1PD2
+                                            },
+                                            SD1AM1: {
+                                                id: "SD1AM1",
+                                                nilai: SD1AM1
+                                            },
+                                            SD1AM2: {
+                                                id: "SD1AM2",
+                                                nilai: SD1AM2
+                                            },
+                                            SD1AM3: {
+                                                id: "SD1AM3",
+                                                nilai: SD1AM3
+                                            },
+                                            SD1AM4: {
+                                                id: "SD1AM4",
+                                                nilai: SD1AM4
+                                            },
+                                            SD1AM5: {
+                                                id: "SD1AM5",
+                                                nilai: SD1AM5
+                                            },
+                                            SD1AM6: {
+                                                id: "SD1AM6",
+                                                nilai: SD1AM6
+                                            },
+                                            SD1PR1: {
+                                                id: "SD1PR1",
+                                                nilai: SD1PR1
+                                            },
+                                            SD1PR2: {
+                                                id: "SD1PR2",
+                                                nilai: SD1PR2
+                                            }
+                                        });
+                                        HitungTotalNilaiSidang1_Peng1(nrpSidang, idSidang);
+
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                                $("#btnSaveNilaiSidang2").click(function () {
+                                    var SD2GK1 = $('#nilaiA1Sidang2').val();
+                                    var SD2GK2 = $('#nilaiA2bSidang2').val();
+                                    var SD2GK3 = $('#nilaiA3Sidang2').val();
+                                    var SD2GK4 = $('#nilaiA4Sidang2').val();
+                                    var SD2GP1 = $('#nilaiB1Sidang2').val();
+                                    var SD2GP2 = $('#nilaiB2Sidang2').val();
+                                    var SD2GP3 = $('#nilaiB3Sidang2').val();
+                                    var SD2GP4 = $('#nilaiB4Sidang2').val();
+                                    var SD2GP5 = $('#nilaiB5Sidang2').val();
+                                    var SD2GP6 = $('#nilaiB6Sidang2').val();
+                                    var SD2GP7 = $('#nilaiB7Sidang2').val();
+                                    var SD2GP8 = $('#nilaiB8Sidang2').val();
+                                    var SD2LJ1 = $('#nilaiC1Sidang2').val();
+                                    var SD2LJ2 = $('#nilaiC2Sidang2').val();
+                                    var SD2LJ3 = $('#nilaiC3Sidang2').val();
+                                    var SD2PP1 = $('#nilaiD1Sidang2').val();
+                                    var SD2PP2 = $('#nilaiD2Sidang2').val();
+                                    var SD2PP3 = $('#nilaiD3Sidang2').val();
+                                    var SD2PD1 = $('#nilaiE1Sidang2').val();
+                                    var SD2PD2 = $('#nilaiE2Sidang2').val();
+                                    var SD2PD3 = $('#nilaiE3Sidang2').val();
+                                    var SD2PD4 = $('#nilaiE4Sidang2').val();
+                                    var SD2PD5 = $('#nilaiE5Sidang2').val();
+                                    var SD2PD6 = $('#nilaiE6Sidang2').val();
+                                    var SD2PD7 = $('#nilaiE7Sidang2').val();
+                                    if (SD2GK1 !== '' && SD2GK2 !== '' && SD2GK3 !== '' && SD2GK4 !== ''
+                                            && SD2GP1 !== '' && SD2GP2 !== '' && SD2GP3 !== '' && SD2GP4 !== ''
+                                            && SD2GP5 !== '' && SD2GP6 !== '' && SD2GP7 !== '' && SD2GP8 !== ''
+                                            && SD2LJ1 !== '' && SD2LJ2 !== '' && SD2LJ3 !== ''
+                                            && SD2PP1 !== '' && SD2PP2 !== '' && SD2PP3 !== ''
+                                            && SD2PD1 !== '' && SD2PD2 !== '' && SD2PD3 !== '' && SD2PD4 !== ''
+                                            && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '') {
+                                        nrpSidang = gTopikMahasiswaNrp + "Sidang2";
+                                        firebase.database().ref('nilai_peng1/').child(nrpSidang).set({
+                                            SD2GK1: {
+                                                id: "SD2GK1",
+                                                nilai: SD2GK1
+                                            },
+                                            SD2GK2: {
+                                                id: "SD2GK2",
+                                                nilai: SD2GK2
+                                            },
+                                            SD2GK3: {
+                                                id: "SD2GK3",
+                                                nilai: SD2GK3
+                                            },
+                                            SD2GK4: {
+                                                id: "SD2GK4",
+                                                nilai: SD2GK4
+                                            },
+                                            SD2GP1: {
+                                                id: "SD2GP1",
+                                                nilai: SD2GP1
+                                            },
+                                            SD2GP2: {
+                                                id: "SD2GP2",
+                                                nilai: SD2GP2
+                                            },
+                                            SD2GP3: {
+                                                id: "SD2GP3",
+                                                nilai: SD2GP3
+                                            },
+                                            SD2GP4: {
+                                                id: "SD2GP4",
+                                                nilai: SD2GP4
+                                            },
+                                            SD2GP5: {
+                                                id: "SD2GP5",
+                                                nilai: SD2GP5
+                                            },
+                                            SD2GP6: {
+                                                id: "SD2GP6",
+                                                nilai: SD2GP6
+                                            },
+                                            SD2GP7: {
+                                                id: "SD2GP7",
+                                                nilai: SD2GP7
+                                            },
+                                            SD2GP8: {
+                                                id: "SD2GP8",
+                                                nilai: SD2GP8
+                                            },
+                                            SD2LJ1: {
+                                                id: "SD2LJ1",
+                                                nilai: SD2LJ1
+                                            },
+                                            SD2LJ2: {
+                                                id: "SD2LJ2",
+                                                nilai: SD2LJ2
+                                            },
+                                            SD2LJ3: {
+                                                id: "SD2LJ3",
+                                                nilai: SD2LJ3
+                                            },
+                                            SD2PP1: {
+                                                id: "SD2PP1",
+                                                nilai: SD2PP1
+                                            },
+                                            SD2PP2: {
+                                                id: "SD2PP2",
+                                                nilai: SD2PP2
+                                            },
+                                            SD2PP3: {
+                                                id: "SD2PP3",
+                                                nilai: SD2PP3
+                                            },
+                                            SD2PD1: {
+                                                id: "SD2PD1",
+                                                nilai: SD2PD1
+                                            },
+                                            SD2PD2: {
+                                                id: "SD2PD2",
+                                                nilai: SD2PD2
+                                            },
+                                            SD2PD3: {
+                                                id: "SD2PD3",
+                                                nilai: SD2PD3
+                                            },
+                                            SD2PD4: {
+                                                id: "SD2PD4",
+                                                nilai: SD2PD4
+                                            },
+                                            SD2PD5: {
+                                                id: "SD2PD5",
+                                                nilai: SD2PD5
+                                            },
+                                            SD2PD6: {
+                                                id: "SD2PD6",
+                                                nilai: SD2PD6
+                                            },
+                                            SD2PD7: {
+                                                id: "SD2PD7",
+                                                nilai: SD2PD7
+                                            }
+                                        });
+                                        HitungTotalNilaiSidang2_Peng1(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+
+                                });
+
+                                $("#btnSaveNilaiSidang3").click(function () {
+                                    var SD3MP1 = $('#nilaiA1Sidang3').val();
+                                    var SD3MP2 = $('#nilaiA2bSidang3').val();
+                                    var SD3MJ1 = $('#nilaiB1Sidang3').val();
+                                    var SD3MJ2 = $('#nilaiB2Sidang3').val();
+                                    var SD3MJ3 = $('#nilaiB3Sidang3').val();
+                                    var SD3MJ4 = $('#nilaiB4Sidang3').val();
+                                    var SD3MJ5 = $('#nilaiB5Sidang3').val();
+                                    if (SD3MP1 !== '' && SD3MP2 !== ''
+                                            && SD3MJ1 !== '' && SD3MJ2 !== '' && SD3MJ3 !== ''
+                                            && SD3MJ4 !== '' && SD3MJ5 !== '') {
+
+                                        nrpSidang = gTopikMahasiswaNrp + "Sidang3";
+                                        firebase.database().ref('nilai_peng1/').child(nrpSidang).set({
+
+                                            SD3MP1: {
+                                                id: "SD3MP1",
+                                                nilai: SD3MP1
+                                            },
+                                            SD3MP2: {
+                                                id: "SD3MP2",
+                                                nilai: SD3MP2
+                                            },
+                                            SD3MJ1: {
+                                                id: "SD3MJ1",
+                                                nilai: SD3MJ1
+                                            },
+                                            SD3MJ2: {
+                                                id: "SD3MJ2",
+                                                nilai: SD3MJ2
+                                            },
+                                            SD3MJ3: {
+                                                id: "SD3MJ3",
+                                                nilai: SD3MJ3
+                                            },
+                                            SD3MJ4: {
+                                                id: "SD3MJ4",
+                                                nilai: SD3MJ4
+                                            },
+                                            SD3MJ5: {
+                                                id: "SD3MJ5",
+                                                nilai: SD3MJ5
+                                            }
+
+                                        });
+                                        HitungTotalNilaiSidang3_Peng1(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                                $("#btnSaveNilaiProduk").click(function () {
+                                    var PTAGK1 = $('#nilaiA1Produk').val();
+                                    var PTAGK2 = $('#nilaiA2bProduk').val();
+                                    var PTAGK3 = $('#nilaiA3Produk').val();
+                                    var PTAGK4 = $('#nilaiA4Produk').val();
+                                    var PTAGP1 = $('#nilaiB1Produk').val();
+                                    var PTAGP2 = $('#nilaiB2Produk').val();
+                                    var PTAGP3 = $('#nilaiB3Produk').val();
+                                    var PTAGP4 = $('#nilaiB4Produk').val();
+                                    var PTAGP5 = $('#nilaiB5Produk').val();
+                                    var PTAGP6 = $('#nilaiB6Produk').val();
+                                    var PTAGP7 = $('#nilaiB7Produk').val();
+                                    var PTAGP8 = $('#nilaiB8Produk').val();
+                                    var PTALJ1 = $('#nilaiC1Produk').val();
+                                    var PTALJ2 = $('#nilaiC2Produk').val();
+                                    var PTAMB1 = $('#nilaiD1Produk').val();
+                                    var PTAMB2 = $('#nilaiD2Produk').val();
+                                    var PTAMB3 = $('#nilaiD3Produk').val();
+
+                                    if (PTAGK1 !== '' && PTAGK2 !== '' && PTAGK3 !== '' && PTAGK4 !== ''
+                                            && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== ''
+                                            && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
+                                            && PTALJ1 !== '' && PTALJ2 !== ''
+                                            && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
+
+                                        nrpSidang = gTopikMahasiswaNrp + "NProduk";
+                                        firebase.database().ref('nilai_peng1/').child(nrpSidang).set({
+                                            PTAGK1: {
+                                                id: "PTAGK1",
+                                                nilai: PTAGK1
+                                            },
+                                            PTAGK2: {
+                                                id: "PTAGK2",
+                                                nilai: PTAGK2
+                                            },
+                                            PTAGK3: {
+                                                id: "PTAGK3",
+                                                nilai: PTAGK3
+                                            },
+                                            PTAGK4: {
+                                                id: "PTAGK4",
+                                                nilai: PTAGK4
+                                            },
+                                            PTAGP1: {
+                                                id: "PTAGP1",
+                                                nilai: PTAGP1
+                                            },
+                                            PTAGP2: {
+                                                id: "PTAGP2",
+                                                nilai: PTAGP2
+                                            },
+                                            PTAGP3: {
+                                                id: "PTAGP3",
+                                                nilai: PTAGP3
+                                            },
+                                            PTAGP4: {
+                                                id: "PTAGP4",
+                                                nilai: PTAGP4
+                                            },
+                                            PTAGP5: {
+                                                id: "PTAGP5",
+                                                nilai: PTAGP5
+                                            },
+                                            PTAGP6: {
+                                                id: "PTAGP6",
+                                                nilai: PTAGP6
+                                            },
+                                            PTAGP7: {
+                                                id: "PTAGP7",
+                                                nilai: PTAGP7
+                                            },
+                                            PTAGP8: {
+                                                id: "PTAGP8",
+                                                nilai: PTAGP8
+                                            },
+                                            PTALJ1: {
+                                                id: "PTALJ1",
+                                                nilai: PTALJ1
+                                            },
+                                            PTALJ2: {
+                                                id: "PTALJ2",
+                                                nilai: PTALJ2
+                                            },
+                                            PTAMB1: {
+                                                id: "PTAMB1",
+                                                nilai: PTAMB1
+                                            },
+                                            PTAMB2: {
+                                                id: "PTAMB2",
+                                                nilai: PTAMB2
+                                            },
+                                            PTAMB3: {
+                                                id: "PTAMB3",
+                                                nilai: PTAMB3
+                                            }
+                                        });
+                                        HitungTotalNilaiProduk_Peng1(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                            }
+                        }
+
+                        if (gTopikDosenPeng2Nik === dosenGlobal) {
+                            if (c2Sidang.idTopik === gTopikId) {
+                                $('#nilai_proses_1').hide();
+                                $('#nilai_proses_2').hide();
+                                $('#nilai_proses_3').hide();
+
+                                if (jenisSidang === "Sidang 1") {
+                                    $('.nav-tabs li:eq(0) a').tab('show');
+                                    $('#nilai_sidang_2').hide();
+                                    $('#nilai_sidang_3').hide();
+                                    $('#nilai_produk').hide();
+                                } else if (jenisSidang === "Sidang 2") {
+                                    $('.nav-tabs li:eq(1) a').tab('show');
+                                    $('#nilai_sidang_1').hide();
+                                    $('#nilai_sidang_3').hide();
+                                    $('#nilai_produk').hide();
+                                } else if (jenisSidang === "Sidang 3") {
+                                    $('.nav-tabs li:eq(2) a').tab('show');
+                                    $('#nilai_sidang_1').hide();
+                                    $('#nilai_sidang_2').hide();
+                                }
+
+                                document.getElementById('nilaiSidangName').innerHTML = c2Sidang.sidangName;
+                                document.getElementById('nilaiBiodataDosen').innerHTML = c2Sidang.dosen_penguji2.nik + " - " + c2Sidang.dosen_penguji2.name;
+                                document.getElementById('nilaiSebagaiDosen').innerHTML = "Penguji 2";
+                                document.getElementById('nilaiMahasiswaNrp').innerHTML = gTopikMahasiswaNrp;
+                                document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
+                                document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
+
+                                $("#btnSaveNilaiSidang1").click(function () {
+                                    var SD1RP1 = $('#nilai1Sidang1').val();
+                                    var SD1PD1 = $('#nilai2aSidang1').val();
+                                    var SD1PD2 = $('#nilai2bSidang1').val();
+                                    var SD1AM1 = $('#nilai3aSidang1').val();
+                                    var SD1AM2 = $('#nilai3bSidang1').val();
+                                    var SD1AM3 = $('#nilai3cSidang1').val();
+                                    var SD1AM4 = $('#nilai3dSidang1').val();
+                                    var SD1AM5 = $('#nilai3eSidang1').val();
+                                    var SD1AM6 = $('#nilai3fSidang1').val();
+                                    var SD1PR1 = $('#nilai4aSidang1').val();
+                                    var SD1PR2 = $('#nilai4bSidang1').val();
+                                    if (SD1RP1 !== ''
+                                            && SD1PD1 !== '' && SD1PD2 !== ''
+                                            && SD1AM1 !== '' && SD1AM2 !== '' && SD1AM3 !== '' && SD1AM4 !== '' && SD1AM5 !== '' && SD1AM6 !== ''
+                                            && SD1PR1 !== '' && SD1PR2 !== '') {
+
+                                        nrpSidang = gTopikMahasiswaNrp + "Sidang1";
+                                        firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
+                                            SD1RP1: {
+                                                id: "SD1RP1",
+                                                nilai: SD1RP1
+                                            },
+                                            SD1PD1: {
+                                                id: "SD1PD1",
+                                                nilai: SD1PD1
+                                            },
+                                            SD1PD2: {
+                                                id: "SD1PD2",
+                                                nilai: SD1PD2
+                                            },
+                                            SD1AM1: {
+                                                id: "SD1AM1",
+                                                nilai: SD1AM1
+                                            },
+                                            SD1AM2: {
+                                                id: "SD1AM2",
+                                                nilai: SD1AM2
+                                            },
+                                            SD1AM3: {
+                                                id: "SD1AM3",
+                                                nilai: SD1AM3
+                                            },
+                                            SD1AM4: {
+                                                id: "SD1AM4",
+                                                nilai: SD1AM4
+                                            },
+                                            SD1AM5: {
+                                                id: "SD1AM5",
+                                                nilai: SD1AM5
+                                            },
+                                            SD1AM6: {
+                                                id: "SD1AM6",
+                                                nilai: SD1AM6
+                                            },
+                                            SD1PR1: {
+                                                id: "SD1PR1",
+                                                nilai: SD1PR1
+                                            },
+                                            SD1PR2: {
+                                                id: "SD1PR2",
+                                                nilai: SD1PR2
+                                            }
+                                        });
+
+                                        HitungTotalNilaiSidang1_Peng2(nrpSidang, idSidang);
+
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                                $("#btnSaveNilaiSidang2").click(function () {
+                                    var SD2GK1 = $('#nilaiA1Sidang2').val();
+                                    var SD2GK2 = $('#nilaiA2bSidang2').val();
+                                    var SD2GK3 = $('#nilaiA3Sidang2').val();
+                                    var SD2GK4 = $('#nilaiA4Sidang2').val();
+                                    var SD2GP1 = $('#nilaiB1Sidang2').val();
+                                    var SD2GP2 = $('#nilaiB2Sidang2').val();
+                                    var SD2GP3 = $('#nilaiB3Sidang2').val();
+                                    var SD2GP4 = $('#nilaiB4Sidang2').val();
+                                    var SD2GP5 = $('#nilaiB5Sidang2').val();
+                                    var SD2GP6 = $('#nilaiB6Sidang2').val();
+                                    var SD2GP7 = $('#nilaiB7Sidang2').val();
+                                    var SD2GP8 = $('#nilaiB8Sidang2').val();
+                                    var SD2LJ1 = $('#nilaiC1Sidang2').val();
+                                    var SD2LJ2 = $('#nilaiC2Sidang2').val();
+                                    var SD2LJ3 = $('#nilaiC3Sidang2').val();
+                                    var SD2PP1 = $('#nilaiD1Sidang2').val();
+                                    var SD2PP2 = $('#nilaiD2Sidang2').val();
+                                    var SD2PP3 = $('#nilaiD3Sidang2').val();
+                                    var SD2PD1 = $('#nilaiE1Sidang2').val();
+                                    var SD2PD2 = $('#nilaiE2Sidang2').val();
+                                    var SD2PD3 = $('#nilaiE3Sidang2').val();
+                                    var SD2PD4 = $('#nilaiE4Sidang2').val();
+                                    var SD2PD5 = $('#nilaiE5Sidang2').val();
+                                    var SD2PD6 = $('#nilaiE6Sidang2').val();
+                                    var SD2PD7 = $('#nilaiE7Sidang2').val();
+                                    if (SD2GK1 !== '' && SD2GK2 !== '' && SD2GK3 !== '' && SD2GK4 !== ''
+                                            && SD2GP1 !== '' && SD2GP2 !== '' && SD2GP3 !== '' && SD2GP4 !== ''
+                                            && SD2GP5 !== '' && SD2GP6 !== '' && SD2GP7 !== '' && SD2GP8 !== ''
+                                            && SD2LJ1 !== '' && SD2LJ2 !== '' && SD2LJ3 !== ''
+                                            && SD2PP1 !== '' && SD2PP2 !== '' && SD2PP3 !== ''
+                                            && SD2PD1 !== '' && SD2PD2 !== '' && SD2PD3 !== '' && SD2PD4 !== ''
+                                            && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '') {
+
+                                        nrpSidang = gTopikMahasiswaNrp + "Sidang2";
+                                        firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
+                                            SD2GK1: {
+                                                id: "SD2GK1",
+                                                nilai: SD2GK1
+                                            },
+                                            SD2GK2: {
+                                                id: "SD2GK2",
+                                                nilai: SD2GK2
+                                            },
+                                            SD2GK3: {
+                                                id: "SD2GK3",
+                                                nilai: SD2GK3
+                                            },
+                                            SD2GK4: {
+                                                id: "SD2GK4",
+                                                nilai: SD2GK4
+                                            },
+                                            SD2GP1: {
+                                                id: "SD2GP1",
+                                                nilai: SD2GP1
+                                            },
+                                            SD2GP2: {
+                                                id: "SD2GP2",
+                                                nilai: SD2GP2
+                                            },
+                                            SD2GP3: {
+                                                id: "SD2GP3",
+                                                nilai: SD2GP3
+                                            },
+                                            SD2GP4: {
+                                                id: "SD2GP4",
+                                                nilai: SD2GP4
+                                            },
+                                            SD2GP5: {
+                                                id: "SD2GP5",
+                                                nilai: SD2GP5
+                                            },
+                                            SD2GP6: {
+                                                id: "SD2GP6",
+                                                nilai: SD2GP6
+                                            },
+                                            SD2GP7: {
+                                                id: "SD2GP7",
+                                                nilai: SD2GP7
+                                            },
+                                            SD2GP8: {
+                                                id: "SD2GP8",
+                                                nilai: SD2GP8
+                                            },
+                                            SD2LJ1: {
+                                                id: "SD2LJ1",
+                                                nilai: SD2LJ1
+                                            },
+                                            SD2LJ2: {
+                                                id: "SD2LJ2",
+                                                nilai: SD2LJ2
+                                            },
+                                            SD2LJ3: {
+                                                id: "SD2LJ3",
+                                                nilai: SD2LJ3
+                                            },
+                                            SD2PP1: {
+                                                id: "SD2PP1",
+                                                nilai: SD2PP1
+                                            },
+                                            SD2PP2: {
+                                                id: "SD2PP2",
+                                                nilai: SD2PP2
+                                            },
+                                            SD2PP3: {
+                                                id: "SD2PP3",
+                                                nilai: SD2PP3
+                                            },
+                                            SD2PD1: {
+                                                id: "SD2PD1",
+                                                nilai: SD2PD1
+                                            },
+                                            SD2PD2: {
+                                                id: "SD2PD2",
+                                                nilai: SD2PD2
+                                            },
+                                            SD2PD3: {
+                                                id: "SD2PD3",
+                                                nilai: SD2PD3
+                                            },
+                                            SD2PD4: {
+                                                id: "SD2PD4",
+                                                nilai: SD2PD4
+                                            },
+                                            SD2PD5: {
+                                                id: "SD2PD5",
+                                                nilai: SD2PD5
+                                            },
+                                            SD2PD6: {
+                                                id: "SD2PD6",
+                                                nilai: SD2PD6
+                                            },
+                                            SD2PD7: {
+                                                id: "SD2PD7",
+                                                nilai: SD2PD7
+                                            }
+                                        });
+
+                                        HitungTotalNilaiSidang2_Peng2(nrpSidang, idSidang);
+
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                                $("#btnSaveNilaiSidang3").click(function () {
+                                    var SD3MP1 = $('#nilaiA1Sidang3').val();
+                                    var SD3MP2 = $('#nilaiA2bSidang3').val();
+                                    var SD3MJ1 = $('#nilaiB1Sidang3').val();
+                                    var SD3MJ2 = $('#nilaiB2Sidang3').val();
+                                    var SD3MJ3 = $('#nilaiB3Sidang3').val();
+                                    var SD3MJ4 = $('#nilaiB4Sidang3').val();
+                                    var SD3MJ5 = $('#nilaiB5Sidang3').val();
+                                    if (SD3MP1 !== '' && SD3MP2 !== ''
+                                            && SD3MJ1 !== '' && SD3MJ2 !== '' && SD3MJ3 !== ''
+                                            && SD3MJ4 !== '' && SD3MJ5 !== '') {
+                                        nrpSidang = gTopikMahasiswaNrp + "Sidang3";
+                                        firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
+
+                                            SD3MP1: {
+                                                id: "SD3MP1",
+                                                nilai: SD3MP1
+                                            },
+                                            SD3MP2: {
+                                                id: "SD3MP2",
+                                                nilai: SD3MP2
+                                            },
+                                            SD3MJ1: {
+                                                id: "SD3MJ1",
+                                                nilai: SD3MJ1
+                                            },
+                                            SD3MJ2: {
+                                                id: "SD3MJ2",
+                                                nilai: SD3MJ2
+                                            },
+                                            SD3MJ3: {
+                                                id: "SD3MJ3",
+                                                nilai: SD3MJ3
+                                            },
+                                            SD3MJ4: {
+                                                id: "SD3MJ4",
+                                                nilai: SD3MJ4
+                                            },
+                                            SD3MJ5: {
+                                                id: "SD3MJ5",
+                                                nilai: SD3MJ5
+                                            }
+
+                                        });
+                                        HitungTotalNilaiSidang3_Peng2(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                                $("#btnSaveNilaiProduk").click(function () {
+                                    var PTAGK1 = $('#nilaiA1Produk').val();
+                                    var PTAGK2 = $('#nilaiA2bProduk').val();
+                                    var PTAGK3 = $('#nilaiA3Produk').val();
+                                    var PTAGK4 = $('#nilaiA4Produk').val();
+                                    var PTAGP1 = $('#nilaiB1Produk').val();
+                                    var PTAGP2 = $('#nilaiB2Produk').val();
+                                    var PTAGP3 = $('#nilaiB3Produk').val();
+                                    var PTAGP4 = $('#nilaiB4Produk').val();
+                                    var PTAGP5 = $('#nilaiB5Produk').val();
+                                    var PTAGP6 = $('#nilaiB6Produk').val();
+                                    var PTAGP7 = $('#nilaiB7Produk').val();
+                                    var PTAGP8 = $('#nilaiB8Produk').val();
+                                    var PTALJ1 = $('#nilaiC1Produk').val();
+                                    var PTALJ2 = $('#nilaiC2Produk').val();
+                                    var PTAMB1 = $('#nilaiD1Produk').val();
+                                    var PTAMB2 = $('#nilaiD2Produk').val();
+                                    var PTAMB3 = $('#nilaiD3Produk').val();
+
+                                    if (PTAGK1 !== '' && PTAGK2 !== '' && PTAGK3 !== '' && PTAGK4 !== ''
+                                            && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== '' && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
+                                            && PTALJ1 !== '' && PTALJ2 !== ''
+                                            && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
+                                        nrpSidang = gTopikMahasiswaNrp + "NProduk";
+                                        firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
+                                            PTAGK1: {
+                                                id: "PTAGK1",
+                                                nilai: PTAGK1
+                                            },
+                                            PTAGK2: {
+                                                id: "PTAGK2",
+                                                nilai: PTAGK2
+                                            },
+                                            PTAGK3: {
+                                                id: "PTAGK3",
+                                                nilai: PTAGK3
+                                            },
+                                            PTAGK4: {
+                                                id: "PTAGK4",
+                                                nilai: PTAGK4
+                                            },
+                                            PTAGP1: {
+                                                id: "PTAGP1",
+                                                nilai: PTAGP1
+                                            },
+                                            PTAGP2: {
+                                                id: "PTAGP2",
+                                                nilai: PTAGP2
+                                            },
+                                            PTAGP3: {
+                                                id: "PTAGP3",
+                                                nilai: PTAGP3
+                                            },
+                                            PTAGP4: {
+                                                id: "PTAGP4",
+                                                nilai: PTAGP4
+                                            },
+                                            PTAGP5: {
+                                                id: "PTAGP5",
+                                                nilai: PTAGP5
+                                            },
+                                            PTAGP6: {
+                                                id: "PTAGP6",
+                                                nilai: PTAGP6
+                                            },
+                                            PTAGP7: {
+                                                id: "PTAGP7",
+                                                nilai: PTAGP7
+                                            },
+                                            PTAGP8: {
+                                                id: "PTAGP8",
+                                                nilai: PTAGP8
+                                            },
+                                            PTALJ1: {
+                                                id: "PTALJ1",
+                                                nilai: PTALJ1
+                                            },
+                                            PTALJ2: {
+                                                id: "PTALJ2",
+                                                nilai: PTALJ2
+                                            },
+                                            PTAMB1: {
+                                                id: "PTAMB1",
+                                                nilai: PTAMB1
+                                            },
+                                            PTAMB2: {
+                                                id: "PTAMB2",
+                                                nilai: PTAMB2
+                                            },
+                                            PTAMB3: {
+                                                id: "PTAMB3",
+                                                nilai: PTAMB3
+                                            }
+                                        });
+                                        HitungTotalNilaiProduk_Peng2(nrpSidang, idSidang);
+                                    } else {
+                                        alert("Masih ada nilai yang belum diisi.");
+                                    }
+                                });
+
+                            }
+                        }
                     }
                 });
             }
@@ -2898,7 +2864,7 @@ function HitungTotalNilaiProduk_Peng2(nrpSidang, idSidang) {
 //NA Sidang1
 function hitungNilaiAkhir(id, nrp, jenisSidang, idSidang) {
     $('#hitungNilaiAkhir').modal('show');
-    
+
     var lihatSidangRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal);
     lihatSidangRef.on("value", function (snap) {
         obj = [];
