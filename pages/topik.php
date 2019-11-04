@@ -48,8 +48,11 @@
                                             <div class="row"><!-- row class is used for grid system in Bootstrap-->
                                                 <div class="col-md-4 col-md-offset-4"><!--col-md-4 is used to create the no of colums in the grid also use for medimum and large devices-->
                                                     <div class="login-panel panel panel-success">
-                                                        <div class="panel-heading">
-                                                            <h3 class="panel-title">Import Data Dari Excel</h3>
+                                                        <div class="panel-heading"> 
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span></button> 
+                                                            <h3 class="panel-title">Import Data Dari CSV</h3>
+
                                                         </div>
                                                         <div class="panel-body">
                                                             <form method="post" action="import/import_topik.php" enctype="multipart/form-data">
@@ -67,7 +70,7 @@
                                         </div>
                                     </div>
                                     <button type="button" data-toggle="modal" data-target="#modal-import" id="btn-import" class=" btn btn-success ">
-                                        <span class="glyphicon glyphicon-upload"></span> Import Data Dari Excel
+                                        <span class="glyphicon glyphicon-upload"></span> Import Data Dari CSV
                                     </button>
                                 </div>
                             </div>
@@ -104,13 +107,14 @@
                                     <div class="modal-dialog" style="width: 50%" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title">
                                                     <span class="glyphicon glyphicon-plus-sign"></span>  
                                                     <label id="tambah">Tambah</label> Topik</h4>
                                             </div>
 
-                                            <form class="form-horizontal" = method="POST" id="formTopik">
+                                            <form class="form-horizontal" method="POST" id="formTopik">
 
                                                 <div class="modal-body">
                                                     <div class="messages"></div>
@@ -120,7 +124,7 @@
                                                         <label for="txtTahunAjaran" class="col-sm-4 control-label">Tahun Ajaran</label>
                                                         <div class="col-sm-8"> 
                                                             <input type="text" class="form-control" id="comboTahun_Ajaran" name="comboTahun_Ajaran" placeholder="Tahun Ajaran">
-                                                            
+
                                                         </div>
                                                     </div>
 
@@ -200,6 +204,7 @@
 
         <script src="../js/fireBase.js"></script>
         <script src="../js/topik.js"></script>
+        <script src="../js/import/import_topik.js"></script>
 
         <script type='text/javascript'>
             $(document).ready(function () {

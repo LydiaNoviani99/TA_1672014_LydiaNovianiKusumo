@@ -9,7 +9,12 @@ if (isset($_POST["submit_file"]) && $_FILES["file"]["tmp_name"] != null) {
         if ($numrow > 1) {
             $object = (object) [
                         'nrp' => $csv[0],
-                        'name' => $csv[1]
+                        'nama' => $csv[1],
+                        'judul_topik' => $csv[2],
+                        'nik_dosenPemb1' => "-",
+                        'nama_dosenPemb1' => "-",
+                        'nik_dosenPemb2' => "-",
+                        'nama_dosenPemb2' => "-"
             ];
             var_dump($object);
             array_push($data, $object);
@@ -20,4 +25,4 @@ if (isset($_POST["submit_file"]) && $_FILES["file"]["tmp_name"] != null) {
     // Close the file
     fclose($h);
 }
-header('location:../mahasiswa.php?data=' . json_encode($data));
+header('location:../topik.php?data=' . json_encode($data));

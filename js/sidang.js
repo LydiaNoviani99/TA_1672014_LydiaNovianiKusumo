@@ -234,12 +234,12 @@ function view_sidang_table_filter_tanggal() {
         });
     }
 
-    function addViewSidangFilterTanggal(data) {
-        $('#viewSidangTableFilterTanggal').DataTable().clear().draw();
-        $('#viewSidangTableFilterTanggal').DataTable().rows.add(data).draw();
-    }
 }
 
+function addViewSidangFilterTanggal(data) {
+    $('#viewSidangTableFilterTanggal').DataTable().clear().draw();
+    $('#viewSidangTableFilterTanggal').DataTable().rows.add(data).draw();
+}
 var obj2AAA;
 var ketemuEmailDosenPenguji1 = false;
 var emailDosenSemua;
@@ -459,37 +459,11 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                                         document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
                                                         console.log(hariIni.getHours())
 //                                                        if (gTanggalSidang == hariIni) {
-                                                            if (hariIni.getHours() == 0) {
-                                                                alert("123")
-                                                                if (jenisSidang === "Sidang 1") {
-                                                                    $('.nav-tabs li:eq(3) a').tab('show');
-                                                                    $('#nilai_sidang_1').hide();
-                                                                    $('#nilai_sidang_2').hide();
-                                                                    $('#nilai_proses_2').hide();
-                                                                    $('#nilai_sidang_3').hide();
-                                                                    $('#nilai_proses_3').hide();
-                                                                    $('#nilai_produk').hide();
-                                                                } else if (jenisSidang === "Sidang 2") {
-                                                                    $('.nav-tabs li:eq(1) a').tab('show');
-                                                                    $('#nilai_sidang_1').hide();
-                                                                    $('#nilai_proses_1').hide();
-                                                                    $('#nilai_sidang_2').hide();
-                                                                    $('#nilai_sidang_3').hide();
-                                                                    $('#nilai_proses_3').hide();
-                                                                    $('#nilai_produk').hide();
-                                                                } else if (jenisSidang === "Sidang 3") {
-                                                                    $('.nav-tabs li:eq(2) a').tab('show');
-                                                                    $('#nilai_sidang_1').hide();
-                                                                    $('#nilai_proses_1').hide();
-                                                                    $('#nilai_sidang_2').hide();
-                                                                    $('#nilai_proses_2').hide();
-                                                                    $('#nilai_proses_3').hide();
-                                                                    $('#nilai_produk').hide();
-                                                                }
-                                                            }
-//                                                        } else {
+                                                        if (hariIni.getHours() == 0) {
+                                                            alert("123")
                                                             if (jenisSidang === "Sidang 1") {
-                                                                $('.nav-tabs li:eq(0) a').tab('show');
+                                                                $('.nav-tabs li:eq(3) a').tab('show');
+                                                                $('#nilai_sidang_1').hide();
                                                                 $('#nilai_sidang_2').hide();
                                                                 $('#nilai_proses_2').hide();
                                                                 $('#nilai_sidang_3').hide();
@@ -499,6 +473,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                                                 $('.nav-tabs li:eq(1) a').tab('show');
                                                                 $('#nilai_sidang_1').hide();
                                                                 $('#nilai_proses_1').hide();
+                                                                $('#nilai_sidang_2').hide();
                                                                 $('#nilai_sidang_3').hide();
                                                                 $('#nilai_proses_3').hide();
                                                                 $('#nilai_produk').hide();
@@ -508,7 +483,32 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                                                 $('#nilai_proses_1').hide();
                                                                 $('#nilai_sidang_2').hide();
                                                                 $('#nilai_proses_2').hide();
+                                                                $('#nilai_proses_3').hide();
+                                                                $('#nilai_produk').hide();
                                                             }
+                                                        }
+//                                                        } else {
+                                                        if (jenisSidang === "Sidang 1") {
+                                                            $('.nav-tabs li:eq(0) a').tab('show');
+                                                            $('#nilai_sidang_2').hide();
+                                                            $('#nilai_proses_2').hide();
+                                                            $('#nilai_sidang_3').hide();
+                                                            $('#nilai_proses_3').hide();
+                                                            $('#nilai_produk').hide();
+                                                        } else if (jenisSidang === "Sidang 2") {
+                                                            $('.nav-tabs li:eq(1) a').tab('show');
+                                                            $('#nilai_sidang_1').hide();
+                                                            $('#nilai_proses_1').hide();
+                                                            $('#nilai_sidang_3').hide();
+                                                            $('#nilai_proses_3').hide();
+                                                            $('#nilai_produk').hide();
+                                                        } else if (jenisSidang === "Sidang 3") {
+                                                            $('.nav-tabs li:eq(2) a').tab('show');
+                                                            $('#nilai_sidang_1').hide();
+                                                            $('#nilai_proses_1').hide();
+                                                            $('#nilai_sidang_2').hide();
+                                                            $('#nilai_proses_2').hide();
+                                                        }
 //                                                        }
 
 
@@ -2197,7 +2197,12 @@ function HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang) {
                 nilai: totalSidang1.toFixed(2)
             }
         });
-        alert("Nilai Sidang 1 sebagai Pembimbing 1 disimpan");
+        if (totalSidang1.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            alert("Nilai Sidang 1 sebagai Pembimbing 1 disimpan : " + totalSidang1.toFixed(2));
+        }
+
     }
 }
 
@@ -2245,7 +2250,13 @@ function HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang) {
                 nilai: totalSidang.toFixed(2)
             }
         });
-        alert("Nilai Proses Sidang 1 sebagai Pembimbing 1 disimpan");
+
+
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            alert("Nilai Proses Sidang 1 sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
+        }
     }
 }
 
@@ -2286,7 +2297,12 @@ function HitungTotalNilaiSidang2_Pemb1(nrpSidang, idSidang) {
                 nilai: totalSidang.toFixed(2)
             }
         });
-        alert("Nilai Sidang 2 Sebagai Pembimbing 1 disimpan");
+
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            alert("Nilai Sidang 2 Sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
+        }
     }
 }
 
@@ -2329,7 +2345,14 @@ function HitungTotalNilaiSidang2_Pemb1_Proses(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Proses Sidang 2 Sebagai Pembimbing 1 disimpan");
+
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            alert("Nilai Proses Sidang 2 Sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
+
+        }
+
     }
 }
 
@@ -2372,8 +2395,13 @@ function HitungTotalNilaiSidang3_Pemb1(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Sidang 3 Sebagai Pembimbing 1 disimpan");
 
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            alert("Nilai Sidang 3 Sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
+
+        }
     }
 }
 
@@ -2415,8 +2443,13 @@ function HitungTotalNilaiSidang3_Pemb1_Proses(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Proses Sidang 3 Sebagai Pembimbing 1 disimpan");
 
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            alert("Nilai Proses Sidang 3 Sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
+
+        }
     }
 }
 
@@ -2459,7 +2492,13 @@ function HitungTotalNilaiProduk_Pemb1(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Produk Tugas Akhir Sebagai Pembimbing 1 disimpan");
+
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            alert("Nilai Produk Tugas Akhir Sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
+
+        }
 
     }
 }
@@ -2504,7 +2543,13 @@ function HitungTotalNilaiSidang1_Pemb2_Proses(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Proses Sidang 1 Sebagai Pembimbing 2 disimpan");
+
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            alert("Nilai Proses Sidang 1 Sebagai Pembimbing 2 disimpan : " + totalSidang.toFixed(2));
+
+        }
     }
 }
 
@@ -2545,7 +2590,7 @@ function HitungTotalNilaiSidang2_Pemb2_Proses(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Proses Sidang 2 Sebagai Pembimbing 2 disimpan");
+        alert("Nilai Proses Sidang 2 Sebagai Pembimbing 2 disimpan : " + totalSidang.toFixed(2));
     }
 }
 
@@ -2586,7 +2631,7 @@ function HitungTotalNilaiSidang3_Pemb2_Proses(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Proses Sidang 3 Sebagai Pembimbing 2 disimpan");
+        alert("Nilai Proses Sidang 3 Sebagai Pembimbing 2 disimpan : " + totalSidang.toFixed(2));
     }
 }
 
@@ -2628,7 +2673,7 @@ function HitungTotalNilaiProduk_Pemb2(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Produk Sebagai Pembimbing 2 berhasil tersimpan");
+        alert("Nilai Produk Sebagai Pembimbing 2 berhasil tersimpan : " + totalSidang.toFixed(2));
     }
 }
 
@@ -2672,7 +2717,7 @@ function HitungTotalNilaiSidang1_Peng1(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Sidang 1 Sebagai Penguji 1 disimpan");
+        alert("Nilai Sidang 1 Sebagai Penguji 1 disimpan : " + totalSidang.toFixed(2));
     }
 }
 
@@ -2713,7 +2758,7 @@ function HitungTotalNilaiSidang2_Peng1(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Sidang 2 Sebagai Penguji 1 berhasil tersimpan");
+        alert("Nilai Sidang 2 Sebagai Penguji 1 berhasil tersimpan : " + totalSidang.toFixed(2));
     }
 }
 
@@ -2754,7 +2799,7 @@ function HitungTotalNilaiSidang3_Peng1(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Sidang 3 Sebagai Penguji 1 berhasil tersimpan");
+        alert("Nilai Sidang 3 Sebagai Penguji 1 berhasil tersimpan : " + totalSidang.toFixed(2));
     }
 }
 
@@ -2795,12 +2840,12 @@ function HitungTotalNilaiProduk_Peng1(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Produk Sebagai Penguji 1 berhasil tersimpan");
+        alert("Nilai Produk Sebagai Penguji 1 berhasil  : " + totalSidang.toFixed(2));
     }
 }
 
 
-//PENGUJI 1
+//PENGUJI 2
 
 function HitungTotalNilaiSidang1_Peng2(nrpSidang, idSidang) {
     var totalSidang = 0;
@@ -2880,7 +2925,7 @@ function HitungTotalNilaiSidang2_Peng2(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Sidang 2 Sebagai Penguji 2 berhasil tersimpan");
+        alert("Nilai Sidang 2 Sebagai Penguji 2 berhasil  : " + totalSidang.toFixed(2));
     }
 }
 
@@ -2921,7 +2966,7 @@ function HitungTotalNilaiSidang3_Peng2(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Sidang 3 Sebagai Penguji 2 berhasil tersimpan");
+        alert("Nilai Sidang 3 Sebagai Penguji 2 berhasil  : " + totalSidang.toFixed(2));
     }
 }
 
@@ -2962,7 +3007,7 @@ function HitungTotalNilaiProduk_Peng2(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Produk Sebagai Penguji 2 berhasil tersimpan");
+        alert("Nilai Produk Sebagai Penguji 2 berhasil  : " + totalSidang.toFixed(2));
     }
 }
 
@@ -3011,7 +3056,7 @@ function HitungNilaiAkhirSidang1(gTopikId, idSidang) {
         hasilNilaiAkhirSidang1: hasilNilaiAkhirSidang1.toFixed(2)
     });
 
-    if (hasilNilaiAkhirSidang1 == 0 && isNan(hasilNilaiAkhirSidang1)) {
+    if (hasilNilaiAkhirSidang1 == '0.00') {
         firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId).update({
             nilaiSidang1: "Belum Lengkap"
         });

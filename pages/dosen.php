@@ -50,8 +50,11 @@
                                             <div class="row"><!-- row class is used for grid system in Bootstrap-->
                                                 <div class="col-md-4 col-md-offset-4"><!--col-md-4 is used to create the no of colums in the grid also use for medimum and large devices-->
                                                     <div class="login-panel panel panel-success">
-                                                        <div class="panel-heading">
-                                                            <h3 class="panel-title">Import Data Dari Excel</h3>
+                                                        <div class="panel-heading"> 
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span></button> 
+                                                            <h3 class="panel-title">Import Data Dari CSV</h3>
+
                                                         </div>
                                                         <div class="panel-body">
                                                             <form method="post" action="import/import_dosen.php" enctype="multipart/form-data">
@@ -69,7 +72,7 @@
                                         </div>
                                     </div>
                                     <button type="button" data-toggle="modal" data-target="#modal-import" id="btn-import" class=" btn btn-success ">
-                                        <span class="glyphicon glyphicon-upload"></span> Import Data Dari Excel
+                                        <span class="glyphicon glyphicon-upload"></span> Import Data Dari CSV
                                     </button>
                                 </div>
                             </div>

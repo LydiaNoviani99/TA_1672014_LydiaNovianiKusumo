@@ -20,7 +20,7 @@ function fetchDosenData(callback, element) {
         $('#txtDosenNIK').val('');
         $('#txtDosenNama').val('');
         $('#txtDosenEmail').val('');
-        $('#comboJabatan').val(5);
+        $('#comboJabatan').val(2);
     });
 }
 function putDosenDataToTable(element, data) {

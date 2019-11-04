@@ -11,11 +11,11 @@ $(document).ready(function () {
             var v_email = myobj[key].Email;
             var v_IdJabatan = myobj[key].IdJabatan;
             var v_NamaJabatan = myobj[key].NamaJabatan;
-//            alert(v_NIK);
-//            alert(v_nama);
-//            alert(v_email);
-//            alert(v_IdJabatan);
-//            alert(v_NamaJabatan);
+            alert(v_NIK);
+            alert(v_nama);
+            alert(v_email);
+            alert(v_IdJabatan);
+            alert(v_NamaJabatan);
             db.ref('dosen/' + v_NIK).set({
                 nik: v_NIK,
                 name: v_nama,

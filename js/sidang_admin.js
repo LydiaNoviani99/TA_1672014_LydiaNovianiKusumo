@@ -26,7 +26,6 @@ $(document).ready(function () {
             addComboTahun_Ajaran(obj);
         }
     });
-
 });
 
 var DosenDataRef = firebase.database().ref().child('dosen');
@@ -171,27 +170,27 @@ function addComboTahun_Ajaran(data) {
         }
     });
 
-    view_sidang_table();
-    view_sidang_table_filter_tanggal()
+    view_sidang_table_admin();
+    view_sidang_table_filter_tanggal_admin()
 
     $("#filterTahun_Ajaran").change(function () {
-        view_sidang_table();
-        view_sidang_table_filter_tanggal();
+        view_sidang_table_admin();
+        view_sidang_table_filter_tanggal_admin()
     });
 
     $("#filterDosen").change(function () {
-        view_sidang_table_filter_tanggal();
-        view_sidang_table();
+        view_sidang_table_filter_tanggal_admin();
+        view_sidang_table_admin();
     });
 
     $("#filterTanggalSidang").change(function () {
-        view_sidang_table_filter_tanggal();
+        view_sidang_table_filter_tanggal_admin()
     });
 }
 
 var tanggal_dipilih;
-function view_sidang_table_filter_tanggal() {
 
+function view_sidang_table_filter_tanggal_admin() {
     var dosenPilih = $('#filterDosen option:selected').val();
     dosenGlobal = dosenPilih;
     $('#viewSidangTableFilterTanggal').DataTable().clear().draw();
@@ -231,7 +230,7 @@ function view_sidang_table_filter_tanggal() {
                                 'idTopik': c21.idTopik,
                                 'sidangId': c21.sidangId,
                                 'sidangName': c21.sidangName,
-                                'tanggal': c21.tanggal,
+                                'tanggal': new Date(c21.tanggal).toDateString(),
                                 'jam_mulai': c21.jam_mulai,
                                 'ruangan': c21.ruangan,
                                 'catatan': c21.catatan,
@@ -249,8 +248,10 @@ function view_sidang_table_filter_tanggal() {
                                         || c2T.dosen_pembimbing2.nik === nikFilterDosen
                                         || c21.dosen_penguji1.nik === nikFilterDosen
                                         || c21.dosen_penguji2.nik === nikFilterDosen) {
+
                                     if (c21.idTopik === c2T.id) {
                                         objTanggal.push(obj2Tanggal);
+
                                     }
                                     addViewSidangFilterTanggal(objTanggal);
                                 }
@@ -261,17 +262,20 @@ function view_sidang_table_filter_tanggal() {
             }
         });
     }
-
-    function addViewSidangFilterTanggal(data) {
-        $('#viewSidangTableFilterTanggal').DataTable().clear().draw();
-        $('#viewSidangTableFilterTanggal').DataTable().rows.add(data).draw();
-    }
 }
-
+function addViewSidangFilterTanggal(data) {
+    $('#viewSidangTableFilterTanggal').DataTable().clear().draw();
+    $('#viewSidangTableFilterTanggal').DataTable().rows.add(data).draw();
+}
 var obj2AAA;
 var ketemuEmailDosenPenguji1 = false;
 var emailDosenSemua;
-function view_sidang_table() {
+function view_sidang_table_admin() {
+    $('#viewSidangTable').DataTable().clear().draw();
+    $('#viewSidangTablePemb1').DataTable().clear().draw();
+    $('#viewSidangTablePemb2').DataTable().clear().draw();
+    $('#viewSidangTablePeng1').DataTable().clear().draw();
+    $('#viewSidangTablePeng2').DataTable().clear().draw();
     var dosenPilih = $('#filterDosen option:selected').val();
     dosenGlobal = dosenPilih;
     $('#viewSidangTable').DataTable().clear().draw();
@@ -284,6 +288,10 @@ function view_sidang_table() {
 
     if (p_id == "-") {
         $('#viewSidangTable').DataTable().clear().draw();
+        $('#viewSidangTablePemb1').DataTable().clear().draw();
+        $('#viewSidangTablePemb2').DataTable().clear().draw();
+        $('#viewSidangTablePeng1').DataTable().clear().draw();
+        $('#viewSidangTablePeng2').DataTable().clear().draw();
     } else {
         var assignSidangDataRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal);
         assignSidangDataRef.on("value", function (snap) {
@@ -308,7 +316,8 @@ function view_sidang_table() {
                                 'idTopik': c21.idTopik,
                                 'sidangId': c21.sidangId,
                                 'sidangName': c21.sidangName,
-                                'tanggal': c21.tanggal,
+                                'tanggal': new Date(c21.tanggal),
+//                                'tanggal': new Date(c21.tanggal).toDateString(),
                                 'jam_mulai': c21.jam_mulai,
                                 'ruangan': c21.ruangan,
                                 'catatan': c21.catatan,
@@ -323,16 +332,19 @@ function view_sidang_table() {
                             if (c2T.dosen_pembimbing1.nik === nikFilterDosen) {
                                 if (c21.idTopik === c2T.id) {
                                     obj.push(obj2AAA);
+
                                 }
                                 addViewSidangPemb1(obj);
                             } else if (c2T.dosen_pembimbing2.nik === nikFilterDosen) {
                                 if (c21.idTopik === c2T.id) {
                                     obj1.push(obj2AAA);
+
                                 }
                                 addViewSidangPemb2(obj1);
                             } else if (c21.dosen_penguji1.nik === nikFilterDosen) {
                                 if (c21.idTopik === c2T.id) {
                                     obj2.push(obj2AAA);
+
                                 }
                                 addViewSidangPeng1(obj2);
                             } else if (c21.dosen_penguji2.nik === nikFilterDosen) {
@@ -347,23 +359,23 @@ function view_sidang_table() {
             }
         });
     }
+}
 
-    function addViewSidangPemb1(data) {
-        $('#viewSidangTablePemb1').DataTable().clear().draw();
-        $('#viewSidangTablePemb1').DataTable().rows.add(data).draw();
-    }
-    function addViewSidangPemb2(data) {
-        $('#viewSidangTablePemb2').DataTable().clear().draw();
-        $('#viewSidangTablePemb2').DataTable().rows.add(data).draw();
-    }
-    function addViewSidangPeng1(data) {
-        $('#viewSidangTablePeng1').DataTable().clear().draw();
-        $('#viewSidangTablePeng1').DataTable().rows.add(data).draw();
-    }
-    function addViewSidangPeng2(data) {
-        $('#viewSidangTablePeng2').DataTable().clear().draw();
-        $('#viewSidangTablePeng2').DataTable().rows.add(data).draw();
-    }
+function addViewSidangPemb1(data) {
+    $('#viewSidangTablePemb1').DataTable().clear().draw();
+    $('#viewSidangTablePemb1').DataTable().rows.add(data).draw();
+}
+function addViewSidangPemb2(data) {
+    $('#viewSidangTablePemb2').DataTable().clear().draw();
+    $('#viewSidangTablePemb2').DataTable().rows.add(data).draw();
+}
+function addViewSidangPeng1(data) {
+    $('#viewSidangTablePeng1').DataTable().clear().draw();
+    $('#viewSidangTablePeng1').DataTable().rows.add(data).draw();
+}
+function addViewSidangPeng2(data) {
+    $('#viewSidangTablePeng2').DataTable().clear().draw();
+    $('#viewSidangTablePeng2').DataTable().rows.add(data).draw();
 }
 
 var bobot_nilai_sidang1;
@@ -394,24 +406,28 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
         sidangDataRef.on("value", function (snaps) {
             objSidang = [];
             if (snaps.exists()) {
-
                 snaps.forEach(function (childSnaps) {
                     var c2Sidang = childSnaps.val();
                     obj2Sidang = {
                         'idTopik': c2Sidang.idTopik,
                         'sidangId': c2Sidang.sidangId,
                         'sidangName': c2Sidang.sidangName,
-                        'tanggal': c2Sidang.tanggal,
+                        'tanggal': new Date(c2Sidang.tanggal).toDateString(),
                         'jam_mulai': c2Sidang.jam_mulai,
                         'ruangan': c2Sidang.ruangan,
                         'catatan': c2Sidang.catatan,
                         'dosen_penguji1': c2Sidang.dosen_penguji1,
                         'dosen_penguji2': c2Sidang.dosen_penguji2
                     };
+                    //alert(c2Sidang.idTopik+"-"+gTopikId);
+
                     if (c2Sidang.idTopik === gTopikId && ketemu == 0) {
                         ketemu = 1;
                         var gTopikDosenPeng1Nik = c2Sidang.dosen_penguji1.nik;
                         var gTopikDosenPeng2Nik = c2Sidang.dosen_penguji2.nik;
+
+                        var gTanggalSidang = new Date(c2Sidang.tanggal);
+                        var hariIni = new Date();
 
                         if (gTopikDosenPemb1Nik === dosenGlobal) {
                             if (c2Sidang.idTopik === gTopikId) {
@@ -421,7 +437,37 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                 document.getElementById('nilaiMahasiswaNrp').innerHTML = gTopikMahasiswaNrp;
                                 document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
                                 document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
-
+                                console.log("jam : " + hariIni.getHours())
+//                                                        if (gTanggalSidang == hariIni) {
+                                if (hariIni.getHours() == 0) {
+                                    alert("123")
+                                    if (jenisSidang === "Sidang 1") {
+                                        $('.nav-tabs li:eq(3) a').tab('show');
+                                        $('#nilai_sidang_1').hide();
+                                        $('#nilai_sidang_2').hide();
+                                        $('#nilai_proses_2').hide();
+                                        $('#nilai_sidang_3').hide();
+                                        $('#nilai_proses_3').hide();
+                                        $('#nilai_produk').hide();
+                                    } else if (jenisSidang === "Sidang 2") {
+                                        $('.nav-tabs li:eq(1) a').tab('show');
+                                        $('#nilai_sidang_1').hide();
+                                        $('#nilai_proses_1').hide();
+                                        $('#nilai_sidang_2').hide();
+                                        $('#nilai_sidang_3').hide();
+                                        $('#nilai_proses_3').hide();
+                                        $('#nilai_produk').hide();
+                                    } else if (jenisSidang === "Sidang 3") {
+                                        $('.nav-tabs li:eq(2) a').tab('show');
+                                        $('#nilai_sidang_1').hide();
+                                        $('#nilai_proses_1').hide();
+                                        $('#nilai_sidang_2').hide();
+                                        $('#nilai_proses_2').hide();
+                                        $('#nilai_proses_3').hide();
+                                        $('#nilai_produk').hide();
+                                    }
+                                }
+//                                                        } else {
                                 if (jenisSidang === "Sidang 1") {
                                     $('.nav-tabs li:eq(0) a').tab('show');
                                     $('#nilai_sidang_2').hide();
@@ -443,6 +489,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                     $('#nilai_sidang_2').hide();
                                     $('#nilai_proses_2').hide();
                                 }
+//                                                        }
 
                                 $("#btnSaveNilaiSidang1").click(function () {
                                     var SD1RP1 = $('#nilai1Sidang1').val();
@@ -513,6 +560,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                         //alert("test");
 
                                         HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang1(gTopikId, idSidang);
+
 
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
@@ -658,6 +707,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                         });
 
                                         HitungTotalNilaiSidang2_Pemb1(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang2(gTopikId, idSidang);
 
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
@@ -711,6 +761,9 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
 
                                         });
                                         HitungTotalNilaiSidang3_Pemb1(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang3(gTopikId, idSidang);
+                                        HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
+
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -813,6 +866,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             }
                                         });
                                         HitungTotalNilaiProduk_Pemb1(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang3(gTopikId, idSidang);
+                                        HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -853,6 +908,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             }
                                         });
                                         HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang1(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -910,6 +966,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             }
                                         });
                                         HitungTotalNilaiSidang2_Pemb1_Proses(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang2(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -939,16 +996,18 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             },
                                         });
                                         HitungTotalNilaiSidang3_Pemb1_Proses(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang3(gTopikId, idSidang);
+                                        HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
                                 });
+
                             }
                         }
 
                         if (gTopikDosenPemb2Nik === dosenGlobal) {
                             if (c2Sidang.idTopik === gTopikId) {
-
                                 if (jenisSidang === "Sidang 1") {
                                     $('.nav-tabs li:eq(3) a').tab('show');
                                     $('#nilai_sidang_1').hide();
@@ -1077,6 +1136,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             }
                                         });
                                         HitungTotalNilaiProduk_Pemb2(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang3(gTopikId, idSidang);
+                                        HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -1116,6 +1177,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             }
                                         });
                                         HitungTotalNilaiSidang1_Pemb2_Proses(nrpSidang, idSidang);
+
+                                        HitungNilaiAkhirSidang1(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -1172,6 +1235,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             }
                                         });
                                         HitungTotalNilaiSidang2_Pemb2_Proses(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang2(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -1199,6 +1263,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             },
                                         });
                                         HitungTotalNilaiSidang3_Pemb2_Proses(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang3(gTopikId, idSidang);
+                                        HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -1234,7 +1300,6 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                 document.getElementById('nilaiMahasiswaNrp').innerHTML = gTopikMahasiswaNrp;
                                 document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
                                 document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
-
 
                                 $("#btnSaveNilaiSidang1").click(function () {
                                     var SD1RP1 = $('#nilai1Sidang1').val();
@@ -1303,6 +1368,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             }
                                         });
                                         HitungTotalNilaiSidang1_Peng1(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang1(gTopikId, idSidang);
 
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
@@ -1446,6 +1512,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             }
                                         });
                                         HitungTotalNilaiSidang2_Peng1(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang2(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -1498,6 +1565,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
 
                                         });
                                         HitungTotalNilaiSidang3_Peng1(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang3(gTopikId, idSidang);
+                                        HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -1600,6 +1669,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             }
                                         });
                                         HitungTotalNilaiProduk_Peng1(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang3(gTopikId, idSidang);
+                                        HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -1703,6 +1774,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                         });
 
                                         HitungTotalNilaiSidang1_Peng2(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang1(gTopikId, idSidang);
 
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
@@ -1848,6 +1920,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                         });
 
                                         HitungTotalNilaiSidang2_Peng2(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang2(gTopikId, idSidang);
 
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
@@ -1899,6 +1972,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
 
                                         });
                                         HitungTotalNilaiSidang3_Peng2(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang3(gTopikId, idSidang);
+                                        HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
@@ -1999,11 +2074,12 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                             }
                                         });
                                         HitungTotalNilaiProduk_Peng2(nrpSidang, idSidang);
+                                        HitungNilaiAkhirSidang3(gTopikId, idSidang);
+                                        HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                     } else {
                                         alert("Masih ada nilai yang belum diisi.");
                                     }
                                 });
-
                             }
                         }
                     }
@@ -2017,8 +2093,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
 
 function HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang) {
     //alert(nrpSidang+"+"+idSidang);
-    var arrTotalSidang1 = new Array();
-    var hasilTotalSidang1;
+//    var arrTotalSidang1 = new Array();
+//    var hasilTotalSidang1;
     var totalSidang1 = 0;
     var bebas = 0, bebas2 = 0;
 
@@ -2050,7 +2126,7 @@ function HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang) {
     });
     //alert("b: "+bebas)
     //alert("b2: "+bebas2)
-    //alert("t: "+totalSidang1)
+//    alert("t: "+totalSidang1)
 
     //hasilTotalSidang1 = arrTotalSidang1.pop();
 
@@ -2058,12 +2134,10 @@ function HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang) {
         return false;
     } else {
         //hasilTotalSidang1 = arrTotalSidang1.pop();
+
+
         firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_sidang1_pemb1: totalSidang1.toFixed(2),
-            nilai_proses_sidang1_pemb2: "0",
-            nilai_sidang1_pemb1: "0",
-            nilai_sidang1_peng1: "0",
-            nilai_sidang1_peng2: "0"
+            nilai_sidang1_pemb1: totalSidang1.toFixed(2)
         });
         firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
             nilai_sidang1_pemb1: {
@@ -2071,14 +2145,13 @@ function HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang) {
                 nilai: totalSidang1.toFixed(2)
             }
         });
-
-        alert("Nilai Sidang 1 Sebagai Pembimbing 1 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Sidang 1 sebagai Pembimbing 1 disimpan");
     }
 }
 
 function HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang) {
-    //alert(nrpSidang+"+"+idSidang);
+    
+//    alert(nrpSidang+"+"+idSidang);
     var totalSidang = 0;
     var bebas = 0, bebas2 = 0;
 
@@ -2102,12 +2175,15 @@ function HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang) {
                                 totalSidang = totalSidang + (parseFloat(c2nilaiSidang1_pemb1.nilai) * parseFloat(c2IndikatorSidang1.bobot));
                                 //arrTotalSidang1.push(totalSidang1);
                             }
+                            
                         });
                     }
                 });
             });
         }
     });
+    alert(totalSidang);
+    
 
     if (!confirm('Simpan nilai proses sidang 1?')) {
         return false;
@@ -2121,9 +2197,7 @@ function HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang) {
                 nilai: totalSidang.toFixed(2)
             }
         });
-
-        alert("Nilai Proses Sidang 1 Sebagai Pembimbing 1 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Proses Sidang 1 sebagai Pembimbing 1 disimpan");
     }
 }
 
@@ -2155,7 +2229,6 @@ function HitungTotalNilaiSidang2_Pemb1(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai sidang 2?')) {
         return false;
     } else {
-
         firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
             nilai_sidang2_pemb1: totalSidang.toFixed(2)
         });
@@ -2165,9 +2238,7 @@ function HitungTotalNilaiSidang2_Pemb1(nrpSidang, idSidang) {
                 nilai: totalSidang.toFixed(2)
             }
         });
-
-        alert("Nilai Sidang 2 Sebagai Pembimbing 1 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Sidang 2 Sebagai Pembimbing 1 disimpan");
     }
 }
 
@@ -2210,8 +2281,7 @@ function HitungTotalNilaiSidang2_Pemb1_Proses(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Proses Sidang 2 Sebagai Pembimbing 1 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Proses Sidang 2 Sebagai Pembimbing 1 disimpan");
     }
 }
 
@@ -2254,8 +2324,8 @@ function HitungTotalNilaiSidang3_Pemb1(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Sidang 3 Sebagai Pembimbing 1 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Sidang 3 Sebagai Pembimbing 1 disimpan");
+
     }
 }
 
@@ -2297,8 +2367,8 @@ function HitungTotalNilaiSidang3_Pemb1_Proses(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Proses Sidang 3 Sebagai Pembimbing 1 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Proses Sidang 3 Sebagai Pembimbing 1 disimpan");
+
     }
 }
 
@@ -2341,8 +2411,8 @@ function HitungTotalNilaiProduk_Pemb1(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Produk Tugas Akhir Sebagai Pembimbing 1 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Produk Tugas Akhir Sebagai Pembimbing 1 disimpan");
+
     }
 }
 
@@ -2386,8 +2456,7 @@ function HitungTotalNilaiSidang1_Pemb2_Proses(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Proses Sidang 1 Sebagai Pembimbing 2 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Proses Sidang 1 Sebagai Pembimbing 2 disimpan");
     }
 }
 
@@ -2428,8 +2497,7 @@ function HitungTotalNilaiSidang2_Pemb2_Proses(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Proses Sidang 2 Sebagai Pembimbing 2 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Proses Sidang 2 Sebagai Pembimbing 2 disimpan");
     }
 }
 
@@ -2470,8 +2538,7 @@ function HitungTotalNilaiSidang3_Pemb2_Proses(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Proses Sidang 3 Sebagai Pembimbing 2 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Proses Sidang 3 Sebagai Pembimbing 2 disimpan");
     }
 }
 
@@ -2514,7 +2581,6 @@ function HitungTotalNilaiProduk_Pemb2(nrpSidang, idSidang) {
         });
 
         alert("Nilai Produk Sebagai Pembimbing 2 berhasil tersimpan");
-        location.reload();
     }
 }
 
@@ -2558,8 +2624,7 @@ function HitungTotalNilaiSidang1_Peng1(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Sidang 1 Sebagai Penguji 1 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Sidang 1 Sebagai Penguji 1 disimpan");
     }
 }
 
@@ -2601,7 +2666,6 @@ function HitungTotalNilaiSidang2_Peng1(nrpSidang, idSidang) {
         });
 
         alert("Nilai Sidang 2 Sebagai Penguji 1 berhasil tersimpan");
-        location.reload();
     }
 }
 
@@ -2643,7 +2707,6 @@ function HitungTotalNilaiSidang3_Peng1(nrpSidang, idSidang) {
         });
 
         alert("Nilai Sidang 3 Sebagai Penguji 1 berhasil tersimpan");
-        location.reload();
     }
 }
 
@@ -2685,7 +2748,6 @@ function HitungTotalNilaiProduk_Peng1(nrpSidang, idSidang) {
         });
 
         alert("Nilai Produk Sebagai Penguji 1 berhasil tersimpan");
-        location.reload();
     }
 }
 
@@ -2729,8 +2791,7 @@ function HitungTotalNilaiSidang1_Peng2(nrpSidang, idSidang) {
             }
         });
 
-        alert("Nilai Sidang 1 Sebagai Penguji 2 berhasil tersimpan");
-        location.reload();
+        alert("Nilai Sidang 1 Sebagai Penguji 2 disimpan");
     }
 }
 
@@ -2772,7 +2833,6 @@ function HitungTotalNilaiSidang2_Peng2(nrpSidang, idSidang) {
         });
 
         alert("Nilai Sidang 2 Sebagai Penguji 2 berhasil tersimpan");
-        location.reload();
     }
 }
 
@@ -2814,7 +2874,6 @@ function HitungTotalNilaiSidang3_Peng2(nrpSidang, idSidang) {
         });
 
         alert("Nilai Sidang 3 Sebagai Penguji 2 berhasil tersimpan");
-        location.reload();
     }
 }
 
@@ -2846,7 +2905,7 @@ function HitungTotalNilaiProduk_Peng2(nrpSidang, idSidang) {
         return false;
     } else {
         firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_produk_peng1: totalSidang.toFixed(2)
+            nilai_produk_peng2: totalSidang.toFixed(2)
         });
         firebase.database().ref('nilai_peng2/').child(nrpSidang).update({
             nilai_produk_peng2: {
@@ -2856,39 +2915,202 @@ function HitungTotalNilaiProduk_Peng2(nrpSidang, idSidang) {
         });
 
         alert("Nilai Produk Sebagai Penguji 2 berhasil tersimpan");
-        location.reload();
     }
 }
 
 
 //NA Sidang1
-function hitungNilaiAkhir(id, nrp, jenisSidang, idSidang) {
-    $('#hitungNilaiAkhir').modal('show');
-
-    var lihatSidangRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal);
+function HitungNilaiAkhirSidang1(gTopikId, idSidang) {
+    var totalProsesSidang1 = 0;
+    var totalSidang1 = 0;
+    var hasilNilaiAkhirSidang1 = 0;
+    var lihatSidangRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang);
     lihatSidangRef.on("value", function (snap) {
         obj = [];
         if (snap.exists()) {
-            obj2 = [];
-            snap.forEach(function (childSnap) {
-                var c2 = childSnap.val();
-                obj2 = {
-                    'sidangId': c2.sidangId,
-                    'sidangName': c2.sidangName,
-                    'tanggal': c2.tanggal,
-                    'jam_mulai': c2.jam_mulai,
-                    'ruangan': c2.ruangan,
-                    'idTopik': c2.idTopik,
-                    'dosen_penguji1': c2.dosen_penguji1,
-                    'dosen_penguji2': c2.dosen_penguji2,
-                    'catatan': c2.catatan,
-                    'nilai_proses_sidang1_pemb1': c2.nilai_proses_sidang1_pemb1,
-                    'nilai_proses_sidang1_pemb2': c2.nilai_proses_sidang1_pemb2,
-                    'nilai_sidang1_pemb1': c2.nilai_sidang1_pemb1,
-                    'nilai_sidang1_peng1': c2.nilai_sidang1_peng1,
-                    'nilai_sidang1_peng2': c2.ilai_sidang1_peng2
-                };
-            });
+            var obj = snap.val();
+            var nilai_proses_sidang1_pemb1 = obj.nilai_proses_sidang1_pemb1;
+            var nilai_proses_sidang1_pemb2 = obj.nilai_proses_sidang1_pemb2;
+            var nilai_sidang1_pemb1 = obj.nilai_sidang1_pemb1;
+            var nilai_sidang1_peng1 = obj.nilai_sidang1_peng1;
+            var nilai_sidang1_peng2 = obj.nilai_sidang1_peng2;
+
+//            console.log(nilai_proses_sidang1_pemb1
+//                    + " , " + nilai_proses_sidang1_pemb2
+//                    + " , " + nilai_sidang1_pemb1
+//                    + " , " + nilai_sidang1_peng1
+//                    + " , " + nilai_sidang1_peng2)
+
+
+            totalProsesSidang1 = (parseFloat(nilai_proses_sidang1_pemb1) * 0.5) + (parseFloat(nilai_proses_sidang1_pemb2) * 0.5);
+            totalSidang1 = (parseFloat(nilai_sidang1_pemb1) * 0.6) + (parseFloat(nilai_sidang1_peng1) * 0.2) + (parseFloat(nilai_sidang1_peng2) * 0.2);
+            hasilNilaiAkhirSidang1 = (parseFloat(totalProsesSidang1) + parseFloat(totalSidang1)) / 2;
         }
     });
+//    console.log("1 : " + totalProsesSidang1)
+//    console.log("1 : " + totalSidang1)
+//    console.log("1 : " + hasilNilaiAkhirSidang1)
+
+    if (isNaN(totalProsesSidang1) || isNaN(totalSidang1) || isNaN(hasilNilaiAkhirSidang1)) {
+        totalProsesSidang1 = 0;
+        totalSidang1 = 0;
+        hasilNilaiAkhirSidang1 = 0;
+    }
+
+    firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+        totalProsesSidang1: totalProsesSidang1.toFixed(2),
+        totalSidang1: totalSidang1.toFixed(2),
+        hasilNilaiAkhirSidang1: hasilNilaiAkhirSidang1.toFixed(2)
+    });
+
+    if (hasilNilaiAkhirSidang1 == 0) {
+        firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId).update({
+            nilaiSidang1: "Belum Lengkap"
+        });
+    } else {
+        firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId).update({
+            nilaiSidang1: hasilNilaiAkhirSidang1.toFixed(2)
+        });
+    }
+
+
+    alert("Nilai Sidang 1 berhasil tersimpan");
+//    location.reload();
+}
+
+//NA Sidang2
+function HitungNilaiAkhirSidang2(gTopikId, idSidang) {
+    var totalProsesSidang2 = 0;
+    var totalSidang2 = 0;
+    var hasilNilaiAkhirSidang2 = 0;
+    var lihatSidangRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang);
+    lihatSidangRef.on("value", function (snap) {
+        obj = [];
+        if (snap.exists()) {
+            var obj = snap.val();
+            var nilai_proses_sidang2_pemb1 = obj.nilai_proses_sidang2_pemb1;
+            var nilai_proses_sidang2_pemb2 = obj.nilai_proses_sidang2_pemb2;
+            var nilai_sidang2_pemb1 = obj.nilai_sidang2_pemb1;
+            var nilai_sidang2_peng1 = obj.nilai_sidang2_peng1;
+            var nilai_sidang2_peng2 = obj.nilai_sidang2_peng2;
+
+            totalProsesSidang2 = (parseFloat(nilai_proses_sidang2_pemb1) * 0.5) + (parseFloat(nilai_proses_sidang2_pemb2) * 0.5);
+            totalSidang2 = (parseFloat(nilai_sidang2_pemb1) * 0.6) + (parseFloat(nilai_sidang2_peng1) * 0.2) + (parseFloat(nilai_sidang2_peng2) * 0.2);
+            hasilNilaiAkhirSidang2 = (parseFloat(totalProsesSidang2) + parseFloat(totalSidang2)) / 2;
+        }
+    });
+
+
+    if (isNaN(totalProsesSidang2) || isNaN(totalSidang2) || isNaN(hasilNilaiAkhirSidang2)) {
+        totalProsesSidang2 = 0;
+        totalSidang2 = 0;
+        hasilNilaiAkhirSidang2 = 0;
+    }
+
+    firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+        totalProsesSidang2: totalProsesSidang2.toFixed(2),
+        totalSidang2: totalSidang2.toFixed(2),
+        hasilNilaiAkhirSidang2: hasilNilaiAkhirSidang2.toFixed(2)
+    });
+
+    if (hasilNilaiAkhirSidang2 == 0) {
+        firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId).update({
+            nilaiSidang2: "Belum Lengkap"
+        });
+    } else {
+        firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId).update({
+            nilaiSidang2: hasilNilaiAkhirSidang2.toFixed(2)
+        });
+    }
+    alert("Nilai Sidang 2 berhasil tersimpan");
+    location.reload();
+}
+
+//NA Sidang3
+function HitungNilaiAkhirSidang3(gTopikId, idSidang) {
+    var totalProsesSidang3 = 0;
+    var totalSidang3 = 0;
+    var totalProduk = 0;
+    var hasilNilaiAkhirSidang3 = 0;
+    var lihatSidangRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang);
+    lihatSidangRef.on("value", function (snap) {
+        obj = [];
+        if (snap.exists()) {
+            var obj = snap.val();
+            var nilai_proses_sidang3_pemb1 = obj.nilai_proses_sidang3_pemb1;
+            var nilai_proses_sidang3_pemb2 = obj.nilai_proses_sidang3_pemb2;
+            var nilai_sidang3_pemb1 = obj.nilai_sidang3_pemb1;
+            var nilai_sidang3_peng1 = obj.nilai_sidang3_peng1;
+            var nilai_sidang3_peng2 = obj.nilai_sidang3_peng2;
+            var nilai_produk_pemb1 = obj.nilai_produk_pemb1;
+            var nilai_produk_pemb2 = obj.nilai_produk_pemb2;
+            var nilai_produk_peng1 = obj.nilai_produk_peng1;
+            var nilai_produk_peng2 = obj.nilai_produk_peng2;
+
+            totalProsesSidang3 = (parseFloat(nilai_proses_sidang3_pemb1) * 0.5) + (parseFloat(nilai_proses_sidang3_pemb2) * 0.5);
+            totalSidang3 = (parseFloat(nilai_sidang3_pemb1) * 0.6) + (parseFloat(nilai_sidang3_peng1) * 0.2) + (parseFloat(nilai_sidang3_peng2) * 0.2);
+            totalProduk = (parseFloat(nilai_produk_pemb1) * 0.25) + (parseFloat(nilai_produk_pemb2) * 0.25) + (parseFloat(nilai_produk_peng1) * 0.25) + (parseFloat(nilai_produk_peng2) * 0.25);
+
+            hasilNilaiAkhirSidang3 = (((parseFloat(totalSidang3) + parseFloat(totalProduk)) / 2) + parseFloat(totalProsesSidang3)) / 2;
+        }
+    });
+
+    if (isNaN(totalProsesSidang3) || isNaN(totalSidang3) || isNaN(totalProduk) || isNaN(hasilNilaiAkhirSidang3)) {
+        totalProsesSidang3 = 0;
+        totalSidang3 = 0;
+        totalProduk = 0;
+        hasilNilaiAkhirSidang3 = 0;
+    }
+
+    firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+        totalProsesSidang3: totalProsesSidang3.toFixed(2),
+        totalSidang3: totalSidang3.toFixed(2),
+        totalProduk: totalProduk.toFixed(2),
+        hasilNilaiAkhirSidang3: hasilNilaiAkhirSidang3.toFixed(2)
+    });
+
+    if (hasilNilaiAkhirSidang3 == 0) {
+        firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId).update({
+            nilaiSidang3: "Belum Lengkap"
+        });
+    } else {
+        firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId).update({
+            nilaiSidang3: hasilNilaiAkhirSidang3.toFixed(2)
+        });
+    }
+
+    alert("Nilai Sidang 3 berhasil tersimpan");
+}
+
+
+//NA MAHASISWA
+function HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang) {
+    var hasilNilaiAkhirTAMahasiswa = 0;
+    var lihatSidangRef = firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId);
+    lihatSidangRef.on("value", function (snap) {
+        obj = [];
+        if (snap.exists()) {
+            var obj = snap.val();
+            var nilaiSidang1 = obj.nilaiSidang1;
+            var nilaiSidang2 = obj.nilaiSidang2;
+            var nilaiSidang3 = obj.nilaiSidang3;
+
+            hasilNilaiAkhirTAMahasiswa = (parseFloat(nilaiSidang1) * 0.3) + (parseFloat(nilaiSidang2) * 0.3) + (parseFloat(nilaiSidang3) * 0.4);
+        }
+    });
+
+    if (isNaN(hasilNilaiAkhirTAMahasiswa)) {
+        hasilNilaiAkhirTAMahasiswa = 0;
+    }
+    console.log("akhir: ", hasilNilaiAkhirTAMahasiswa)
+
+    firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+        hasilNilaiAkhirTAMahasiswa: hasilNilaiAkhirTAMahasiswa.toFixed(2)
+    });
+
+    firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId).update({
+        nilaiTA: hasilNilaiAkhirTAMahasiswa.toFixed(2)
+    });
+
+    location.reload();
 }
