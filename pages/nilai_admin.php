@@ -225,7 +225,7 @@
                                                         data: 'null',
                                                         render: function (data, type, row) {
                                                             if (typeof row.nilaiTA !== 'undefined') {
-                                                                return '<label><b>' +  row.nilaiTA + '</b></label>';
+                                                                return '<label><b>' + row.nilaiTA + '</b></label>';
                                                             } else {
                                                                 return '<span class="noPerwalian"> - </span>';
                                                             }
@@ -234,13 +234,11 @@
                                                     {
                                                         data: 'null',
                                                         render: function (data, type, row) {
-                                                            return '<button class="btn btn-info" onClick="lihatDetailNilai(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')"><span class="glyphicon glyphicon-info-sign"></span > Detail</button>'
+                                                            return '<button class="btn btn-info" onClick="lihatDetailNilai(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\')"><span class="glyphicon glyphicon-info-sign"></span > Detail</button>'
                                                         }
                                                     }
                                                 ]
                                             });
-
-//                
                                         });
         </script>
     </body>

@@ -58,6 +58,9 @@
                                                             <form method="post" action="import/import_topik.php" enctype="multipart/form-data">
                                                                 <fieldset>
                                                                     <div class="form-group">
+                                                                        <a href="../template_import/form_input_topik.csv" download>
+                                                                            - Download Template Disini -
+                                                                        </a>
                                                                         <input type="file" name="file"/>
                                                                     </div>
                                                                     <input class="btn btn-success" type="submit" name="submit_file" value="Submit"/>

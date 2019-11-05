@@ -59,7 +59,11 @@
                                                         <div class="panel-body">
                                                             <form method="post" action="import/import_dosen.php" enctype="multipart/form-data">
                                                                 <fieldset>
+
                                                                     <div class="form-group">
+                                                                        <a href="../template_import/form_import_dosen.csv" download>
+                                                                            - Download Template Disini -
+                                                                        </a>
                                                                         <input type="file" name="file"/>
                                                                     </div>
                                                                     <input class="btn btn-success" type="submit" name="submit_file" value="Submit"/>
@@ -74,6 +78,7 @@
                                     <button type="button" data-toggle="modal" data-target="#modal-import" id="btn-import" class=" btn btn-success ">
                                         <span class="glyphicon glyphicon-upload"></span> Import Data Dari CSV
                                     </button>
+                                    <br/>
                                 </div>
                             </div>
 

@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +17,7 @@
 
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+
     </head>
 
     <body>
@@ -60,6 +64,9 @@
                                                             <form method="post" action="import/import_mahasiswa.php" enctype="multipart/form-data">
                                                                 <fieldset>
                                                                     <div class="form-group">
+                                                                        <a href="../template_import/form_input_mahasiswa.csv" download>
+                                                                            - Download Template Disini -
+                                                                        </a>
                                                                         <input type="file" name="file"/>
                                                                     </div>
                                                                     <input class="btn btn-success" type="submit" name="submit_file" value="Submit"/>
@@ -73,10 +80,12 @@
                                     </div>
                                     <button type="button" data-toggle="modal" data-target="#modal-import" id="btn-import" class=" btn btn-success ">
                                         <span class="glyphicon glyphicon-upload"></span> Import Data Dari CSV
+
                                     </button>
                                 </div>
                             </div>
 
+                            <br/>
                             <br/>
                             <br/>
                             <!-- /.panel-heading -->
@@ -125,11 +134,11 @@
                                                             <!-- here the text will apper -->
                                                         </div>
                                                     </div>
-                                                    
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="submit" id="btnSaveMahasiswa" name="btnSaveMahasiswa" class="btn btn-primary"><label id="update">Simpan</label> Mahasiswa</button>
-                                                </div>
+
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" id="btnSaveMahasiswa" name="btnSaveMahasiswa" class="btn btn-primary"><label id="update">Simpan</label> Mahasiswa</button>
+                                                    </div>
                                             </form> 
                                         </div><!-- /.modal-content -->
                                     </div><!-- /.modal-dialog -->
@@ -155,9 +164,9 @@
         <script src="../js/import/import_mahasiswa.js"></script>
 
         <script type='text/javascript'>
-             $(document).ready(function () {
-                fetchMahasiswaData(putMahasiswaDataToTable,'mahasiswaTable')
-                var table = $('#mahasiswaTable').DataTable({
+            $(document).ready(function () {
+                fetchMahasiswaData(putMahasiswaDataToTable, 'mahasiswaTable')
+                $('#mahasiswaTable').DataTable({
                     columns: [
                         {data: 'nrp'},
                         {data: 'name'},
@@ -170,7 +179,16 @@
                         }
                     ]
                 });
+
             });
+
+
+//            $(document).ready(function () {
+//                var table = $('#mahasiswaTable').DataTable({
+//                    dom: 'Bflrtip',
+//                    buttons: ['csv', 'excel']
+//                });
+//            });
         </script>
     </body>
 </html>

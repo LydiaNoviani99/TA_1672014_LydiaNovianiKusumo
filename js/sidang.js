@@ -1,4 +1,3 @@
-
 var tahun_ajaranGlobal;
 var email_dosen;
 
@@ -2187,19 +2186,19 @@ function HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai sidang 1?')) {
         return false;
     } else {
-        //hasilTotalSidang1 = arrTotalSidang1.pop();
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_sidang1_pemb1: totalSidang1.toFixed(2)
-        });
-        firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
-            nilai_sidang1_pemb1: {
-                id: "nilai_sidang1_pemb1",
-                nilai: totalSidang1.toFixed(2)
-            }
-        });
         if (totalSidang1.toFixed(2) == "0.00") {
             alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
         } else {
+            //hasilTotalSidang1 = arrTotalSidang1.pop();
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_sidang1_pemb1: totalSidang1.toFixed(2)
+            });
+            firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
+                nilai_sidang1_pemb1: {
+                    id: "nilai_sidang1_pemb1",
+                    nilai: totalSidang1.toFixed(2)
+                }
+            });
             alert("Nilai Sidang 1 sebagai Pembimbing 1 disimpan : " + totalSidang1.toFixed(2));
         }
 
@@ -2241,20 +2240,20 @@ function HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai proses sidang 1?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_proses_sidang1_pemb1: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
-            nilai_proses_sidang1_pemb1: {
-                id: "nilai_proses_sidang1_pemb1",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
-
 
         if (totalSidang.toFixed(2) == "0.00") {
             alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
         } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_proses_sidang1_pemb1: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
+                nilai_proses_sidang1_pemb1: {
+                    id: "nilai_proses_sidang1_pemb1",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+
             alert("Nilai Proses Sidang 1 sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
         }
     }
@@ -2288,19 +2287,19 @@ function HitungTotalNilaiSidang2_Pemb1(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai sidang 2?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_sidang2_pemb1: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
-            nilai_sidang2_pemb1: {
-                id: "nilai_sidang2_pemb1",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
         if (totalSidang.toFixed(2) == "0.00") {
             alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
         } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_sidang2_pemb1: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
+                nilai_sidang2_pemb1: {
+                    id: "nilai_sidang2_pemb1",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
             alert("Nilai Sidang 2 Sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
         }
     }
@@ -2335,20 +2334,20 @@ function HitungTotalNilaiSidang2_Pemb1_Proses(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai proses sidang 2?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_proses_sidang2_pemb1: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
-            nilai_proses_sidang2_pemb1: {
-                id: "nilai_proses_sidang2_pemb1",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
 
         if (totalSidang.toFixed(2) == "0.00") {
             alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
         } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_proses_sidang2_pemb1: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
+                nilai_proses_sidang2_pemb1: {
+                    id: "nilai_proses_sidang2_pemb1",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
             alert("Nilai Proses Sidang 2 Sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
 
         }
@@ -2385,20 +2384,20 @@ function HitungTotalNilaiSidang3_Pemb1(nrpSidang, idSidang) {
         return false;
     } else {
 
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_sidang3_pemb1: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
-            nilai_sidang3_pemb1: {
-                id: "nilai_sidang3_pemb1",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
 
         if (totalSidang.toFixed(2) == "0.00") {
             alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
         } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_sidang3_pemb1: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
+                nilai_sidang3_pemb1: {
+                    id: "nilai_sidang3_pemb1",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
             alert("Nilai Sidang 3 Sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
 
         }
@@ -2433,20 +2432,20 @@ function HitungTotalNilaiSidang3_Pemb1_Proses(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai proses sidang 3?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_proses_sidang3_pemb1: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
-            nilai_proses_sidang3_pemb1: {
-                id: "nilai_proses_sidang3_pemb1",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
 
         if (totalSidang.toFixed(2) == "0.00") {
             alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
         } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_proses_sidang3_pemb1: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
+                nilai_proses_sidang3_pemb1: {
+                    id: "nilai_proses_sidang3_pemb1",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
             alert("Nilai Proses Sidang 3 Sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
 
         }
@@ -2482,20 +2481,20 @@ function HitungTotalNilaiProduk_Pemb1(nrpSidang, idSidang) {
         return false;
     } else {
 
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_produk_pemb1: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
-            nilai_produk_pemb1: {
-                id: "nilai_produk_pemb1",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
 
         if (totalSidang.toFixed(2) == "0.00") {
             alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
         } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_produk_pemb1: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_pemb1/').child(nrpSidang).update({
+                nilai_produk_pemb1: {
+                    id: "nilai_produk_pemb1",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
             alert("Nilai Produk Tugas Akhir Sebagai Pembimbing 1 disimpan : " + totalSidang.toFixed(2));
 
         }
@@ -2533,20 +2532,20 @@ function HitungTotalNilaiSidang1_Pemb2_Proses(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai proses sidang 1?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_proses_sidang1_pemb2: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_pemb2/').child(nrpSidang).update({
-            nilai_proses_sidang1_pemb2: {
-                id: "nilai_proses_sidang1_pemb2",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
-
 
         if (totalSidang.toFixed(2) == "0.00") {
             alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
         } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_proses_sidang1_pemb2: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_pemb2/').child(nrpSidang).update({
+                nilai_proses_sidang1_pemb2: {
+                    id: "nilai_proses_sidang1_pemb2",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+
             alert("Nilai Proses Sidang 1 Sebagai Pembimbing 2 disimpan : " + totalSidang.toFixed(2));
 
         }
@@ -2580,17 +2579,23 @@ function HitungTotalNilaiSidang2_Pemb2_Proses(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai proses sidang 2?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_proses_sidang2_pemb2: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_pemb2/').child(nrpSidang).update({
-            nilai_proses_sidang2_pemb2: {
-                id: "nilai_proses_sidang2_pemb2",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
-        alert("Nilai Proses Sidang 2 Sebagai Pembimbing 2 disimpan : " + totalSidang.toFixed(2));
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_proses_sidang2_pemb2: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_pemb2/').child(nrpSidang).update({
+                nilai_proses_sidang2_pemb2: {
+                    id: "nilai_proses_sidang2_pemb2",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+
+            alert("Nilai Proses Sidang 2 Sebagai Pembimbing 2 disimpan : " + totalSidang.toFixed(2));
+
+        }
     }
 }
 
@@ -2621,17 +2626,21 @@ function HitungTotalNilaiSidang3_Pemb2_Proses(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai proses sidang 3?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_proses_sidang3_pemb2: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_pemb2/').child(nrpSidang).update({
-            nilai_proses_sidang3_pemb2: {
-                id: "nilai_proses_sidang3_pemb2",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
-        alert("Nilai Proses Sidang 3 Sebagai Pembimbing 2 disimpan : " + totalSidang.toFixed(2));
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_proses_sidang3_pemb2: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_pemb2/').child(nrpSidang).update({
+                nilai_proses_sidang3_pemb2: {
+                    id: "nilai_proses_sidang3_pemb2",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+            alert("Nilai Proses Sidang 3 Sebagai Pembimbing 2 disimpan : " + totalSidang.toFixed(2));
+        }
     }
 }
 
@@ -2663,17 +2672,22 @@ function HitungTotalNilaiProduk_Pemb2(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai produk?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_produk_pemb2: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_pemb2/').child(nrpSidang).update({
-            nilai_produk_pemb2: {
-                id: "nilai_produk_pemb2",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
-        alert("Nilai Produk Sebagai Pembimbing 2 berhasil tersimpan : " + totalSidang.toFixed(2));
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_produk_pemb2: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_pemb2/').child(nrpSidang).update({
+                nilai_produk_pemb2: {
+                    id: "nilai_produk_pemb2",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+            alert("Nilai Produk Sebagai Pembimbing 2 berhasil tersimpan : " + totalSidang.toFixed(2));
+
+        }
     }
 }
 
@@ -2707,17 +2721,22 @@ function HitungTotalNilaiSidang1_Peng1(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai sidang 1?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_sidang1_peng1: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_peng1/').child(nrpSidang).update({
-            nilai_sidang1_peng1: {
-                id: "nilai_sidang1_peng1",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
-        alert("Nilai Sidang 1 Sebagai Penguji 1 disimpan : " + totalSidang.toFixed(2));
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_sidang1_peng1: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_peng1/').child(nrpSidang).update({
+                nilai_sidang1_peng1: {
+                    id: "nilai_sidang1_peng1",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+            alert("Nilai Sidang 1 Sebagai Penguji 1 disimpan : " + totalSidang.toFixed(2));
+
+        }
     }
 }
 
@@ -2748,17 +2767,22 @@ function HitungTotalNilaiSidang2_Peng1(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai sidang 2?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_sidang2_peng1: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_peng1/').child(nrpSidang).update({
-            nilai_sidang2_peng1: {
-                id: "nilai_sidang2_peng1",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
-        alert("Nilai Sidang 2 Sebagai Penguji 1 berhasil tersimpan : " + totalSidang.toFixed(2));
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_sidang2_peng1: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_peng1/').child(nrpSidang).update({
+                nilai_sidang2_peng1: {
+                    id: "nilai_sidang2_peng1",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+            alert("Nilai Sidang 2 Sebagai Penguji 1 berhasil tersimpan : " + totalSidang.toFixed(2));
+
+        }
     }
 }
 
@@ -2789,17 +2813,21 @@ function HitungTotalNilaiSidang3_Peng1(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai sidang 3?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_sidang3_peng1: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_peng1/').child(nrpSidang).update({
-            nilai_sidang3_peng1: {
-                id: "nilai_sidang3_peng1",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
-        alert("Nilai Sidang 3 Sebagai Penguji 1 berhasil tersimpan : " + totalSidang.toFixed(2));
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_sidang3_peng1: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_peng1/').child(nrpSidang).update({
+                nilai_sidang3_peng1: {
+                    id: "nilai_sidang3_peng1",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+            alert("Nilai Sidang 3 Sebagai Penguji 1 berhasil tersimpan : " + totalSidang.toFixed(2));
+        }
     }
 }
 
@@ -2830,17 +2858,22 @@ function HitungTotalNilaiProduk_Peng1(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai produk?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_produk_peng1: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_peng1/').child(nrpSidang).update({
-            nilai_produk_peng1: {
-                id: "nilai_produk_peng1",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
-        alert("Nilai Produk Sebagai Penguji 1 berhasil  : " + totalSidang.toFixed(2));
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_produk_peng1: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_peng1/').child(nrpSidang).update({
+                nilai_produk_peng1: {
+                    id: "nilai_produk_peng1",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+            alert("Nilai Produk Sebagai Penguji 1 berhasil  : " + totalSidang.toFixed(2));
+
+        }
     }
 }
 
@@ -2874,17 +2907,22 @@ function HitungTotalNilaiSidang1_Peng2(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai sidang 1?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_sidang1_peng2: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_peng2/').child(nrpSidang).update({
-            nilai_sidang1_peng2: {
-                id: "nilai_sidang1_peng2",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
-        alert("Nilai Sidang 1 Sebagai Penguji 2 disimpan");
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_sidang1_peng2: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_peng2/').child(nrpSidang).update({
+                nilai_sidang1_peng2: {
+                    id: "nilai_sidang1_peng2",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+            alert("Nilai Sidang 1 Sebagai Penguji 2 disimpan  : " + totalSidang.toFixed(2));
+
+        }
     }
 }
 
@@ -2915,17 +2953,22 @@ function HitungTotalNilaiSidang2_Peng2(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai sidang 2?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_sidang2_peng2: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_peng2/').child(nrpSidang).update({
-            nilai_sidang2_peng2: {
-                id: "nilai_sidang2_peng2",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
-        alert("Nilai Sidang 2 Sebagai Penguji 2 berhasil  : " + totalSidang.toFixed(2));
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_sidang2_peng2: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_peng2/').child(nrpSidang).update({
+                nilai_sidang2_peng2: {
+                    id: "nilai_sidang2_peng2",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+            alert("Nilai Sidang 2 Sebagai Penguji 2 berhasil  : " + totalSidang.toFixed(2));
+
+        }
     }
 }
 
@@ -2956,17 +2999,21 @@ function HitungTotalNilaiSidang3_Peng2(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai sidang 2?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_sidang3_peng2: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_peng2/').child(nrpSidang).update({
-            nilai_sidang3_peng2: {
-                id: "nilai_sidang3_peng2",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
-        alert("Nilai Sidang 3 Sebagai Penguji 2 berhasil  : " + totalSidang.toFixed(2));
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+        } else {
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_sidang3_peng2: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_peng2/').child(nrpSidang).update({
+                nilai_sidang3_peng2: {
+                    id: "nilai_sidang3_peng2",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+            alert("Nilai Sidang 3 Sebagai Penguji 2 berhasil  : " + totalSidang.toFixed(2));
+        }
     }
 }
 
@@ -2997,17 +3044,24 @@ function HitungTotalNilaiProduk_Peng2(nrpSidang, idSidang) {
     if (!confirm('Simpan nilai produk?')) {
         return false;
     } else {
-        firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
-            nilai_produk_peng2: totalSidang.toFixed(2)
-        });
-        firebase.database().ref('nilai_peng2/').child(nrpSidang).update({
-            nilai_produk_peng2: {
-                id: "nilai_produk_peng2",
-                nilai: totalSidang.toFixed(2)
-            }
-        });
 
-        alert("Nilai Produk Sebagai Penguji 2 berhasil  : " + totalSidang.toFixed(2));
+
+        if (totalSidang.toFixed(2) == "0.00") {
+            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            return false;
+        } else {
+
+            firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
+                nilai_produk_peng2: totalSidang.toFixed(2)
+            });
+            firebase.database().ref('nilai_peng2/').child(nrpSidang).update({
+                nilai_produk_peng2: {
+                    id: "nilai_produk_peng2",
+                    nilai: totalSidang.toFixed(2)
+                }
+            });
+            alert("Nilai Produk Sebagai Penguji 2 berhasil  : " + totalSidang.toFixed(2));
+        }
     }
 }
 
@@ -3040,9 +3094,6 @@ function HitungNilaiAkhirSidang1(gTopikId, idSidang) {
             hasilNilaiAkhirSidang1 = (parseFloat(totalProsesSidang1) + parseFloat(totalSidang1)) / 2;
         }
     });
-//    console.log("1 : " + totalProsesSidang1)
-//    console.log("1 : " + totalSidang1)
-//    console.log("1 : " + hasilNilaiAkhirSidang1)
 
     if (isNaN(totalProsesSidang1) || isNaN(totalSidang1) || isNaN(hasilNilaiAkhirSidang1)) {
         totalProsesSidang1 = 0;
@@ -3065,7 +3116,6 @@ function HitungNilaiAkhirSidang1(gTopikId, idSidang) {
             nilaiSidang1: hasilNilaiAkhirSidang1.toFixed(2)
         });
     }
-
 
     alert("Nilai Sidang 1 berhasil tersimpan");
     location.reload();
@@ -3176,7 +3226,7 @@ function HitungNilaiAkhirSidang3(gTopikId, idSidang) {
 }
 
 
-//NA Sidang3
+//NA TA
 function HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang) {
     var hasilNilaiAkhirTAMahasiswa = 0;
     var lihatSidangRef = firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId);
@@ -3207,3 +3257,6 @@ function HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang) {
 
     location.reload();
 }
+
+
+

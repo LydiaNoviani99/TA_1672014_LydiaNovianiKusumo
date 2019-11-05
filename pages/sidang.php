@@ -154,10 +154,6 @@
                                                 <th>Jadwal</th>
                                                 <th>Jam</th>
                                                 <th>Ruangan</th>
-<!--                                                <th>pemb 1</th>
-                                                <th>pemb 2</th>
-                                                <th>peng 1</th>
-                                                <th>peng 2</th>-->
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -246,7 +242,7 @@
                                             <?php
                                         }
                                         ?>
-                                            
+
                                         <li id="nilai_sidang_2"><a href="#sidang_2_tab" data-toggle="tab">Sidang 2</a></li>
                                         <li id="nilai_sidang_3"><a href="#sidang_3_tab" data-toggle="tab">Sidang 3</a></li>
                                         <li id="nilai_proses_1"><a href="#nilai_proses_sidang_1_tab" data-toggle="tab">Nilai Proses Sidang 1</a></li>
@@ -397,10 +393,6 @@
                                                     {data: 'tanggal'},
                                                     {data: 'jam_mulai'},
                                                     {data: 'ruangan'},
-//                            {data: 'pemb1'},
-//                            {data: 'pemb2'},
-//                            {data: 'peng1'},
-//                            {data: 'peng2'},
                                                     {
                                                         data: 'null',
                                                         render: function (data, type, row) {
