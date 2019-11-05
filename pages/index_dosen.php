@@ -15,6 +15,10 @@
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
 
+
+        <script src="https://momentjs.com/downloads/moment.min.js"></script>
+        <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
+
         <!-- TODO: Add SDKs for Firebase products that you want to use
              https://firebase.google.com/docs/web/setup#available-libraries -->
 
@@ -52,10 +56,10 @@
                         </select>
                     </div>
 
-                    <h5> Sebagai Pembimbing 1 : <label id="jmlPemb1"></label> sidang</h5>
-                    <h5> Sebagai Pembimbing 2 : <label id="jmlPemb2"></label> sidang </h5>
-                    <h5> Sebagai Penguji 1 : <label id="jmlPeng1"></label> sidang </h5>
-                    <h5> Sebagai Penguji 2 : <label id="jmlPeng2"></label> sidang </h5>
+                    <h5> Sebagai Pembimbing 1 : <label id="jmlPemb1">-</label> sidang</h5>
+                    <h5> Sebagai Pembimbing 2 : <label id="jmlPemb2">-</label> sidang </h5>
+                    <h5> Sebagai Penguji 1 : <label id="jmlPeng1">-</label> sidang </h5>
+                    <h5> Sebagai Penguji 2 : <label id="jmlPeng2">-</label> sidang </h5>
                     <br/>
                     <h5> Jumlah Mahasiswa Yang Belum Dinilai : <label id="jmlSudahPerwalian"></label> </h5>
                     <div class="col-lg-12">
@@ -82,7 +86,7 @@
                     </div>
 
 
-                    
+
                 </div>
 
 
@@ -127,7 +131,7 @@
 
                 });
             </script>
-            
+
 
         </div>
     </div>

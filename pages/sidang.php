@@ -15,6 +15,10 @@
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9">
+        </script><script src="sweetalert2.all.min.js"></script>
+        <script src="sweetalert2.min.js"></script>
+        <link rel="stylesheet" href="sweetalert2.min.css">
     </head>
 
     <body>
@@ -233,16 +237,7 @@
                                 <div class="panel-body">
                                     <br/>
                                     <ul class="nav nav-tabs" style="font-size: 13px">
-                                        <!--<li id="nilai_sidang_1" class="active"><a href="#sidang_1_tab">Sidang 1</a></li>-->
-                                        <?php
-                                        $nama = 'Lydia';
-                                        if ($nama == 'Lydia') {
-                                            ?>
-                                            <li id="nilai_sidang_1"><a href="#sidang_1_tab" data-toggle="tab">Sidang 1</a></li>
-                                            <?php
-                                        }
-                                        ?>
-
+                                        <li id="nilai_sidang_1"><a href="#sidang_1_tab" data-toggle="tab">Sidang 1</a></li>
                                         <li id="nilai_sidang_2"><a href="#sidang_2_tab" data-toggle="tab">Sidang 2</a></li>
                                         <li id="nilai_sidang_3"><a href="#sidang_3_tab" data-toggle="tab">Sidang 3</a></li>
                                         <li id="nilai_proses_1"><a href="#nilai_proses_sidang_1_tab" data-toggle="tab">Nilai Proses Sidang 1</a></li>
@@ -275,11 +270,11 @@
                                     </div>
 
                                     <script>
-                                        $(document).ready(function () {
-                                            $(".nav-tabs a").click(function () {
-                                                $(this).tab('show');
-                                            });
-                                        });
+            $(document).ready(function () {
+                $(".nav-tabs a").click(function () {
+                    $(this).tab('show');
+                });
+            });
                                     </script>
 
                                 </div>
@@ -302,106 +297,106 @@
         <script src="../js/nilai_detail.js"></script>
 
         <script type='text/javascript'>
-                                        $(document).ready(function () {
-                                            var tableTanggal = $('#viewSidangTableFilterTanggal').DataTable({
-                                                columns: [
-                                                    {data: 'mahasiswa2.nrp'},
-                                                    {data: 'mahasiswa2.name'},
-                                                    {data: 'sidangName'},
-                                                    {data: 'tanggal'},
-                                                    {data: 'jam_mulai'},
-                                                    {data: 'ruangan'},
+            $(document).ready(function () {
+                var tableTanggal = $('#viewSidangTableFilterTanggal').DataTable({
+                    columns: [
+                        {data: 'mahasiswa2.nrp'},
+                        {data: 'mahasiswa2.name'},
+                        {data: 'sidangName'},
+                        {data: 'tanggal'},
+                        {data: 'jam_mulai'},
+                        {data: 'ruangan'},
 //                                                    {data: 'pemb1'},
 //                                                    {data: 'pemb2'},
 //                                                    {data: 'peng1'},
 //                                                    {data: 'peng2'},
-                                                    {
-                                                        data: 'null',
-                                                        render: function (data, type, row) {
-                                                            return '<button type="button"  id="btnBeriNilai" class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
-                                                        }
-                                                    }
-                                                ]
-                                            });
+                        {
+                            data: 'null',
+                            render: function (data, type, row) {
+                                return '<button type="button"  id="btnBeriNilai" class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
+                            }
+                        }
+                    ]
+                });
 
 
-                                            var table = $('#viewSidangTablePemb1').DataTable({
-                                                columns: [
-                                                    {data: 'mahasiswa2.nrp'},
-                                                    {data: 'mahasiswa2.name'},
-                                                    {data: 'sidangName'},
-                                                    {data: 'tanggal'},
-                                                    {data: 'jam_mulai'},
-                                                    {data: 'ruangan'},
+                var table = $('#viewSidangTablePemb1').DataTable({
+                    columns: [
+                        {data: 'mahasiswa2.nrp'},
+                        {data: 'mahasiswa2.name'},
+                        {data: 'sidangName'},
+                        {data: 'tanggal'},
+                        {data: 'jam_mulai'},
+                        {data: 'ruangan'},
 //                            {data: 'pemb1'},
 //                            {data: 'pemb2'},
 //                            {data: 'peng1'},
 //                            {data: 'peng2'},
-                                                    {
-                                                        data: 'null',
-                                                        render: function (data, type, row) {
-                                                            return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
-                                                        }
-                                                    }
-                                                ]
-                                            });
-                                            var table1 = $('#viewSidangTablePemb2').DataTable({
-                                                columns: [
-                                                    {data: 'mahasiswa2.nrp'},
-                                                    {data: 'mahasiswa2.name'},
-                                                    {data: 'sidangName'},
-                                                    {data: 'tanggal'},
-                                                    {data: 'jam_mulai'},
-                                                    {data: 'ruangan'},
+                        {
+                            data: 'null',
+                            render: function (data, type, row) {
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
+                            }
+                        }
+                    ]
+                });
+                var table1 = $('#viewSidangTablePemb2').DataTable({
+                    columns: [
+                        {data: 'mahasiswa2.nrp'},
+                        {data: 'mahasiswa2.name'},
+                        {data: 'sidangName'},
+                        {data: 'tanggal'},
+                        {data: 'jam_mulai'},
+                        {data: 'ruangan'},
 //                            {data: 'pemb1'},
 //                            {data: 'pemb2'},
 //                            {data: 'peng1'},
 //                            {data: 'peng2'},
-                                                    {
-                                                        data: 'null',
-                                                        render: function (data, type, row) {
-                                                            return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
-                                                        }
-                                                    }
-                                                ]
-                                            });
-                                            var table2 = $('#viewSidangTablePeng1').DataTable({
-                                                columns: [
-                                                    {data: 'mahasiswa2.nrp'},
-                                                    {data: 'mahasiswa2.name'},
-                                                    {data: 'sidangName'},
-                                                    {data: 'tanggal'},
-                                                    {data: 'jam_mulai'},
-                                                    {data: 'ruangan'},
+                        {
+                            data: 'null',
+                            render: function (data, type, row) {
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
+                            }
+                        }
+                    ]
+                });
+                var table2 = $('#viewSidangTablePeng1').DataTable({
+                    columns: [
+                        {data: 'mahasiswa2.nrp'},
+                        {data: 'mahasiswa2.name'},
+                        {data: 'sidangName'},
+                        {data: 'tanggal'},
+                        {data: 'jam_mulai'},
+                        {data: 'ruangan'},
 //                            {data: 'pemb1'},
 //                            {data: 'pemb2'},
 //                            {data: 'peng1'},
 //                            {data: 'peng2'},
-                                                    {
-                                                        data: 'null',
-                                                        render: function (data, type, row) {
-                                                            return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
-                                                        }
-                                                    }
-                                                ]
-                                            });
-                                            var table3 = $('#viewSidangTablePeng2').DataTable({
-                                                columns: [
-                                                    {data: 'mahasiswa2.nrp'},
-                                                    {data: 'mahasiswa2.name'},
-                                                    {data: 'sidangName'},
-                                                    {data: 'tanggal'},
-                                                    {data: 'jam_mulai'},
-                                                    {data: 'ruangan'},
-                                                    {
-                                                        data: 'null',
-                                                        render: function (data, type, row) {
-                                                            return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
-                                                        }
-                                                    }
-                                                ]
-                                            });
-                                        });
+                        {
+                            data: 'null',
+                            render: function (data, type, row) {
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
+                            }
+                        }
+                    ]
+                });
+                var table3 = $('#viewSidangTablePeng2').DataTable({
+                    columns: [
+                        {data: 'mahasiswa2.nrp'},
+                        {data: 'mahasiswa2.name'},
+                        {data: 'sidangName'},
+                        {data: 'tanggal'},
+                        {data: 'jam_mulai'},
+                        {data: 'ruangan'},
+                        {
+                            data: 'null',
+                            render: function (data, type, row) {
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
+                            }
+                        }
+                    ]
+                });
+            });
         </script>
     </body>
 </html>

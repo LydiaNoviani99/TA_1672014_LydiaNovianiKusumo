@@ -6,7 +6,7 @@ if (isset($_POST["submit_file"]) && $_FILES["file"]["tmp_name"] != null) {
     $file_open = fopen($file, "r");
     $data = array();
     while (($csv = fgetcsv($file_open, 1000, ",")) !== false) {
-        if ($numrow > 1) {
+        if ($numrow > 2) {
             $object = (object) [
                         'nrp' => $csv[0],
                         'name' => $csv[1]
