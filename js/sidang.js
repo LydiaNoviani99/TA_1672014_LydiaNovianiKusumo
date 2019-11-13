@@ -8,7 +8,7 @@ $(document).ready(function () {
 
     initializeNilai();
 
-    document.getElementById('filterTanggalSidang').valueAsDate = new Date();
+//    document.getElementById('filterTanggalSidang').valueAsDate = new Date();
 
     var tahun_AjaranDataRef = firebase.database().ref().child('tahun_ajaran');
     tahun_AjaranDataRef.on('value', function (snap) {

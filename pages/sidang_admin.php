@@ -49,7 +49,7 @@
 
                                     <h5>
                                         <b> Filter Tanggal </b> : 
-                                        <input type="date" id="filterTanggalSidang" name="filterTanggalSidang" >
+                                        <input type="date" id="filterTanggalSidang" name="filterTanggalSidang" value="<?php echo date("Y-m-d"); ?>">
                                     </h5> 
 
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="viewSidangTableFilterTanggal">

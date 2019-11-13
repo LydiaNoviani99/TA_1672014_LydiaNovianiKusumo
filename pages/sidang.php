@@ -52,7 +52,7 @@
                                     </div>
                                     <h5>
                                         <b> Filter Tanggal </b> : 
-                                        <input type="date" id="filterTanggalSidang" name="filterTanggalSidang" >
+                                        <input type="date" id="filterTanggalSidang" name="filterTanggalSidang" value="<?php echo date("Y-m-d"); ?>" >
                                     </h5> 
 
 
