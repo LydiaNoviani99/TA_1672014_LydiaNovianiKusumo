@@ -195,13 +195,8 @@ function view_sidang_table_filter_tanggal_admin() {
     $('#viewSidangTableFilterTanggal').DataTable().clear().draw();
     var p_id = $('#filterTahun_Ajaran option:selected').val();
     tanggal_dipilih = $('#filterTanggalSidang').val();
-    filterDosenGlobal = $('#filterDosen option:selected').text();
-    nikFilterDosen = filterDosenGlobal.substr(0, filterDosenGlobal.indexOf(' -'));
-    nameFilterDosen = filterDosenGlobal.substr(filterDosenGlobal.indexOf('- ') + 2);
     $('#viewSidangTableFilterTanggal').DataTable().clear().draw();
     tahun_ajaranGlobal = p_id;
-
-//    alert(tanggal_dipilih)
 
     if (p_id == "-") {
         $('#viewSidangTable').DataTable().clear().draw();
@@ -235,32 +230,19 @@ function view_sidang_table_filter_tanggal_admin() {
                                 'catatan': c21.catatan,
                                 'dosen_penguji1': c21.dosen_penguji1,
                                 'dosen_penguji2': c21.dosen_penguji2,
-
+                                
                                 'pemb1': c2T.dosen_pembimbing1.name,
                                 'pemb2': c2T.dosen_pembimbing2.name,
                                 'peng1': c21.dosen_penguji1.name,
                                 'peng2': c21.dosen_penguji2.name
                             };
-//                            alert(c21.tanggal + " aaaa " + tanggal_dipilih)
                             if (c21.tanggal === tanggal_dipilih) {
+                                
                                 if (c21.idTopik === c2T.id) {
                                     objTanggal.push(obj2Tanggal);
                                 }
                                 addViewSidangFilterTanggal(objTanggal);
                             }
-//                            if (c21.tanggal === tanggal_dipilih) {
-//                                if (c2T.dosen_pembimbing1.nik === nikFilterDosen
-//                                        || c2T.dosen_pembimbing2.nik === nikFilterDosen
-//                                        || c21.dosen_penguji1.nik === nikFilterDosen
-//                                        || c21.dosen_penguji2.nik === nikFilterDosen) {
-//
-//                                    if (c21.idTopik === c2T.id) {
-//                                        objTanggal.push(obj2Tanggal);
-//
-//                                    }
-//                                    addViewSidangFilterTanggal(objTanggal);
-//                                }
-//                            }
                         });
                     });
                 });
@@ -3037,7 +3019,7 @@ function HitungNilaiAkhirSidang1(gTopikId, idSidang) {
         });
     }
 
-    alert("Nilai Sidang 1 berhasil tersimpan");
+//    alert("Nilai Sidang 1 berhasil tersimpan");
     location.reload();
 }
 
@@ -3085,7 +3067,7 @@ function HitungNilaiAkhirSidang2(gTopikId, idSidang) {
             nilaiSidang2: hasilNilaiAkhirSidang2.toFixed(2)
         });
     }
-    alert("Nilai Sidang 2 berhasil tersimpan");
+//    alert("Nilai Sidang 2 berhasil tersimpan");
     location.reload();
 }
 
@@ -3142,12 +3124,13 @@ function HitungNilaiAkhirSidang3(gTopikId, idSidang) {
         });
     }
 
-    alert("Nilai Sidang 3 berhasil tersimpan");
+//    alert("Nilai Sidang 3 berhasil tersimpan");
 }
 
 
 //NA TA
 function HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang) {
+    var hasilNilaiMutu = '-';
     var hasilNilaiAkhirTAMahasiswa = 0;
     var lihatSidangRef = firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId);
     lihatSidangRef.on("value", function (snap) {
@@ -3167,12 +3150,29 @@ function HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang) {
     }
     console.log("akhir: ", hasilNilaiAkhirTAMahasiswa)
 
+    if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 80 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) <= 100) {
+        hasilNilaiMutu = "A";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 73 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 80) {
+        hasilNilaiMutu = "B+";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 67 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 73) {
+        hasilNilaiMutu = "B";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 61 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 67) {
+        hasilNilaiMutu = "C+";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 55 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 61) {
+        hasilNilaiMutu = "C";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 41 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 55) {
+        hasilNilaiMutu = "D";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 41) {
+        hasilNilaiMutu = "E";
+    }
+
     firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
         hasilNilaiAkhirTAMahasiswa: hasilNilaiAkhirTAMahasiswa.toFixed(2)
     });
 
     firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId).update({
-        nilaiTA: hasilNilaiAkhirTAMahasiswa.toFixed(2)
+        nilaiTA: hasilNilaiAkhirTAMahasiswa.toFixed(2),
+        nilaiMutu: hasilNilaiMutu
     });
 
     location.reload();

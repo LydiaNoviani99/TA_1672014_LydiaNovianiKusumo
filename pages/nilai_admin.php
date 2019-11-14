@@ -54,6 +54,7 @@
                                                 <th>Sidang 2</th>
                                                 <th>Sidang Akhir</th>
                                                 <th>Nilai TA</th>
+                                                <th>Nilai Mutu</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -97,7 +98,6 @@
                                                         )">
                                         <span class="glyphicon glyphicon-export"></span> Export Nilai Ke File Excel
                                     </button>
-
                                     <div class="col-sm-12" style="text-align: left;">
                                         <table style="line-height: 2em"> 
                                             <tr>
@@ -136,11 +136,8 @@
                                                 <td> &nbsp; &nbsp; <label id="nilaiDosenPeng2"></label></td>
                                             </tr>
                                         </table>
-
                                         <br/>
                                     </div>
-
-
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
@@ -154,7 +151,6 @@
                                         <li id="nilai_proses_2"><a href="#nilai_proses_sidang_2_tab" data-toggle="tab">Nilai Proses Sidang 2</a></li>
                                         <li id="nilai_proses_3"><a href="#nilai_proses_sidang_3_tab" data-toggle="tab">Nilai Proses Sidang 3</a></li>
                                     </ul>
-
                                     <div class="tab-content">
                                         <div id="sidang_1_tab" class="tab-pane fade in active">
                                             <?php include_once './input_nilai_sidang1_detail.php'; ?>
@@ -178,7 +174,6 @@
                                             <?php include_once './input_nilai_proses_sidang3_detail.php'; ?>
                                         </div>
                                     </div>
-
                                     <script>
                                         $(document).ready(function () {
                                             $(".nav-tabs a").click(function () {
@@ -186,7 +181,6 @@
                                             });
                                         });
                                     </script>
-
                                 </div>
                                 <!-- /.panel-body -->
                             </div>
@@ -195,16 +189,12 @@
                         <!-- /.col-lg-12 -->
                     </div>
                 </div>             
-
             </div>
             <!-- /#page-wrapper -->
-
         </div>
         <!-- /#wrapper -->
-
         <script src="../js/fireBase.js"></script>
         <script src="../js/nilai_admin.js"></script>
-
         <script type='text/javascript'>
                                         var tablesToExcel = (function () {
                                             var uri = 'data:application/vnd.ms-excel;base64,'
@@ -230,7 +220,6 @@
                                                 var workbookXML = "";
                                                 var worksheetsXML = "";
                                                 var rowsXML = "";
-
                                                 for (var i = 0; i < tables.length; i++) {
                                                     if (!tables[i].nodeType)
                                                         tables[i] = document.getElementById(tables[i]);
@@ -256,12 +245,9 @@
                                                     worksheetsXML += format(tmplWorksheetXML, ctx);
                                                     rowsXML = "";
                                                 }
-
                                                 ctx = {created: (new Date()).getTime(), worksheets: worksheetsXML};
                                                 workbookXML = format(tmplWorkbookXML, ctx);
-
                                                 console.log(workbookXML);
-
                                                 var link = document.createElement("A");
                                                 link.href = uri + base64(workbookXML);
                                                 link.download = wbname || 'ExportNilai.xls';
@@ -271,7 +257,6 @@
                                                 document.body.removeChild(link);
                                             }
                                         })();
-
                                         $(document).ready(function () {
                                             var table = $('#nilaiAkhirTable').DataTable({
                                                 columns: [
@@ -312,6 +297,16 @@
                                                         render: function (data, type, row) {
                                                             if (typeof row.nilaiTA !== 'undefined') {
                                                                 return '<label><b>' + row.nilaiTA + '</b></label>';
+                                                            } else {
+                                                                return '<span class="noPerwalian"> - </span>';
+                                                            }
+                                                        }
+                                                    },
+                                                    {
+                                                        data: 'null',
+                                                        render: function (data, type, row) {
+                                                            if (typeof row.nilaiMutu !== 'undefined') {
+                                                                return '<label><b>' + row.nilaiMutu + '</b></label>';
                                                             } else {
                                                                 return '<span class="noPerwalian"> - </span>';
                                                             }

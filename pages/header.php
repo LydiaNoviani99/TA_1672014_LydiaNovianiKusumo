@@ -1,5 +1,6 @@
 <head>
     <link rel="stylesheet" href="../dist/css/mystyle.css">
+    <link rel="stylesheet" href="../css/footer.css">
 </head>
 <style>
 
@@ -9,7 +10,6 @@
     } 
 
 </style>
-
 
 <link rel="icon" href="../images/Lambang-Marnat.png" type="image/x-icon"/>
 <script type="text/javascript" src="../js/tahun_ajaran.js"></script>
@@ -175,9 +175,4 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="../dist/js/sb-admin-2.js"></script>
-
-
-
-
-
 

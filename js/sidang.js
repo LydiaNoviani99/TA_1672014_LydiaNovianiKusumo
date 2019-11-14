@@ -586,6 +586,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
 
                                                                 HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang);
                                                                 HitungNilaiAkhirSidang1(gTopikId, idSidang);
+                                                                HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
                                                                 alert("Masih ada nilai yang belum diisi.");
                                                             }
@@ -729,6 +730,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 });
                                                                 HitungTotalNilaiSidang2_Pemb1(nrpSidang, idSidang);
                                                                 HitungNilaiAkhirSidang2(gTopikId, idSidang);
+                                                                HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
                                                                 alert("Masih ada nilai yang belum diisi.");
                                                             }
@@ -976,6 +978,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 });
                                                                 HitungTotalNilaiSidang2_Pemb1_Proses(nrpSidang, idSidang);
                                                                 HitungNilaiAkhirSidang2(gTopikId, idSidang);
+                                                                HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
                                                                 alert("Masih ada nilai yang belum diisi.");
                                                             }
@@ -1194,8 +1197,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                     }
                                                                 });
                                                                 HitungTotalNilaiSidang1_Pemb2_Proses(nrpSidang, idSidang);
-
                                                                 HitungNilaiAkhirSidang1(gTopikId, idSidang);
+                                                                HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
                                                                 alert("Masih ada nilai yang belum diisi.");
                                                             }
@@ -1253,6 +1256,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 });
                                                                 HitungTotalNilaiSidang2_Pemb2_Proses(nrpSidang, idSidang);
                                                                 HitungNilaiAkhirSidang2(gTopikId, idSidang);
+                                                                HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
                                                                 alert("Masih ada nilai yang belum diisi.");
                                                             }
@@ -1429,6 +1433,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 });
                                                                 HitungTotalNilaiSidang1_Peng1(nrpSidang, idSidang);
                                                                 HitungNilaiAkhirSidang1(gTopikId, idSidang);
+                                                                HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
 
                                                             } else {
                                                                 alert("Masih ada nilai yang belum diisi.");
@@ -1573,6 +1578,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 });
                                                                 HitungTotalNilaiSidang2_Peng1(nrpSidang, idSidang);
                                                                 HitungNilaiAkhirSidang2(gTopikId, idSidang);
+                                                                HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
                                                                 alert("Masih ada nilai yang belum diisi.");
                                                             }
@@ -1898,6 +1904,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 });
                                                                 HitungTotalNilaiSidang1_Peng2(nrpSidang, idSidang);
                                                                 HitungNilaiAkhirSidang1(gTopikId, idSidang);
+                                                                HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
                                                                 alert("Masih ada nilai yang belum diisi.");
                                                             }
@@ -2041,6 +2048,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 });
                                                                 HitungTotalNilaiSidang2_Peng2(nrpSidang, idSidang);
                                                                 HitungNilaiAkhirSidang2(gTopikId, idSidang);
+                                                                HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
                                                                 alert("Masih ada nilai yang belum diisi.");
                                                             }
@@ -3187,7 +3195,7 @@ function HitungNilaiAkhirSidang1(gTopikId, idSidang) {
         });
     }
 
-    alert("Nilai Sidang 1 berhasil tersimpan");
+//    alert("Nilai Sidang 1 berhasil tersimpan");
     location.reload();
 }
 
@@ -3235,7 +3243,7 @@ function HitungNilaiAkhirSidang2(gTopikId, idSidang) {
             nilaiSidang2: hasilNilaiAkhirSidang2.toFixed(2)
         });
     }
-    alert("Nilai Sidang 2 berhasil tersimpan");
+//    alert("Nilai Sidang 2 berhasil tersimpan");
     location.reload();
 }
 
@@ -3292,12 +3300,13 @@ function HitungNilaiAkhirSidang3(gTopikId, idSidang) {
         });
     }
 
-    alert("Nilai Sidang 3 berhasil tersimpan");
+//    alert("Nilai Sidang 3 berhasil tersimpan");
 }
 
 
 //NA TA
 function HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang) {
+    var hasilNilaiMutu = '-';
     var hasilNilaiAkhirTAMahasiswa = 0;
     var lihatSidangRef = firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId);
     lihatSidangRef.on("value", function (snap) {
@@ -3317,16 +3326,30 @@ function HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang) {
     }
     console.log("akhir: ", hasilNilaiAkhirTAMahasiswa)
 
+    if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 80 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) <= 100) {
+        hasilNilaiMutu = "A";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 73 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 80) {
+        hasilNilaiMutu = "B+";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 67 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 73) {
+        hasilNilaiMutu = "B";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 61 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 67) {
+        hasilNilaiMutu = "C+";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 55 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 61) {
+        hasilNilaiMutu = "C";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) >= 41 && (hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 55) {
+        hasilNilaiMutu = "D";
+    } else if ((hasilNilaiAkhirTAMahasiswa.toFixed(2)) < 41) {
+        hasilNilaiMutu = "E";
+    }
+
     firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
         hasilNilaiAkhirTAMahasiswa: hasilNilaiAkhirTAMahasiswa.toFixed(2)
     });
 
     firebase.database().ref('topik/' + tahun_ajaranGlobal).child(gTopikId).update({
-        nilaiTA: hasilNilaiAkhirTAMahasiswa.toFixed(2)
+        nilaiTA: hasilNilaiAkhirTAMahasiswa.toFixed(2),
+        nilaiMutu: hasilNilaiMutu
     });
 
     location.reload();
 }
-
-
-

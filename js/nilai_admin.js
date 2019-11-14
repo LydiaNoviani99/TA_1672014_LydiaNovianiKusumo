@@ -67,7 +67,8 @@ function view_nilai_table() {
                         'nilaiSidang1': c2.nilaiSidang1,
                         'nilaiSidang2': c2.nilaiSidang2,
                         'nilaiSidang3': c2.nilaiSidang3,
-                        'nilaiTA': c2.nilaiTA
+                        'nilaiTA': c2.nilaiTA,
+                        'nilaiMutu': c2.nilaiMutu
                     };
 
                     obj.push(obj2);
@@ -90,6 +91,7 @@ function lihatDetailNilai(id, nrp) {
     $('#halaman_nilai').hide();
     $('#halaman_detail_nilai').show();
     tempKeyTopik = id;
+    var ketemu = 0;
     var topikDataRef = firebase.database().ref('topik/').child(tahun_ajaranGlobal).child(tempKeyTopik);
     topikDataRef.on('value', function (snap) {
         objTopik = [];
@@ -119,7 +121,14 @@ function lihatDetailNilai(id, nrp) {
                         'ruangan': c2Sidang.ruangan,
                         'catatan': c2Sidang.catatan,
                         'dosen_penguji1': c2Sidang.dosen_penguji1,
-                        'dosen_penguji2': c2Sidang.dosen_penguji2
+                        'dosen_penguji2': c2Sidang.dosen_penguji2,
+                        'totalProsesSidang1': c2Sidang.totalProsesSidang1,
+                        'totalSidang1': c2Sidang.totalSidang1,
+                        'totalProsesSidang2': c2Sidang.totalProsesSidang2,
+                        'totalSidang2': c2Sidang.totalSidang2,
+                        'totalProsesSidang3': c2Sidang.totalProsesSidang3,
+                        'totalSidang3': c2Sidang.totalSidang3,
+                        'totalProduk': c2Sidang.totalProduk
                     };
                     document.getElementById('nilaiMahasiswaNrp').innerHTML = nrp;
                     document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
@@ -130,8 +139,6 @@ function lihatDetailNilai(id, nrp) {
                     document.getElementById('nilaiDosenPeng2').innerHTML = c2Sidang.dosen_penguji2.nik + " - " + c2Sidang.dosen_penguji2.name;
 
                     if (c2Sidang.sidangName == "Sidang 1") {
-                        var totalProsesSidang1 = c2Sidang.totalProsesSidang1;
-                        var totalSidang1 = c2Sidang.totalSidang1;
 
                         //sidang
                         nrpSidang1 = nrp + "Sidang1";
@@ -354,17 +361,8 @@ function lihatDetailNilai(id, nrp) {
                             }
                         });
 
-                        //TOTAL
-                        document.getElementById('nilaiTotalSidang1').innerHTML = totalSidang1;
-                        document.getElementById('nilaiTotalProsesSidang1').innerHTML = totalProsesSidang1;
-
-
                     }
                     if (c2Sidang.sidangName == "Sidang 2") {
-
-                        var totalProsesSidang2 = c2Sidang.totalProsesSidang2;
-                        var totalSidang2 = c2Sidang.totalSidang2;
-
                         //sidang
                         nrpSidang2 = nrp + "Sidang2";
                         var nilaiPemb1DataRef = firebase.database().ref('nilai_pemb1/').child(nrpSidang2);
@@ -729,16 +727,9 @@ function lihatDetailNilai(id, nrp) {
                             }
                         });
 
-                        //TOTAL
-                        document.getElementById('nilaiTotalSidang2').innerHTML = totalSidang2;
-                        document.getElementById('nilaiTotalProsesSidang2').innerHTML = totalProsesSidang2;
 
                     }
                     if (c2Sidang.sidangName == "Sidang 3") {
-
-                        var totalProsesSidang3 = c2Sidang.totalProsesSidang3;
-                        var totalSidang3 = c2Sidang.totalSidang3;
-                        var totalProduk = c2Sidang.totalProduk;
 
                         //sidang
                         nrpSidang3 = nrp + "Sidang3";
@@ -1188,12 +1179,26 @@ function lihatDetailNilai(id, nrp) {
                             }
                         });
 
-                        //TOTAL
-                        document.getElementById('nilaiTotalSidang3').innerHTML = totalSidang3;
-                        document.getElementById('nilaiTotalProsesSidang3').innerHTML = totalProsesSidang3;
-                        document.getElementById('nilaiTotalProduk').innerHTML = totalProduk;
 
                     }
+
+                    if (gTopikId == c2Sidang.idTopik && ketemu == 0) {
+                        ketemu = 1;
+                        //TOTAL
+                        document.getElementById('nilaiTotalSidang1').innerHTML = c2Sidang.totalSidang1;
+                        document.getElementById('nilaiTotalProsesSidang1').innerHTML = c2Sidang.totalProsesSidang1;
+
+                        //TOTAL
+                        document.getElementById('nilaiTotalSidang2').innerHTML = c2Sidang.totalSidang2;
+                        document.getElementById('nilaiTotalProsesSidang2').innerHTML = c2Sidang.totalProsesSidang2;
+
+                        //TOTAL
+                        document.getElementById('nilaiTotalSidang3').innerHTML = c2Sidang.totalSidang3;
+                        document.getElementById('nilaiTotalProsesSidang3').innerHTML = c2Sidang.totalProsesSidang3;
+                        document.getElementById('nilaiTotalProduk').innerHTML = c2Sidang.totalProduk;
+                    }
+
+
                 });
             }
         });

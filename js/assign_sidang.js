@@ -1,4 +1,3 @@
-
 var tahun_ajaranGlobal;
 var tempKeyTopik;
 var tempAmbilIdTopik;
@@ -590,4 +589,3 @@ $("#btnSaveSidang1").click(function () {
     });
     alert("Data berhasil tersimpan");
 });
-

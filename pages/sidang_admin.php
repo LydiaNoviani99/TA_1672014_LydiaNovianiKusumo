@@ -61,11 +61,10 @@
                                                 <th>Jadwal</th>
                                                 <th>Jam</th>
                                                 <th>Ruangan</th>
-<!--                                                <th>pemb 1</th>
-                                                <th>pemb 2</th>
-                                                <th>peng 1</th>
-                                                <th>peng 2</th>-->
-                                                <th>Action</th>
+                                                <th>Pemb 1</th>
+                                                <th>Pemb 2</th>
+                                                <th>Peng 1</th>
+                                                <th>Peng 2</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -319,16 +318,11 @@
                                                     {data: 'tanggal'},
                                                     {data: 'jam_mulai'},
                                                     {data: 'ruangan'},
-//                                                    {data: 'pemb1'},
-//                                                    {data: 'pemb2'},
-//                                                    {data: 'peng1'},
-//                                                    {data: 'peng2'},
-                                                    {
-                                                        data: 'null',
-                                                        render: function (data, type, row) {
-                                                            return '<button type="button"  id="btnBeriNilai" class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
-                                                        }
-                                                    }
+                                                    {data: 'pemb1'},
+                                                    {data: 'pemb2'},
+                                                    {data: 'peng1'},
+                                                    {data: 'peng2'}
+                                                    
                                                 ]
                                             });
 
