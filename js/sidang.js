@@ -1,6 +1,7 @@
 
 var tahun_ajaranGlobal;
 var email_dosen;
+var nrpSidang;
 
 $(document).ready(function () {
 
@@ -2222,13 +2223,15 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
 
 //PEMBIMBING 1
 
+var totalSidang1 = 0;
+var bebas = 0, bebas2 = 0;
 function HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang) {
-    //alert(nrpSidang+"+"+idSidang);
+//    alert(nrpSidang+"+"+idSidang);
 //    var arrTotalSidang1 = new Array();
 //    var hasilTotalSidang1;
-    var totalSidang1 = 0;
-    var bebas = 0, bebas2 = 0;
 
+    totalSidang1 = 0;
+    bebas = 0, bebas2 = 0;
     var indikator_nilai_sidang1 = firebase.database().ref('indikator_nilai_sidang1/');
     indikator_nilai_sidang1.on("value", function (snap) {
         objIndikatorSidang1 = [];
@@ -2282,11 +2285,12 @@ function HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang) {
 
     }
 }
-
+var totalSidang = 0;
+var bebas = 0, bebas2 = 0;
 function HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang) {
-    //alert(nrpSidang+"+"+idSidang);
-    var totalSidang = 0;
-    var bebas = 0, bebas2 = 0;
+//    alert(nrpSidang + "+" + idSidang);
+    totalSidang = 0;
+    bebas = 0, bebas2 = 0;
 
     var indikator_nilai_sidang1 = firebase.database().ref('indikator_nilai_proses_sidang1/');
     indikator_nilai_sidang1.on("value", function (snap) {
@@ -2336,9 +2340,9 @@ function HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang) {
         }
     }
 }
-
+var totalSidang = 0;
 function HitungTotalNilaiSidang2_Pemb1(nrpSidang, idSidang) {
-    var totalSidang = 0;
+    totalSidang = 0;
 
     var indikator_nilai_sidang2 = firebase.database().ref('indikator_nilai_sidang2/');
     indikator_nilai_sidang2.on("value", function (snap) {
@@ -2382,11 +2386,12 @@ function HitungTotalNilaiSidang2_Pemb1(nrpSidang, idSidang) {
         }
     }
 }
-
+var totalSidang = 0;
+var bebas = 0, bebas2 = 0;
 function HitungTotalNilaiSidang2_Pemb1_Proses(nrpSidang, idSidang) {
     //alert(nrpSidang+"+"+idSidang);
-    var totalSidang = 0;
-    var bebas = 0, bebas2 = 0;
+    totalSidang = 0;
+    bebas = 0, bebas2 = 0;
 
     var indikator_nilai_sidang2_proses = firebase.database().ref('indikator_nilai_proses_sidang2/');
     indikator_nilai_sidang2_proses.on("value", function (snap) {
@@ -2432,9 +2437,9 @@ function HitungTotalNilaiSidang2_Pemb1_Proses(nrpSidang, idSidang) {
 
     }
 }
-
+var totalSidang = 0;
 function HitungTotalNilaiSidang3_Pemb1(nrpSidang, idSidang) {
-    var totalSidang = 0;
+    totalSidang = 0;
 
     var indikator_nilai_sidang3 = firebase.database().ref('indikator_nilai_sidang3/');
     indikator_nilai_sidang3.on("value", function (snap) {
@@ -2481,10 +2486,10 @@ function HitungTotalNilaiSidang3_Pemb1(nrpSidang, idSidang) {
         }
     }
 }
-
+var totalSidang = 0;
 function HitungTotalNilaiSidang3_Pemb1_Proses(nrpSidang, idSidang) {
     //alert(nrpSidang+"+"+idSidang);
-    var totalSidang = 0;
+    totalSidang = 0;
 
     var indikator_nilai_sidang3_proses = firebase.database().ref('indikator_nilai_proses_sidang3/');
     indikator_nilai_sidang3_proses.on("value", function (snap) {
@@ -2529,9 +2534,9 @@ function HitungTotalNilaiSidang3_Pemb1_Proses(nrpSidang, idSidang) {
         }
     }
 }
-
+var totalSidang = 0;
 function HitungTotalNilaiProduk_Pemb1(nrpSidang, idSidang) {
-    var totalSidang = 0;
+    totalSidang = 0;
 
     var indikator_nilai_produk = firebase.database().ref('indikator_nilai_produk/');
     indikator_nilai_produk.on("value", function (snap) {

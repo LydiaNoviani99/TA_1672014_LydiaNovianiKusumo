@@ -4,7 +4,7 @@ var filterDosenGlobal;
 var nikFilterDosen;
 var nameFilterDosen;
 var email_dosen;
-
+var nrpSidang;
 $(document).ready(function () {
 
     $('#halaman_nilai').hide();

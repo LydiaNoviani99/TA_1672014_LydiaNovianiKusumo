@@ -39,6 +39,11 @@
                                 </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
+                                    <button style="float: right" class=" btn btn-success" onclick="window.location = '../pages/nilai_admin_export.php';">
+
+                                        <span class="glyphicon glyphicon-export"></span> Export Nilai ke File Excel, Pdf, Print
+
+                                    </button>
                                     <h4>Pilih Tahun Ajaran</h4>
                                     <div class="form-group">
                                         <select class="form-control" id="filterTahun_Ajaran" name="filterTahun_Ajaran">
