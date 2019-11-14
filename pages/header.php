@@ -1,7 +1,6 @@
 <head>
     <link rel="stylesheet" href="../dist/css/mystyle.css">
 </head>
-
 <style>
 
     .b {
@@ -15,9 +14,6 @@
 <link rel="icon" href="../images/Lambang-Marnat.png" type="image/x-icon"/>
 <script type="text/javascript" src="../js/tahun_ajaran.js"></script>
 
-<!--<img src="../images/Logo Maranatha.png" width="140" height="70" hspace="15"/> 
-<img src="../images/garis.png" width="" height="50" /> 
-<img src="../images/logo IT.png" width="180" height="40" hspace="15"/>-->
 <p></p>
 <div style="background-color:#f89728; width:100%;height:100px;border:1px; display: block;">
     <br/>
@@ -53,8 +49,6 @@
             <ul class="dropdown-menu dropdown-user">
                 <li><a href="profile.php"><i class="fa fa-user fa-fw"></i> User Profile</a>
                 </li>
-<!--                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                </li>-->
                 <li class="divider"></li>
                 <li onclick="mainApp.logOut()"><a href="login.php">  <i class="fa fa-sign-out fa-fw"></i> Logout</a>
                 </li>
@@ -72,7 +66,7 @@
                     <a href="index.php" id="index"><i class="fa fa-dashboard fa-fw"></i> Welcome</a>
                 </li>
                 <li>
-                    <a href="index_admin.php" id="page_dashboardAdmin" ><i class="fa fa-dashboard fa-fw"></i> Dashboard Program Studi</a>
+                    <a href="index_admin.php" id="page_dashboardAdmin" ><i class="fa fa-dashboard fa-fw"></i> Dashboard Admin</a>
                 </li>
                 <li>
                     <a href="index_dosen.php" id="page_dashboardDosen" ><i class="fa fa-dashboard fa-fw"></i> Dashboard Dosen</a>
@@ -81,19 +75,19 @@
                 <br/>
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Dosen
+                    <label id="labelDosen"> Dosen </label>
                 </div>
                 <li>
                     <a href="sidang.php" id="page_sidang"><i class="fa fa-check-circle-o  "></i> Sidang Dosen</a>
                 </li>
                 <li>
-                    <a href="nilai.php" id="page_Nilai"><i class="fa fa-table "></i> Nilai</a>
+                    <a href="nilai.php" id="page_Nilai"><i class="fa fa-table "></i> Lihat Nilai</a>
                 </li>
-                
+
                 <br/>
                 <!-- Heading -->
                 <div class="sidebar-heading">
-                    Admin
+                    <label id="labelAdmin"> Admin </label>
                 </div>
                 <li>
                     <a href="topik.php" id="page_topik"><i class="fa fa-table "></i> Topik</a>
@@ -105,7 +99,7 @@
                     <a href="sidang_admin.php" id="page_sidangAdmin"><i class="fa fa-check-circle-o  "></i> Sidang Admin</a>
                 </li>
                 <li>
-                    <a href="nilai_admin.php" id="page_sidangAdmin"><i class="fa fa-check-circle-o  "></i> Nilai Admin</a>
+                    <a href="nilai_admin.php" id="page_nilaiAdmin"><i class="fa fa-check-circle-o  "></i> Nilai Admin</a>
                 </li>
                 <li>
                     <a href="view_pembimbing_penguji_sidang.php" id="page_viewPembPeng"><i class="fa fa-table   "></i> View Pembimbing Penguji</a>
@@ -160,8 +154,8 @@
 <!-- Custom Fonts -->
 <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-        <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
 
 <!-- jQuery -->
 <script src="../vendor/jquery/jquery.min.js"></script>

@@ -89,9 +89,16 @@
                                 <br/>
                                 <!-- Trigger the modal with a button -->
                                 <div class="form-group" padding-top: 10px;">
+                                     <button style="float: right" class=" btn btn-success" 
+                                        onclick="tablesToExcel(
+                                                        ['tblSidang1Detail', 'tblSidang2Detail', 'tblSidang3Detail', 'tblProdukDetail', 'tblProses1Detail', 'tblProses2Detail', 'tblProses3Detail'],
+                                                        ['Sidang 1', 'Sidang 2', 'Sidang 3', 'Produk', 'Proses 1', 'Proses 2', 'Proses 3'],
+                                                        'TestBook.xls', 'Excel'
+                                                        )">
+                                        <span class="glyphicon glyphicon-export"></span> Export Nilai Ke File Excel
+                                    </button>
 
-
-                                     <div class="col-sm-12" style="text-align: left;">
+                                    <div class="col-sm-12" style="text-align: left;">
                                         <table style="line-height: 2em"> 
                                             <tr>
                                                 <td>NRP &nbsp; &nbsp; </td>
@@ -108,32 +115,44 @@
                                                 <td> : </td>
                                                 <td> &nbsp; &nbsp; <label id="nilaiJudulTopik"></label></td>
                                             </tr>
+                                            <tr>
+                                                <td>Dosen Pembimbing 1 &nbsp; &nbsp; </td>
+                                                <td> : </td>
+                                                <td> &nbsp; &nbsp; <label id="nilaiDosenPemb1"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dosen Pembimbing 2 &nbsp; &nbsp; </td>
+                                                <td> : </td>
+                                                <td> &nbsp; &nbsp; <label id="nilaiDosenPemb2"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dosen Penguji 1 &nbsp; &nbsp; </td>
+                                                <td> : </td>
+                                                <td> &nbsp; &nbsp; <label id="nilaiDosenPeng1"></label></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dosen Penguji 2 &nbsp; &nbsp; </td>
+                                                <td> : </td>
+                                                <td> &nbsp; &nbsp; <label id="nilaiDosenPeng2"></label></td>
+                                            </tr>
                                         </table>
 
                                         <br/>
                                     </div>
 
-                                </div>
 
+                                </div>
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
                                     <br/>
                                     <ul class="nav nav-tabs" style="font-size: 13px">
-                                        <!--<li id="nilai_sidang_1" class="active"><a href="#sidang_1_tab">Sidang 1</a></li>-->
-                                        <?php
-                                        $nama = 'Lydia';
-                                        if ($nama == 'Lydia') {
-                                            ?>
-                                            <li id="nilai_sidang_1"><a href="#sidang_1_tab" data-toggle="tab">Sidang 1</a></li>
-                                            <?php
-                                        }
-                                        ?>
+                                        <li id="nilai_sidang_1"><a href="#sidang_1_tab" data-toggle="tab">Sidang 1</a></li>
                                         <li id="nilai_sidang_2"><a href="#sidang_2_tab" data-toggle="tab">Sidang 2</a></li>
-                                        <li id="nilai_sidang_3"><a href="#sidang_3_tab" data-toggle="tab">Sidang 3</a></li>
+                                        <li id="nilai_sidang_3"><a href="#sidang_3_tab" data-toggle="tab">Sidang 3</a></li>   
+                                        <li id="nilai_produk"><a href="#produk_tugas_akhir_tab">Produk Tugas Akhir</a></li>
                                         <li id="nilai_proses_1"><a href="#nilai_proses_sidang_1_tab" data-toggle="tab">Nilai Proses Sidang 1</a></li>
                                         <li id="nilai_proses_2"><a href="#nilai_proses_sidang_2_tab" data-toggle="tab">Nilai Proses Sidang 2</a></li>
                                         <li id="nilai_proses_3"><a href="#nilai_proses_sidang_3_tab" data-toggle="tab">Nilai Proses Sidang 3</a></li>
-                                        <li id="nilai_produk"><a href="#produk_tugas_akhir_tab">Produk Tugas Akhir</a></li>
                                     </ul>
 
                                     <div class="tab-content">
@@ -141,21 +160,22 @@
                                             <?php include_once './input_nilai_sidang1_detail.php'; ?>
                                         </div>
                                         <div id="sidang_2_tab" class="tab-pane fade">
-                                            <?php include_once './input_nilai_sidang2.php'; ?>
+                                            <?php include_once './input_nilai_sidang2_detail.php'; ?>
                                         </div>
                                         <div id="sidang_3_tab" class="tab-pane fade">
-                                            <?php include_once './input_nilai_sidang3.php'; ?>
-                                        </div> <div id="nilai_proses_sidang_1_tab" class="tab-pane fade">
-                                            <?php include_once './input_nilai_proses_sidang1.php'; ?>
+                                            <?php include_once './input_nilai_sidang3_detail.php'; ?>
+                                        </div> 
+                                        <div id="produk_tugas_akhir_tab" class="tab-pane fade">
+                                            <?php include_once './input_nilai_produk_detail.php'; ?>
+                                        </div>
+                                        <div id="nilai_proses_sidang_1_tab" class="tab-pane fade">
+                                            <?php include_once './input_nilai_proses_sidang1_detail.php'; ?>
                                         </div>
                                         <div id="nilai_proses_sidang_2_tab" class="tab-pane fade">
-                                            <?php include_once './input_nilai_proses_sidang2.php'; ?>
+                                            <?php include_once './input_nilai_proses_sidang2_detail.php'; ?>
                                         </div>
                                         <div id="nilai_proses_sidang_3_tab" class="tab-pane fade">
-                                            <?php include_once './input_nilai_proses_sidang3.php'; ?>
-                                        </div>
-                                        <div id="produk_tugas_akhir_tab" class="tab-pane fade">
-                                            <?php include_once './input_nilai_produk.php'; ?>
+                                            <?php include_once './input_nilai_proses_sidang3_detail.php'; ?>
                                         </div>
                                     </div>
 
@@ -186,6 +206,72 @@
         <script src="../js/nilai_admin.js"></script>
 
         <script type='text/javascript'>
+                                        var tablesToExcel = (function () {
+                                            var uri = 'data:application/vnd.ms-excel;base64,'
+                                                    , tmplWorkbookXML = '<?xml version="1.0"?><?mso-application progid="Excel.Sheet"?><Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet" xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">'
+                                                    + '<DocumentProperties xmlns="urn:schemas-microsoft-com:office:office"><Author>Axel Richter</Author><Created>{created}</Created></DocumentProperties>'
+                                                    + '<Styles>'
+                                                    + '<Style ss:ID="Currency"><NumberFormat ss:Format="Currency"></NumberFormat></Style>'
+                                                    + '<Style ss:ID="Date"><NumberFormat ss:Format="Medium Date"></NumberFormat></Style>'
+                                                    + '</Styles>'
+                                                    + '{worksheets}</Workbook>'
+                                                    , tmplWorksheetXML = '<Worksheet ss:Name="{nameWS}"><Table>{rows}</Table></Worksheet>'
+                                                    , tmplCellXML = '<Cell{attributeStyleID}{attributeFormula}><Data ss:Type="{nameType}">{data}</Data></Cell>'
+                                                    , base64 = function (s) {
+                                                        return window.btoa(unescape(encodeURIComponent(s)))
+                                                    }
+                                            , format = function (s, c) {
+                                                return s.replace(/{(\w+)}/g, function (m, p) {
+                                                    return c[p];
+                                                })
+                                            }
+                                            return function (tables, wsnames, wbname, appname) {
+                                                var ctx = "";
+                                                var workbookXML = "";
+                                                var worksheetsXML = "";
+                                                var rowsXML = "";
+
+                                                for (var i = 0; i < tables.length; i++) {
+                                                    if (!tables[i].nodeType)
+                                                        tables[i] = document.getElementById(tables[i]);
+                                                    for (var j = 0; j < tables[i].rows.length; j++) {
+                                                        rowsXML += '<Row>'
+                                                        for (var k = 0; k < tables[i].rows[j].cells.length; k++) {
+                                                            var dataType = tables[i].rows[j].cells[k].getAttribute("data-type");
+                                                            var dataStyle = tables[i].rows[j].cells[k].getAttribute("data-style");
+                                                            var dataValue = tables[i].rows[j].cells[k].getAttribute("data-value");
+                                                            dataValue = (dataValue) ? dataValue : tables[i].rows[j].cells[k].innerHTML;
+                                                            var dataFormula = tables[i].rows[j].cells[k].getAttribute("data-formula");
+                                                            dataFormula = (dataFormula) ? dataFormula : (appname == 'Calc' && dataType == 'DateTime') ? dataValue : null;
+                                                            ctx = {attributeStyleID: (dataStyle == 'Currency' || dataStyle == 'Date') ? ' ss:StyleID="' + dataStyle + '"' : ''
+                                                                , nameType: (dataType == 'Number' || dataType == 'DateTime' || dataType == 'Boolean' || dataType == 'Error') ? dataType : 'String'
+                                                                , data: (dataFormula) ? '' : dataValue
+                                                                , attributeFormula: (dataFormula) ? ' ss:Formula="' + dataFormula + '"' : ''
+                                                            };
+                                                            rowsXML += format(tmplCellXML, ctx);
+                                                        }
+                                                        rowsXML += '</Row>'
+                                                    }
+                                                    ctx = {rows: rowsXML, nameWS: wsnames[i] || 'Sheet' + i};
+                                                    worksheetsXML += format(tmplWorksheetXML, ctx);
+                                                    rowsXML = "";
+                                                }
+
+                                                ctx = {created: (new Date()).getTime(), worksheets: worksheetsXML};
+                                                workbookXML = format(tmplWorkbookXML, ctx);
+
+                                                console.log(workbookXML);
+
+                                                var link = document.createElement("A");
+                                                link.href = uri + base64(workbookXML);
+                                                link.download = wbname || 'ExportNilai.xls';
+                                                link.target = '_blank';
+                                                document.body.appendChild(link);
+                                                link.click();
+                                                document.body.removeChild(link);
+                                            }
+                                        })();
+
                                         $(document).ready(function () {
                                             var table = $('#nilaiAkhirTable').DataTable({
                                                 columns: [

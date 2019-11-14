@@ -1,13 +1,7 @@
-
-
-
 <h4>Nilai Sidang 1</h4>
 
 <br/>
-
-
-
-<table class="table table-striped" id="tblGrid">
+<table class="table table-striped" id="tblSidang1Detail">
     <thead id="tblHead">
         <tr>
             <th width="5">No</th>
@@ -22,7 +16,7 @@
         <!--Sidang 1 A-->
         <tr>
             <td><b>A</b></td>
-            <td><b>Pengumpulan data</b></td>
+            <td><b>Rencana kerja & Pencapaian target</b></td>
             <td class="text-center">10%</td>
             <td></td>
             <td></td>
@@ -212,6 +206,7 @@
                 <b>Presentasi</b>
             </td>
             <td class="text-center">10%</td>
+            <td></td>
             <td></td>
             <td></td>
         </tr>

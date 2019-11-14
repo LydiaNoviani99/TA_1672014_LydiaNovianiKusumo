@@ -79,7 +79,7 @@
                                     <div class="col-lg-12">
                                         <div class="row">
                                             <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
-                                                <img class="img-circle img-responsive" src="https://gravatar.com/avatar/faad661c4de796b2579ad6a4b8fada41?s=400&d=robohash&r=x">
+                                                <img src='https://avataaars.io/?avatarStyle=Circle&topType=LongHairBun&accessoriesType=Sunglasses&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerSweater&eyeType=Default&eyebrowType=UpDownNatural&mouthType=Smile&skinColor=Tanned'/>
                                             </div>
                                         </div>
                                     </div>

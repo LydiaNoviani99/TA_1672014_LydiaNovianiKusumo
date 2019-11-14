@@ -1,6 +1,7 @@
 var tahun_ajaranGlobal;
 var nikLogin;
 var email;
+var jmlBelumNilai = 0;
 $(document).ready(function () {
 
     var tahun_AjaranDataRef = firebase.database().ref().child('tahun_ajaran');
@@ -93,114 +94,19 @@ function addComboTahun_Ajaran(data) {
             addComboFilterDosen(obj);
         }
     });
-    hitungJumlahSidang();
     view_belumNilaiTable();
 
     $("#filterTahun_Ajaran").change(function () {
+        jmlBelumNilai = "-";
+        document.getElementById("jmlBelumNilai").innerHTML = jmlBelumNilai;
         view_belumNilaiTable();
     });
 
 }
 
-function hitungJumlahSidang() {
-    var jmlPemb1 = 0;
-    var jmlPemb2 = 0;
-    var jmlPeng1 = 0;
-    var jmlPeng2 = 0;
-    tahun_ajaranGlobal = $('#filterTahun_Ajaran option:selected').val();
-    var assignSidangDataRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal);
-    assignSidangDataRef.on("value", function (snap) {
-        objB = [];
-        if (snap.exists()) {
-            objB = [];
-            snap.forEach(function (childSnap) {
-                var c21 = childSnap.val();
-                var topikDataRef = firebase.database().ref('topik/' + tahun_ajaranGlobal + '/');
-                topikDataRef.on('value', function (snap) {
-                    snap.forEach(function (data) {
-                        var c2T = data.val();
-                        obj2B = {
-                            'id_topik': c2T.id,
-                            'judul2_topik': c2T.judul_topik,
-                            'mahasiswa2': c2T.mahasiswa,
-                            'dosen_pembimbing1': c2T.dosen_pembimbing1,
-                            'dosen_pembimbing2': c2T.dosen_pembimbing2,
-                            'sidangName': c21.sidangName,
-                            'dosen_penguji1': c21.dosen_penguji1,
-                            'dosen_penguji2': c21.dosen_penguji2
-                        };
-                        var dosenDataRef = firebase.database().ref('dosen/');
-                        dosenDataRef.on('value', function (snap) {
-                            if (snap.exists()) {
-                                snap.forEach(function (childSnap) {
-                                    var c2d = childSnap.val();
-                                    if (c2T.dosen_pembimbing1.nik === c2d.nik) {
-                                        email_dosen = c2d.email;
-                                        if (c21.idTopik === c2T.id) {
-                                            var user = firebase.auth().currentUser;
-                                            if (user != null) {
-                                                user.providerData.forEach(function (profile) {
-                                                    if (profile.email === email_dosen) {
-                                                        jmlPemb1++;
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    } else if (c2T.dosen_pembimbing2.nik === c2d.nik) {
-                                        email_dosen = c2d.email;
-                                        if (c21.idTopik === c2T.id) {
-                                            var user = firebase.auth().currentUser;
-                                            if (user != null) {
-                                                user.providerData.forEach(function (profile) {
-                                                    if (profile.email === email_dosen) {
-                                                        jmlPemb2++;
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    } else if (c21.dosen_penguji1.nik === c2d.nik) {
-                                        email_dosen = c2d.email;
-                                        if (c21.idTopik === c2T.id) {
-                                            var user = firebase.auth().currentUser;
-                                            if (user != null) {
-                                                user.providerData.forEach(function (profile) {
-                                                    if (profile.email === email_dosen) {
-                                                        jmlPeng1++;
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    } else if (c21.dosen_penguji2.nik === c2d.nik) {
-                                        email_dosen = c2d.email;
-                                        if (c21.idTopik === c2T.id) {
-                                            var user = firebase.auth().currentUser;
-                                            if (user != null) {
-                                                user.providerData.forEach(function (profile) {
-                                                    if (profile.email === email_dosen) {
-                                                        jmlPeng2++;
-                                                    }
-                                                });
-                                            }
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                        document.getElementById("jmlPemb1").innerHTML = jmlPemb1;
-                        document.getElementById("jmlPemb2").innerHTML = jmlPemb2;
-                        document.getElementById("jmlPeng1").innerHTML = jmlPeng1;
-                        document.getElementById("jmlPeng2").innerHTML = jmlPeng2;
-                    });
-                });
-            });
-
-
-        }
-    });
-
-}
 var tanggalSidang;
 function view_belumNilaiTable() {
+    var jmlBelumNilai = 0;
     var p_id = $('#filterTahun_Ajaran option:selected').val();
     $('#belumNilaiTable').DataTable().clear().draw();
     tahun_ajaranGlobal = p_id;
@@ -220,14 +126,11 @@ function view_belumNilaiTable() {
                     topikDataRef.on('value', function (snap) {
                         snap.forEach(function (data) {
                             var c2T = data.val();
-//                            var tanggalSidang = new Date(c21.tanggal);
-//                            tanggalSidang.setHours(0);
                             var formatter = 'dddd, DD MMMM YYYY, 23:59:59';
                             var date = new Date(c21.tanggal);
                             var tanggalSidang = moment(date).format(formatter);
                             obj2AAA = {
                                 'id_topik': c2T.id,
-                                'judul2_topik': c2T.judul_topik,
                                 'mahasiswa2': c2T.mahasiswa,
                                 'dosen_pembimbing1': c2T.dosen_pembimbing1,
                                 'dosen_pembimbing2': c2T.dosen_pembimbing2,
@@ -235,11 +138,8 @@ function view_belumNilaiTable() {
                                 'sidangId': c21.sidangId,
                                 'sidangName': c21.sidangName,
                                 'tanggal': tanggalSidang,
-                                'jam_mulai': c21.jam_mulai,
-                                'ruangan': c21.ruangan,
-                                'catatan': c21.catatan,
                                 'dosen_penguji1': c21.dosen_penguji1,
-                                'dosen_penguji2': c21.dosen_penguji2,
+                                'dosen_penguji2': c21.dosen_penguji2
                             };
                             var proses_sidang1_pemb1 = c21.nilai_proses_sidang1_pemb1;
                             var proses_sidang1_pemb2 = c21.nilai_proses_sidang1_pemb2;
@@ -278,26 +178,82 @@ function view_belumNilaiTable() {
                                                         if (profile.email === email_dosen) {
                                                             if (c21.sidangName === "Sidang 1") {
                                                                 if (typeof proses_sidang1_pemb1 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': "-",
+                                                                        'keterangan': "nilai proses"
+                                                                    };
+                                                                    jmlBelumNilai++;
                                                                     obj.push(obj2AAA);
                                                                 }
                                                                 if (typeof sidang1_pemb1 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai sidang"
+                                                                    };
+                                                                    jmlBelumNilai++;
                                                                     obj.push(obj2AAA);
                                                                 }
                                                             } else if (c21.sidangName === "Sidang 2") {
                                                                 if (typeof proses_sidang2_pemb1 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': "-",
+                                                                        'keterangan': "nilai proses"
+                                                                    };
+                                                                    jmlBelumNilai++;
                                                                     obj.push(obj2AAA);
                                                                 }
                                                                 if (typeof sidang2_pemb1 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai sidang"
+                                                                    };
+                                                                    jmlBelumNilai++;
                                                                     obj.push(obj2AAA);
                                                                 }
                                                             } else if (c21.sidangName === "Sidang 3") {
                                                                 if (typeof proses_sidang3_pemb1 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': "-",
+                                                                        'keterangan': "nilai proses"
+                                                                    };
+                                                                    jmlBelumNilai++;
                                                                     obj.push(obj2AAA);
                                                                 }
                                                                 if (typeof sidang3_pemb1 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai sidang"
+                                                                    };
+                                                                    jmlBelumNilai++;
                                                                     obj.push(obj2AAA);
                                                                 }
                                                                 if (typeof produk_pemb1 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai produk"
+                                                                    };
+                                                                    jmlBelumNilai++;
                                                                     obj.push(obj2AAA);
                                                                 }
                                                             }
@@ -305,53 +261,190 @@ function view_belumNilaiTable() {
                                                     });
                                                 }
                                             }
-                                            addViewSidangBelumDinilai(obj);
+                                        } else if (c2T.dosen_pembimbing2.nik === c2d.nik) {
+                                            email_dosen = c2d.email;
+                                            if (c21.idTopik === c2T.id) {
+                                                var user = firebase.auth().currentUser;
+                                                if (user != null) {
+                                                    user.providerData.forEach(function (profile) {
+                                                        if (profile.email === email_dosen) {
+                                                            if (c21.sidangName === "Sidang 1") {
+                                                                if (typeof proses_sidang1_pemb2 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': "-",
+                                                                        'keterangan': "nilai proses"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                            } else if (c21.sidangName === "Sidang 2") {
+                                                                if (typeof proses_sidang2_pemb2 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': "-",
+                                                                        'keterangan': "nilai proses"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                            } else if (c21.sidangName === "Sidang 3") {
+                                                                if (typeof proses_sidang3_pemb2 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': "-",
+                                                                        'keterangan': "nilai proses"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                                if (typeof produk_pemb2 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai produk"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        } else if (c21.dosen_penguji1.nik === c2d.nik) {
+                                            email_dosen = c2d.email;
+                                            if (c21.idTopik === c2T.id) {
+                                                var user = firebase.auth().currentUser;
+                                                if (user != null) {
+                                                    user.providerData.forEach(function (profile) {
+                                                        if (profile.email === email_dosen) {
+                                                            if (c21.sidangName === "Sidang 1") {
+                                                                if (typeof sidang1_peng1 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai sidang"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                            } else if (c21.sidangName === "Sidang 2") {
+                                                                if (typeof sidang2_peng1 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai sidang"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                            } else if (c21.sidangName === "Sidang 3") {
+                                                                if (typeof sidang3_peng1 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai sidang"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                                if (typeof produk_peng1 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai produk"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        } else if (c21.dosen_penguji2.nik === c2d.nik) {
+                                            email_dosen = c2d.email;
+                                            if (c21.idTopik === c2T.id) {
+                                                var user = firebase.auth().currentUser;
+                                                if (user != null) {
+                                                    user.providerData.forEach(function (profile) {
+                                                        if (profile.email === email_dosen) {
+                                                            if (c21.sidangName === "Sidang 1") {
+                                                                if (typeof sidang1_peng2 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai sidang"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                            } else if (c21.sidangName === "Sidang 2") {
+                                                                if (typeof sidang2_peng2 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai sidang"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                            } else if (c21.sidangName === "Sidang 3") {
+                                                                if (typeof sidang3_peng2 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai sidang"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                                if (typeof produk_peng2 === 'undefined') {
+                                                                    obj2AAA = {
+                                                                        'mahasiswa2': c2T.mahasiswa,
+                                                                        'sidangId': c21.sidangId,
+                                                                        'sidangName': c21.sidangName,
+                                                                        'tanggal': tanggalSidang,
+                                                                        'keterangan': "nilai produk"
+                                                                    };
+                                                                    jmlBelumNilai++;
+                                                                    obj.push(obj2AAA);
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }
                                         }
-//                                        else if (c2T.dosen_pembimbing2.nik === c2d.nik) {
-//                                            email_dosen = c2d.email;
-//                                            if (c21.idTopik === c2T.id) {
-//                                                var user = firebase.auth().currentUser;
-//                                                if (user != null) {
-//                                                    user.providerData.forEach(function (profile) {
-//                                                        if (profile.email === email_dosen) {
-//                                                            obj1.push(obj2AAA);
-//                                                        }
-//                                                    });
-//                                                }
-//                                            }
-//                                            addViewSidangBelumDinilai(obj);
-//                                        } else if (c21.dosen_penguji1.nik === c2d.nik) {
-//                                            email_dosen = c2d.email;
-//                                            if (c21.idTopik === c2T.id) {
-//                                                var user = firebase.auth().currentUser;
-//                                                if (user != null) {
-//                                                    user.providerData.forEach(function (profile) {
-//                                                        if (profile.email === email_dosen) {
-//                                                            obj2.push(obj2AAA);
-//                                                        }
-//                                                    });
-//                                                }
-//                                            }
-//                                            addViewSidangBelumDinilai(obj);
-//                                        } else if (c21.dosen_penguji2.nik === c2d.nik) {
-//                                            email_dosen = c2d.email;
-//                                            if (c21.idTopik === c2T.id) {
-//                                                var user = firebase.auth().currentUser;
-//                                                if (user != null) {
-//                                                    user.providerData.forEach(function (profile) {
-//                                                        if (profile.email === email_dosen) {
-//                                                            obj3.push(obj2AAA);
-//                                                        }
-//                                                    });
-//                                                }
-//                                            }
-//                                            addViewSidangBelumDinilai(obj);
-//                                        }
+
+                                        document.getElementById("jmlBelumNilai").innerHTML = jmlBelumNilai;
+                                        addViewSidangBelumDinilai(obj);
                                     });
                                 }
                             });
-
-
                         });
                     });
                 });

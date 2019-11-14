@@ -40,16 +40,8 @@
 
                                 <!-- /.panel-heading -->
                                 <div class="panel-body">
-                                    <h4>Pilih Tahun Ajaran</h4>
-                                    <div class="form-group">
+                                    <div class="form-group"> *pilih tahun ajaran terlebih dahulu 
                                         <select class="form-control" id="filterTahun_Ajaran" name="filterTahun_Ajaran">
-                                            <option></option>
-                                        </select>
-                                    </div>
-                                    
-                                    <h4>Pilih Dosen</h4>
-                                    <div class="form-group"> 
-                                        <select  class="form-control" name="filterDosen" id="filterDosen" required>
                                             <option></option>
                                         </select>
                                     </div>
@@ -59,7 +51,6 @@
                                         <b> Filter Tanggal </b> : 
                                         <input type="date" id="filterTanggalSidang" name="filterTanggalSidang" >
                                     </h5> 
-
 
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="viewSidangTableFilterTanggal">
                                         <thead>
@@ -82,7 +73,13 @@
                                         </tbody>
                                     </table>
                                     <br/>
+                                    <hr style="width: 100%; border: 1px solid black;"/>
 
+                                    <div class="form-group">  *pilih dosen terlebih dahulu 
+                                        <select  class="form-control" name="filterDosen" id="filterDosen" required>
+                                            <option></option>
+                                        </select>
+                                    </div>
 
                                     <h4><b> Data Seluruh Sidang </b> </h4> 
 
@@ -329,7 +326,7 @@
                                                     {
                                                         data: 'null',
                                                         render: function (data, type, row) {
-                                                            return '<button type="button"  id="btnBeriNilai" class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\')">Beri Nilai</button>'
+                                                            return '<button type="button"  id="btnBeriNilai" class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
                                                         }
                                                     }
                                                 ]

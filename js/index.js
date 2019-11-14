@@ -13,20 +13,19 @@ var mainApp = {};
             var dosenRef = firebase.database().ref('dosen/');
             dosenRef.on('value', function (snap) {
                 $.each(snap.val(), function (index, element) {
-//                    console.log(element.email);
-//                    console.log(element.id_role);
-//                    console.log(element.nama_role);
                     if (email === element.email) {
                         nik = element.nik;
                         id_role = element.id_role;
                         nama_role = element.nama_role;
+                        sessionStorage.setItem("role", element.id_role);
                     }
                 });
+
                 $("#profileNik").text(nik);
                 $("#profileName").text(name);
                 $("#id_role").text(id_role);
                 //Kaprodi
-                if (id_role === "1") {
+                if (sessionStorage.getItem("role") === "1") {
                     $("#page_dashboardAdmin").show();
                     $("#page_dashboardDosen").hide();
                     $("#page_tahunAjaran").show();
@@ -38,9 +37,12 @@ var mainApp = {};
                     $("#page_sidang").show();
                     $("#page_sidangAdmin").show();
                     $("#page_Nilai").show();
-                } 
+                    $("#page_nilaiAdmin").show();
+                    $("#labelDosen").show();
+                    $("#labelAdmin").show();
+                }
                 //Sekprodi
-                else if (id_role === "2") {
+                else if (sessionStorage.getItem("role") === "2") {
                     $("#page_dashboardAdmin").show();
                     $("#page_dashboardDosen").hide();
                     $("#page_tahunAjaran").show();
@@ -52,9 +54,12 @@ var mainApp = {};
                     $("#page_sidang").show();
                     $("#page_sidangAdmin").show();
                     $("#page_Nilai").show();
+                    $("#page_nilaiAdmin").show();
+                    $("#labelDosen").show();
+                    $("#labelAdmin").show();
                 }
                 //Koor TA
-                else if (id_role === "3") {
+                else if (sessionStorage.getItem("role") === "3") {
                     $("#page_dashboardAdmin").show();
                     $("#page_dashboardDosen").hide();
                     $("#page_tahunAjaran").show();
@@ -66,9 +71,12 @@ var mainApp = {};
                     $("#page_sidang").show();
                     $("#page_sidangAdmin").show();
                     $("#page_Nilai").show();
+                    $("#page_nilaiAdmin").show();
+                    $("#labelDosen").show();
+                    $("#labelAdmin").show();
                 }
                 //Petugas TU
-                else if (id_role === "4") {
+                else if (sessionStorage.getItem("role") === "4") {
                     $("#page_dashboardAdmin").show();
                     $("#page_dashboardDosen").hide();
                     $("#page_tahunAjaran").show();
@@ -80,20 +88,25 @@ var mainApp = {};
                     $("#page_sidang").hide();
                     $("#page_sidangAdmin").hide();
                     $("#page_Nilai").show();
+                    $("#page_nilaiAdmin").show();
+                    $("#labelDosen").hide();
+                    $("#labelAdmin").show();
                 }
                 //Dosen
-                else if (id_role === "5") {
+                else if (sessionStorage.getItem("role") === "5") {
                     $("#page_dashboardAdmin").hide();
                     $("#page_dashboardDosen").show();
                     $("#page_tahunAjaran").hide();
                     $("#page_dosen").hide();
                     $("#page_mahasiswa").hide();
                     $("#page_topik").hide();
-                    $("#page_viewPembPeng").show();
+                    $("#page_viewPembPeng").hide();
                     $("#page_assignSidang").hide();
                     $("#page_sidang").show();
                     $("#page_sidangAdmin").hide();
                     $("#page_Nilai").show();
+                    $("#labelDosen").show();
+                    $("#labelAdmin").hide();
                 }
             });
 
@@ -109,17 +122,3 @@ var mainApp = {};
 
     mainApp.logOut = logOut;
 })()
-
-$(document).ready(function () {
-    $("#page_dashboardAdmin").hide();
-    $("#page_dashboardDosen").hide();
-    $("#page_tahunAjaran").hide();
-    $("#page_dosen").hide();
-    $("#page_mahasiswa").hide();
-    $("#page_topik").hide();
-    $("#page_viewPembPeng").hide();
-    $("#page_assignSidang").hide();
-    $("#page_sidang").hide();
-    $("#page_sidangAdmin").hide();
-    $("#page_Nilai").hide();
-});

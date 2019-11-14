@@ -11,10 +11,10 @@
         <link rel="icon" href="../images/Icon IT.png" type="image/x-icon"/>
 
         <title>Sistem Pengelolaan Tugas Akhir</title>
-        
+
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
- </head>
+    </head>
 
     <body>
         <div id="wrapper">
@@ -71,13 +71,13 @@
                                                 <div class="modal-body">
                                                     <div class="messages"></div>
 
-<!--                                                    <div class="form-group"> 
-                                                        <label for="txtTahun_AjaranId" class="col-sm-4 control-label">Id</label>
-                                                        <div class="col-sm-8">
-                                                            <input type="text" class="form-control" id="txtTahun_AjaranId" name="txtTahun_AjaranId" placeholder="Id" readonly="">
-
-                                                        </div>
-                                                    </div>-->
+                                                    <!--                                                    <div class="form-group"> 
+                                                                                                            <label for="txtTahun_AjaranId" class="col-sm-4 control-label">Id</label>
+                                                                                                            <div class="col-sm-8">
+                                                                                                                <input type="text" class="form-control" id="txtTahun_AjaranId" name="txtTahun_AjaranId" placeholder="Id" readonly="">
+                                                    
+                                                                                                            </div>
+                                                                                                        </div>-->
                                                     <div class="form-group"> <!--/here teh addclass has-error will appear -->
                                                         <label for="txtTahun_AjaranName" class="col-sm-4 control-label">Name</label>
                                                         <div class="col-sm-8"> 
@@ -122,8 +122,8 @@
         </div>
 
 
-       
-        <!--<script src="../js/index.js"></script>-->
+
+ <!--<script src="../js/index.js"></script>-->
         <script src="../js/fireBase.js"></script>
 
         <script src="../js/tahun_ajaran.js"></script>
@@ -144,8 +144,6 @@
                             }
                         }
                     ]
-
-
                 });
             });
         </script>

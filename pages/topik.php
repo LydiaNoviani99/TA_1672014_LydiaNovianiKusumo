@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <button type="button" data-toggle="modal" data-target="#modal-import" id="btn-import" class=" btn btn-success ">
-                                        <span class="glyphicon glyphicon-upload"></span> Import Data Dari CSV
+                                        <span class="glyphicon glyphicon-import"></span> Import Data Dari CSV
                                     </button>
                                 </div>
                             </div>

@@ -16,7 +16,7 @@
         <!--Sidang 1 A-->
         <tr>
             <td><b>A</b></td>
-            <td><b>Pengumpulan data</b></td>
+            <td><b>Rencana kerja & Pencapaian target </b></td>
             <td>10%</td>
             <td class="text-right"></td>
             <td></td>

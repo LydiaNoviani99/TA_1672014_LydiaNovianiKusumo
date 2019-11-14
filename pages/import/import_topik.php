@@ -22,7 +22,5 @@ if (isset($_POST["submit_file"]) && $_FILES["file"]["tmp_name"] != null) {
         $numrow++;
     }
     echo json_encode($data);
-    // Close the file
-    fclose($h);
 }
 header('location:../topik.php?data=' . json_encode($data));

@@ -43,39 +43,7 @@
                                 Assign Sidang
                             </div>
 
-                            <br/>
-                            <!-- Trigger the modal with a button -->
-                            <div class="form-group" padding-top: 10px;">
 
-                                 <div class="col-sm-12" style="text-align: right;">
-                                    <div class="modal modal-primary fade" id="modal-import" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                        <div class="container"><!-- container class is used to centered  the body of the browser with some decent width-->
-                                            <div class="row"><!-- row class is used for grid system in Bootstrap-->
-                                                <div class="col-md-4 col-md-offset-4"><!--col-md-4 is used to create the no of colums in the grid also use for medimum and large devices-->
-                                                    <div class="login-panel panel panel-success">
-                                                        <div class="panel-heading">
-                                                            <h3 class="panel-title">Import Data Dari CSV</h3>
-                                                        </div>
-                                                        <div class="panel-body">
-                                                            <form method="post" action="import/import_mahasiswa.php" enctype="multipart/form-data">
-                                                                <fieldset>
-                                                                    <div class="form-group">
-                                                                        <input type="file" name="file"/>
-                                                                    </div>
-                                                                    <input class="btn btn-success" type="submit" name="submit_file" value="Submit"/>
-                                                                </fieldset>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button type="button" data-toggle="modal" data-target="#modal-import" id="btn-import" class=" btn btn-success ">
-                                        <span class="glyphicon glyphicon-upload"></span> Import Data Dari CSV
-                                    </button>
-                                </div>
-                            </div>
 
 
                             <!-- /.panel-heading -->
@@ -461,29 +429,32 @@
                                                                     {
                                                                         data: 'null',
                                                                         render: function (data, type, row) {
-//                            if(substr(row.sidang1.id,-4) == 'sdg1'){
-//                                return '<button id="btn_assignSidang1" class="btn btn-success btn-circle" style="background-color:red" onClick="assignSidang1(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\')"><b>1</b></button>'
-//                            } else {
+
                                                                             return '<button id="btn_assignSidang1" class="btn btn-success btn-circle" onClick="assignSidang1(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>1</b></button>'
-//                            }
+
+
                                                                         }
                                                                     },
                                                                     {
                                                                         data: 'null',
                                                                         render: function (data, type, row) {
-//                                                                            console.log(row.hasilNilaiAkhirSidang1)
-//                                                                            if (row.hasilNilaiAkhirSidang1 == "Belum Lengkap" || row.hasilNilaiAkhirSidang1 == "0.00" || typeof row.hasilNilaiAkhirSidang1 == "undefined") {
-//                                                                                return '<button id="btn_assignSidang2" class="btn btn-success btn-circle" style="background-color:red" onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\')"><b>2</b></button>'
-//                                                                            } else {
+                                                                            if (row.nilaiSidang1 == "Belum Lengkap" || row.nilaiSidang1 == "-") {
+                                                                                return '<button id="btn_assignSidang2" class="btn btn-success btn-circle" style="background-color:lightgrey"onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>2</b></button>'
+                                                                            } else {
                                                                                 return '<button id="btn_assignSidang2" class="btn btn-success btn-circle" onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>2</b></button>'
-//                                                                            }
+                                                                            }
                                                                         }
                                                                     },
                                                                     {
                                                                         data: 'null',
                                                                         render: function (data, type, row) {
-                                                                            return '<button class="btn btn-success btn-circle" onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
+                                                                            if (row.nilaiSidang2 == "Belum Lengkap" || row.nilaiSidang2 == "-") {
+                                                                                return '<button id="btn_assignSidang3" class="btn btn-success btn-circle" style="background-color:lightgrey"onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
+                                                                            } else {
+                                                                                return '<button class="btn btn-success btn-circle" onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
+                                                                            }
                                                                         }
+
                                                                     }
                                                                 ]
                                                             });

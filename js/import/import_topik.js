@@ -77,7 +77,7 @@ function ImportPengajuan(tahun_ajaranGlobal) {
                     nik: nik_dosenPemb2
                 }
             });
-            alert("masuk")
         });
+        alert("Import topik berhasil")
     }
 }

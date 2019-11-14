@@ -5,7 +5,7 @@ if (isset($_POST["submit_file"]) && $_FILES["file"]["tmp_name"] != null) {
     $file = $_FILES["file"]["tmp_name"];
     $file_open = fopen($file, "r");
     $data = array();
-    while (($csv = fgetcsv($file_open, 1000, ",")) !== false) {
+    while (($csv = fgetcsv($file_open, 1500, ",")) !== false) {
         if ($numrow > 2) {
             $object = (object) [
                         'nrp' => $csv[0],
@@ -17,7 +17,5 @@ if (isset($_POST["submit_file"]) && $_FILES["file"]["tmp_name"] != null) {
         $numrow++;
     }
     echo json_encode($data);
-    // Close the file
-    fclose($h);
 }
 header('location:../mahasiswa.php?data=' . json_encode($data));

@@ -81,7 +81,10 @@ function view_topik_to_assign_sidang() {
                         'dosen_pembimbing2': c2.dosen_pembimbing2,
                         'dosen_penguji1': c2.dosen_penguji1,
                         'dosen_penguji2': c2.dosen_penguji2,
-                        'catatan_sidang': c2.catatan_sidang
+                        'catatan_sidang': c2.catatan_sidang,
+                        'nilaiSidang1': c2.nilaiSidang1,
+                        'nilaiSidang2': c2.nilaiSidang2,
+                        'nilaiSidang3': c2.nilaiSidang3
                     };
                     obj.push(obj2)
                 });
@@ -206,10 +209,8 @@ function lihatDetailSidang(id) {
                     'ruangan': c2.ruangan,
                     'idTopik': c2.idTopik,
                     'dosen_penguji1': c2.dosen_penguji1,
-                    'dosen_penguji2': c2.dosen_penguji2,
-                    'catatan': c2.catatan
+                    'dosen_penguji2': c2.dosen_penguji2
                 };
-
                 idSidangDetail = c2.sidangId;
 
                 if (c2.idTopik === id) {
@@ -384,7 +385,8 @@ function assignSidang2(id, nrp, sidangId) {
                 };
 
                 if (nrp == c2.mahasiswa.nrp) {
-                    if (c2.nilaiSidang1 !== '0.00' && typeof c2.nilaiSidang1 !== 'undefined' && c2.nilaiSidang1 !== 'Belum Lengkap') {
+                    if (c2.nilaiSidang1 !== '0.00' && typeof c2.nilaiSidang1 !== 'undefined' && c2.nilaiSidang1 !== 'Belum Lengkap' && c2.nilaiSidang1 !== "-") {
+                        console.log(c2.nilaiSidang1)
                         $('#sidang1Modal').modal('show');
                         var ta_id = $('#filterTahun_Ajaran option:selected').val();
 
@@ -453,7 +455,7 @@ function assignSidang3(id, nrp, sidangId) {
                     'nilaiSidang3': c2.nilaiSidang3
                 };
                 if (nrp == c2.mahasiswa.nrp) {
-                    if (c2.nilaiSidang2 !== '0.00' && typeof c2.nilaiSidang2 !== 'undefined' && c2.nilaiSidang2 !== 'Belum Lengkap') {
+                    if (c2.nilaiSidang2 !== '0.00' && typeof c2.nilaiSidang2 !== 'undefined' && c2.nilaiSidang2 !== 'Belum Lengkap' && c2.nilaiSidang2 !== "-") {
                         $('#sidang1Modal').modal('show');
                         var ta_id = $('#filterTahun_Ajaran option:selected').val();
 
@@ -511,13 +513,10 @@ var pemb1_topik;
 var pemb12_topik;
 $("#btnSaveSidang1").click(function () {
     var action = $("#btnSaveSidang1").text();
+
     var gSidangName = $('#txtSidang1Jenis').val();
 
     var txtMahasiswa = $('#txtSidang1Mahasiswa').val();
-    var txtSidangNrp = txtMahasiswa.substr(0, txtMahasiswa.indexOf(' -'));
-    var txtSidangName = txtMahasiswa.substr(txtMahasiswa.indexOf('- ') + 1);
-    var txtTopikJudul = $('#txtSidang1Topik').val();
-
 
     var comboSidang1DosenPeng1 = $('#comboSidangDosenPeng1 option:selected').text();
     var comboSidang1DosenPeng2 = $('#comboSidangDosenPeng2 option:selected').text();

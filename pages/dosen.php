@@ -59,9 +59,8 @@
                                                         <div class="panel-body">
                                                             <form method="post" action="import/import_dosen.php" enctype="multipart/form-data">
                                                                 <fieldset>
-
                                                                     <div class="form-group">
-                                                                        <a href="../template_import/form_import_dosen.csv" download>
+                                                                        <a href="../template_import/form_input_dosen.csv" download>
                                                                             - Download Template Disini -
                                                                         </a>
                                                                         <input type="file" name="file"/>

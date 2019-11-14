@@ -1,3 +1,4 @@
+
 <h4>Nilai Produk Tugas Akhir</h4>
 
 <br/>
@@ -193,7 +194,7 @@
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
-        
+
         <!--Sidang 2 D-->
         <tr>
             <td><b>D</b></td>
@@ -207,7 +208,7 @@
         <tr>
             <td>1</td>
             <td>
-            Material Board (5%)
+                Material Board (5%)
             </td>
             <td></td>
             <td class="text-right">
@@ -218,7 +219,7 @@
         <tr>
             <td>2</td>
             <td>
-               Maket (10%)
+                Maket (10%)
             </td>
             <td></td>
             <td class="text-right">
@@ -229,7 +230,7 @@
         <tr>
             <td>3</td>
             <td>
-               Display Pameran (10%)
+                Display Pameran (10%)
             </td>
             <td></td>
             <td class="text-right">
@@ -237,7 +238,7 @@
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
-       
+
     </tbody>
 </table>
 

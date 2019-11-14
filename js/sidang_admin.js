@@ -243,18 +243,24 @@ function view_sidang_table_filter_tanggal_admin() {
                             };
 //                            alert(c21.tanggal + " aaaa " + tanggal_dipilih)
                             if (c21.tanggal === tanggal_dipilih) {
-                                if (c2T.dosen_pembimbing1.nik === nikFilterDosen
-                                        || c2T.dosen_pembimbing2.nik === nikFilterDosen
-                                        || c21.dosen_penguji1.nik === nikFilterDosen
-                                        || c21.dosen_penguji2.nik === nikFilterDosen) {
-
-                                    if (c21.idTopik === c2T.id) {
-                                        objTanggal.push(obj2Tanggal);
-
-                                    }
-                                    addViewSidangFilterTanggal(objTanggal);
+                                if (c21.idTopik === c2T.id) {
+                                    objTanggal.push(obj2Tanggal);
                                 }
+                                addViewSidangFilterTanggal(objTanggal);
                             }
+//                            if (c21.tanggal === tanggal_dipilih) {
+//                                if (c2T.dosen_pembimbing1.nik === nikFilterDosen
+//                                        || c2T.dosen_pembimbing2.nik === nikFilterDosen
+//                                        || c21.dosen_penguji1.nik === nikFilterDosen
+//                                        || c21.dosen_penguji2.nik === nikFilterDosen) {
+//
+//                                    if (c21.idTopik === c2T.id) {
+//                                        objTanggal.push(obj2Tanggal);
+//
+//                                    }
+//                                    addViewSidangFilterTanggal(objTanggal);
+//                                }
+//                            }
                         });
                     });
                 });
@@ -436,37 +442,6 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                 document.getElementById('nilaiMahasiswaNrp').innerHTML = gTopikMahasiswaNrp;
                                 document.getElementById('nilaiMahasiswaName').innerHTML = gTopikMahasiswaName;
                                 document.getElementById('nilaiJudulTopik').innerHTML = gTopikJudulTopik;
-                                console.log("jam : " + hariIni.getHours())
-//                                                        if (gTanggalSidang == hariIni) {
-                                if (hariIni.getHours() == 0) {
-                                    alert("123")
-                                    if (jenisSidang === "Sidang 1") {
-                                        $('.nav-tabs li:eq(3) a').tab('show');
-                                        $('#nilai_sidang_1').hide();
-                                        $('#nilai_sidang_2').hide();
-                                        $('#nilai_proses_2').hide();
-                                        $('#nilai_sidang_3').hide();
-                                        $('#nilai_proses_3').hide();
-                                        $('#nilai_produk').hide();
-                                    } else if (jenisSidang === "Sidang 2") {
-                                        $('.nav-tabs li:eq(1) a').tab('show');
-                                        $('#nilai_sidang_1').hide();
-                                        $('#nilai_proses_1').hide();
-                                        $('#nilai_sidang_2').hide();
-                                        $('#nilai_sidang_3').hide();
-                                        $('#nilai_proses_3').hide();
-                                        $('#nilai_produk').hide();
-                                    } else if (jenisSidang === "Sidang 3") {
-                                        $('.nav-tabs li:eq(2) a').tab('show');
-                                        $('#nilai_sidang_1').hide();
-                                        $('#nilai_proses_1').hide();
-                                        $('#nilai_sidang_2').hide();
-                                        $('#nilai_proses_2').hide();
-                                        $('#nilai_proses_3').hide();
-                                        $('#nilai_produk').hide();
-                                    }
-                                }
-//                                                        } else {
                                 if (jenisSidang === "Sidang 1") {
                                     $('.nav-tabs li:eq(0) a').tab('show');
                                     $('#nilai_sidang_2').hide();
@@ -488,7 +463,6 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang) {
                                     $('#nilai_sidang_2').hide();
                                     $('#nilai_proses_2').hide();
                                 }
-//                                                        }
 
                                 $("#btnSaveNilaiSidang1").click(function () {
                                     var SD1RP1 = $('#nilai1Sidang1').val();

@@ -79,10 +79,10 @@ $(document).ready(function () {
                         obj = [];
                         snap.forEach(function (childSnap) {
                             var c2 = childSnap.val();
-                            obj2 = {'id': c2.id, 
-                                'judul_topik': c2.judul_topik, 
-                                'mahasiswa': c2.mahasiswa, 
-                                'dosen_pembimbing1': c2.dosen_pembimbing1, 
+                            obj2 = {'id': c2.id,
+                                'judul_topik': c2.judul_topik,
+                                'mahasiswa': c2.mahasiswa,
+                                'dosen_pembimbing1': c2.dosen_pembimbing1,
                                 'dosen_pembimbing2': c2.dosen_pembimbing2};
 
                             obj.push(obj2);
@@ -260,7 +260,10 @@ $("#btnSaveTopik").click(function () {
                     dosen_pembimbing2: {
                         name: nameTopikDosenPemb2,
                         nik: nikTopikDosenPemb2
-                    }
+                    },
+                    nilaiSidang1: "-",
+                    nilaiSidang2: "-",
+                    nilaiSidang3: "-"
                 });
                 alert("Data berhasil tersimpan");
             } else {

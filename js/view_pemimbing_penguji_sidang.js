@@ -15,6 +15,21 @@ $(document).ready(function () {
     });
 });
 
+function addComboFilterDosen(data) {
+    $('#filterDosen').empty();
+    $('#filterDosen')
+            .append($("<option></option>")
+                    .attr("value", "--")
+                    .text("--Pilih Dosen--"));
+    $.each(data, function (key, value) {
+        $('#filterDosen')
+                .append($("<option></option>")
+                        .attr("value", value.nik)
+                        .text(value.nik + ' - ' + value.name));
+    });
+    var objSidang = [];
+    var obj2Sidang = [];
+}
 function addComboTahun_Ajaran(data) {
     $('#filterTahun_Ajaran').empty();
     $('#filterTahun_Ajaran')
@@ -49,12 +64,10 @@ function addComboTahun_Ajaran(data) {
             addComboFilterDosen(obj);
         }
     });
-    
+
     viewDataSidangSebagaiPembimbing();
     viewDataSidangSebagaiPenguji();
 
-
-    tahun_ajaranGlobal = $('#filterTahun_Ajaran option:selected').val();
 
     $("#filterTahun_Ajaran").change(function () {
         viewDataSidangSebagaiPembimbing();
@@ -67,28 +80,12 @@ function addComboTahun_Ajaran(data) {
     });
 }
 
-function addComboFilterDosen(data) {
-    $('#filterDosen').empty();
-
-    $('#filterDosen')
-            .append($("<option></option>")
-                    .attr("value", "--")
-                    .text("--Pilih Dosen--"));
-    $.each(data, function (key, value) {
-        $('#filterDosen')
-                .append($("<option></option>")
-                        .attr("value", value.nik)
-                        .text(value.nik + ' - ' + value.name));
-    });
-    var objSidang = [];
-    var obj2Sidang = [];
-}
 
 function viewDataSidangSebagaiPembimbing() {
     $('#sidangSebagaiPembimbing').DataTable().clear().draw();
     var dosenTerpilih = $('#filterDosen option:selected').val();
-    $('#sidangSebagaiPembimbing').DataTable().clear().draw();
 
+    tahun_ajaranGlobal = $('#filterTahun_Ajaran option:selected').val();
     var assignSidangDataRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal);
     assignSidangDataRef.on("value", function (snap) {
         objB = [];
@@ -128,6 +125,7 @@ function viewDataSidangSebagaiPenguji() {
     let dosenTerpilih = $('#filterDosen option:selected').val();
     $('#sidangSebagaiPenguji').DataTable().clear().draw();
 
+    tahun_ajaranGlobal = $('#filterTahun_Ajaran option:selected').val();
     var assignSidangDataRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal);
     assignSidangDataRef.on("value", function (snap) {
         objU = [];

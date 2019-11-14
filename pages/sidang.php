@@ -244,6 +244,7 @@
                                         <li id="nilai_proses_2"><a href="#nilai_proses_sidang_2_tab" data-toggle="tab">Nilai Proses Sidang 2</a></li>
                                         <li id="nilai_proses_3"><a href="#nilai_proses_sidang_3_tab" data-toggle="tab">Nilai Proses Sidang 3</a></li>
                                         <li id="nilai_produk"><a href="#produk_tugas_akhir_tab">Produk Tugas Akhir</a></li>
+                                        <li id="kosong"><a href="#kosong_tab"></a></li>
                                     </ul>
 
                                     <div class="tab-content">
@@ -266,6 +267,9 @@
                                         </div>
                                         <div id="produk_tugas_akhir_tab" class="tab-pane fade">
                                             <?php include_once './input_nilai_produk.php'; ?>
+                                        </div>
+                                        <div id="kosong_tab" class="tab-pane fade">
+                                            <?php include_once './kosong.php'; ?>
                                         </div>
                                     </div>
 
@@ -306,14 +310,10 @@
                         {data: 'tanggal'},
                         {data: 'jam_mulai'},
                         {data: 'ruangan'},
-//                                                    {data: 'pemb1'},
-//                                                    {data: 'pemb2'},
-//                                                    {data: 'peng1'},
-//                                                    {data: 'peng2'},
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button type="button"  id="btnBeriNilai" class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
+                                return '<button type="button"  id="btnBeriNilai" class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\')">Beri Nilai</button>'
                             }
                         }
                     ]
@@ -335,7 +335,7 @@
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\')">Beri Nilai</button>'
                             }
                         }
                     ]
@@ -355,7 +355,7 @@
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\')">Beri Nilai</button>'
                             }
                         }
                     ]
@@ -375,7 +375,7 @@
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\')">Beri Nilai</button>'
                             }
                         }
                     ]
@@ -391,7 +391,7 @@
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\')">Beri Nilai</button>'
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\')">Beri Nilai</button>'
                             }
                         }
                     ]
