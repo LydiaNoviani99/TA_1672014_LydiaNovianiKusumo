@@ -183,6 +183,7 @@ function view_belumNilaiTable() {
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
                                                                         'tanggal': "-",
+                                                                        "sebagai": "Pembimbing 1",
                                                                         'keterangan': "nilai proses"
                                                                     };
                                                                     jmlBelumNilai++;
@@ -193,6 +194,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Pembimbing 1",
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai sidang"
                                                                     };
@@ -205,6 +207,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Pembimbing 1",
                                                                         'tanggal': "-",
                                                                         'keterangan': "nilai proses"
                                                                     };
@@ -217,6 +220,7 @@ function view_belumNilaiTable() {
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
                                                                         'tanggal': tanggalSidang,
+                                                                        "sebagai": "Pembimbing 1",
                                                                         'keterangan': "nilai sidang"
                                                                     };
                                                                     jmlBelumNilai++;
@@ -228,6 +232,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Pembimbing 1",
                                                                         'tanggal': "-",
                                                                         'keterangan': "nilai proses"
                                                                     };
@@ -239,6 +244,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Pembimbing 1",
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai sidang"
                                                                     };
@@ -250,6 +256,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Pembimbing 1",
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai produk"
                                                                     };
@@ -273,6 +280,7 @@ function view_belumNilaiTable() {
                                                                     obj2AAA = {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
+                                                                        "sebagai": "Pembimbing 2",
                                                                         'sidangName': c21.sidangName,
                                                                         'tanggal': "-",
                                                                         'keterangan': "nilai proses"
@@ -287,6 +295,7 @@ function view_belumNilaiTable() {
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
                                                                         'tanggal': "-",
+                                                                        "sebagai": "Pembimbing 2",
                                                                         'keterangan': "nilai proses"
                                                                     };
                                                                     jmlBelumNilai++;
@@ -298,6 +307,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Pembimbing 2",
                                                                         'tanggal': "-",
                                                                         'keterangan': "nilai proses"
                                                                     };
@@ -308,6 +318,7 @@ function view_belumNilaiTable() {
                                                                     obj2AAA = {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
+                                                                        "sebagai": "Pembimbing 2",
                                                                         'sidangName': c21.sidangName,
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai produk"
@@ -333,6 +344,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Penguji 1",
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai sidang"
                                                                     };
@@ -345,6 +357,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Penguji 1",
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai sidang"
                                                                     };
@@ -357,6 +370,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Penguji 1",
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai sidang"
                                                                     };
@@ -368,6 +382,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Penguji 1",
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai produk"
                                                                     };
@@ -392,6 +407,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Penguji 2",
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai sidang"
                                                                     };
@@ -404,6 +420,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Penguji 2",
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai sidang"
                                                                     };
@@ -416,6 +433,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Penguji 2",
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai sidang"
                                                                     };
@@ -427,6 +445,7 @@ function view_belumNilaiTable() {
                                                                         'mahasiswa2': c2T.mahasiswa,
                                                                         'sidangId': c21.sidangId,
                                                                         'sidangName': c21.sidangName,
+                                                                        "sebagai": "Penguji 2",
                                                                         'tanggal': tanggalSidang,
                                                                         'keterangan': "nilai produk"
                                                                     };

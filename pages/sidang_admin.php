@@ -322,7 +322,7 @@
                                                     {data: 'pemb2'},
                                                     {data: 'peng1'},
                                                     {data: 'peng2'}
-                                                    
+
                                                 ]
                                             });
 

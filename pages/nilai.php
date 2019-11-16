@@ -63,6 +63,7 @@
                                                 <th>Sebagai</th>
                                                 <th>Nilai Sidang</th>
                                                 <th>Nilai Proses</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -80,6 +81,7 @@
                                                 <th>Sebagai</th>
                                                 <th>Nilai Sidang</th>
                                                 <th>Nilai Proses</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -98,6 +100,7 @@
                                                 <th>Nilai Sidang</th>
                                                 <th>Nilai Proses</th>
                                                 <th>Nilai Produk</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -3381,7 +3384,7 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 if (typeof row.totalNilaiSidang !== 'undefined') {
-                                    return '<button class="btn btn-link" onClick="lihatDetailNilai(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangName + '\',\'' + row.sop + '\')">' + row.totalNilaiSidang + ' </button>'
+                                    return row.totalNilaiSidang;
 
                                 } else {
                                     return '<span class="noPerwalian"> - </span>';
@@ -3392,11 +3395,17 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 if (typeof row.totalNilaiProses !== 'undefined') {
-                                    return '<button class="btn btn-link" onClick="lihatDetailNilai(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangName + '\')">' + row.totalNilaiProses + ' </button>'
+                                    return row.totalNilaiProses;
 
                                 } else {
                                     return '<span class="noPerwalian"> - </span>';
                                 }
+                            }
+                        },
+                        {
+                            data: 'null',
+                            render: function (data, type, row) {
+                                return '<button class="btn btn-info" onClick="lihatDetailNilai(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangName + '\')"><span class="glyphicon glyphicon-info-sign"></span > Detail </button>'
                             }
                         }
                     ]
@@ -3412,7 +3421,8 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 if (typeof row.totalNilaiSidang !== 'undefined') {
-                                    return '<button class="btn btn-link" onClick="lihatDetailNilai(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangName + '\')">' + row.totalNilaiSidang + ' </button>'
+                                    return row.totalNilaiSidang;
+
                                 } else {
                                     return '<span class="noPerwalian"> - </span>';
                                 }
@@ -3422,10 +3432,17 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 if (typeof row.totalNilaiProses !== 'undefined') {
-                                    return '<button class="btn btn-link"  onClick="lihatDetailNilai(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangName + '\')">' + row.totalNilaiProses + ' </button>'
+                                    return row.totalNilaiProses;
+
                                 } else {
                                     return '<span class="noPerwalian"> - </span>';
                                 }
+                            }
+                        },
+                        {
+                            data: 'null',
+                            render: function (data, type, row) {
+                                return '<button class="btn btn-info" onClick="lihatDetailNilai(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangName + '\')"><span class="glyphicon glyphicon-info-sign"></span > Detail </button>'
                             }
                         }
                     ]
@@ -3440,7 +3457,8 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 if (typeof row.totalNilaiSidang !== 'undefined') {
-                                    return '<button  class="btn btn-link" onClick="lihatDetailNilai(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangName + '\')">' + row.totalNilaiSidang + ' </button>'
+                                    return row.totalNilaiSidang;
+
                                 } else {
                                     return '<span class="noPerwalian"> - </span>';
                                 }
@@ -3450,7 +3468,8 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 if (typeof row.totalNilaiProses !== 'undefined') {
-                                    return '<button class="btn btn-link"  onClick="lihatDetailNilai(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangName + '\')">' + row.totalNilaiProses + ' </button>'
+                                    return row.totalNilaiProses;
+
                                 } else {
                                     return '<span class="noPerwalian"> - </span>';
                                 }
@@ -3460,10 +3479,16 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 if (typeof row.totalNilaiProduk !== 'undefined') {
-                                    return '<button class="btn btn-link"   onClick="lihatDetailNilai(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangName + '\')">' + row.totalNilaiProduk + ' </button>'
+                                    return row.totalNilaiProduk;
                                 } else {
                                     return '<span class="noPerwalian"> - </span>';
                                 }
+                            }
+                        },
+                        {
+                            data: 'null',
+                            render: function (data, type, row) {
+                                return '<button class="btn btn-info" onClick="lihatDetailNilai(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangName + '\')"><span class="glyphicon glyphicon-info-sign"></span > Detail </button>'
                             }
                         }
                     ]

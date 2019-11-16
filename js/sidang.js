@@ -495,7 +495,9 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 $('#nilai_proses_3').show();
                                                                 $('#nilai_produk').hide();
                                                             }
-                                                        } else {
+                                                        } 
+                                                        
+                                                        else {
                                                             if (jenisSidang === "Sidang 1") {
                                                                 $('.nav-tabs li:eq(0) a').tab('show');
                                                                 $('#nilai_sidang_2').hide();
@@ -2268,7 +2270,7 @@ function HitungTotalNilaiSidang1_Pemb1(nrpSidang, idSidang) {
         return false;
     } else {
         if (totalSidang1.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             //hasilTotalSidang1 = arrTotalSidang1.pop();
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
@@ -2324,7 +2326,7 @@ function HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_proses_sidang1_pemb1: totalSidang.toFixed(2)
@@ -2371,7 +2373,7 @@ function HitungTotalNilaiSidang2_Pemb1(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_sidang2_pemb1: totalSidang.toFixed(2)
@@ -2420,7 +2422,7 @@ function HitungTotalNilaiSidang2_Pemb1_Proses(nrpSidang, idSidang) {
 
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_proses_sidang2_pemb1: totalSidang.toFixed(2)
@@ -2470,7 +2472,7 @@ function HitungTotalNilaiSidang3_Pemb1(nrpSidang, idSidang) {
 
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_sidang3_pemb1: totalSidang.toFixed(2)
@@ -2518,7 +2520,7 @@ function HitungTotalNilaiSidang3_Pemb1_Proses(nrpSidang, idSidang) {
 
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_proses_sidang3_pemb1: totalSidang.toFixed(2)
@@ -2567,7 +2569,7 @@ function HitungTotalNilaiProduk_Pemb1(nrpSidang, idSidang) {
 
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_produk_pemb1: totalSidang.toFixed(2)
@@ -2617,7 +2619,7 @@ function HitungTotalNilaiSidang1_Pemb2_Proses(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_proses_sidang1_pemb2: totalSidang.toFixed(2)
@@ -2664,7 +2666,7 @@ function HitungTotalNilaiSidang2_Pemb2_Proses(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_proses_sidang2_pemb2: totalSidang.toFixed(2)
@@ -2711,7 +2713,7 @@ function HitungTotalNilaiSidang3_Pemb2_Proses(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_proses_sidang3_pemb2: totalSidang.toFixed(2)
@@ -2757,7 +2759,7 @@ function HitungTotalNilaiProduk_Pemb2(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_produk_pemb2: totalSidang.toFixed(2)
@@ -2806,7 +2808,7 @@ function HitungTotalNilaiSidang1_Peng1(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_sidang1_peng1: totalSidang.toFixed(2)
@@ -2852,7 +2854,7 @@ function HitungTotalNilaiSidang2_Peng1(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_sidang2_peng1: totalSidang.toFixed(2)
@@ -2898,7 +2900,7 @@ function HitungTotalNilaiSidang3_Peng1(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_sidang3_peng1: totalSidang.toFixed(2)
@@ -2943,7 +2945,7 @@ function HitungTotalNilaiProduk_Peng1(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_produk_peng1: totalSidang.toFixed(2)
@@ -2992,7 +2994,7 @@ function HitungTotalNilaiSidang1_Peng2(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_sidang1_peng2: totalSidang.toFixed(2)
@@ -3038,7 +3040,7 @@ function HitungTotalNilaiSidang2_Peng2(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_sidang2_peng2: totalSidang.toFixed(2)
@@ -3084,7 +3086,7 @@ function HitungTotalNilaiSidang3_Peng2(nrpSidang, idSidang) {
     } else {
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
         } else {
             firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal).child(idSidang).update({
                 nilai_sidang3_peng2: totalSidang.toFixed(2)
@@ -3130,7 +3132,7 @@ function HitungTotalNilaiProduk_Peng2(nrpSidang, idSidang) {
 
 
         if (totalSidang.toFixed(2) == "0.00") {
-            alert("Mohon maaf, terjadi kesalahan sistem. Tolong ulangi pengisian nilai. ")
+            alert("Mohon maaf, nilai tidak terhitung. Tolong ulangi pengisian nilai. ")
             return false;
         } else {
 

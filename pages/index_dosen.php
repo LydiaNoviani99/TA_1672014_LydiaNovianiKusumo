@@ -67,6 +67,7 @@
                                 <th>NRP</th>
                                 <th>Nama</th>
                                 <th>Sidang</th>
+                                <th>Sebagai</th>
                                 <th>Batas</th>
                                 <th  style="color: red">Keterangan</th>
                             </tr>
@@ -100,6 +101,7 @@
                             {data: 'mahasiswa2.nrp'},
                             {data: 'mahasiswa2.name'},
                             {data: 'sidangName'},
+                            {data: 'sebagai'},
                             {data: 'tanggal'},
                             {data: 'keterangan'}
                         ]
