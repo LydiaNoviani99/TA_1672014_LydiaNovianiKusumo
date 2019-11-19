@@ -242,7 +242,11 @@
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button id="updateTopik" class="btn btn-warning" onClick="updateTopik(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\')">Update</button>'
+                                if (typeof row.nilaiMutu !== 'undefined') {
+                                    return '<span style=color:red; >DONE</span>'
+                                } else {
+                                    return '<button id="updateTopik" class="btn btn-warning" onClick="updateTopik(\'' + row.id + '\',\'' + row.mahasiswa.nrp + '\')">Update</button>'
+                                }
                             }
                         }
                     ]

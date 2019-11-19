@@ -83,7 +83,8 @@ function view_topik_to_assign_sidang() {
                         'catatan_sidang': c2.catatan_sidang,
                         'nilaiSidang1': c2.nilaiSidang1,
                         'nilaiSidang2': c2.nilaiSidang2,
-                        'nilaiSidang3': c2.nilaiSidang3
+                        'nilaiSidang3': c2.nilaiSidang3,
+                        'nilaiMutu': c2.nilaiMutu
                     };
                     obj.push(obj2)
                 });

@@ -83,7 +83,9 @@ $(document).ready(function () {
                                 'judul_topik': c2.judul_topik,
                                 'mahasiswa': c2.mahasiswa,
                                 'dosen_pembimbing1': c2.dosen_pembimbing1,
-                                'dosen_pembimbing2': c2.dosen_pembimbing2};
+                                'dosen_pembimbing2': c2.dosen_pembimbing2,
+                                'nilaiMutu': c2.nilaiMutu
+                            };
 
                             obj.push(obj2);
                             addTopik(obj);

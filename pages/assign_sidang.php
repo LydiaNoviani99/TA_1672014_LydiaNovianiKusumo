@@ -407,6 +407,7 @@
             <!--./row-->
         </div>
         <!--./page-wrapper-->
+
     </div>
     <!--./wrapper-->
 
@@ -429,8 +430,11 @@
                                                                     {
                                                                         data: 'null',
                                                                         render: function (data, type, row) {
-
-                                                                            return '<button id="btn_assignSidang1" class="btn btn-success btn-circle" onClick="assignSidang1(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>1</b></button>'
+                                                                            if (typeof row.nilaiMutu !== 'undefined') {
+                                                                                return '<span style=color:red; >DONE</span>'
+                                                                            } else {
+                                                                                return '<button id="btn_assignSidang1" class="btn btn-success btn-circle" onClick="assignSidang1(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>1</b></button>'
+                                                                            }
 
 
                                                                         }
@@ -441,7 +445,12 @@
                                                                             if (row.nilaiSidang1 == "Belum Lengkap" || row.nilaiSidang1 == "-") {
                                                                                 return '<button id="btn_assignSidang2" class="btn btn-success btn-circle" style="background-color:lightgrey"onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>2</b></button>'
                                                                             } else {
-                                                                                return '<button id="btn_assignSidang2" class="btn btn-success btn-circle" onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>2</b></button>'
+                                                                                if (typeof row.nilaiMutu !== 'undefined') {
+                                                                                    return '<span style=color:red; >DONE</span>'
+                                                                                } else {
+                                                                                    return '<button id="btn_assignSidang2" class="btn btn-success btn-circle" onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>2</b></button>'
+                                                                                }
+
                                                                             }
                                                                         }
                                                                     },
@@ -451,7 +460,11 @@
                                                                             if (row.nilaiSidang2 == "Belum Lengkap" || row.nilaiSidang2 == "-") {
                                                                                 return '<button id="btn_assignSidang3" class="btn btn-success btn-circle" style="background-color:lightgrey"onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
                                                                             } else {
-                                                                                return '<button class="btn btn-success btn-circle" onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
+                                                                                if (typeof row.nilaiMutu !== 'undefined') {
+                                                                                    return '<span style=color:red; >DONE</span>'
+                                                                                } else {
+                                                                                    return '<button class="btn btn-success btn-circle" onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
+                                                                                }
                                                                             }
                                                                         }
 

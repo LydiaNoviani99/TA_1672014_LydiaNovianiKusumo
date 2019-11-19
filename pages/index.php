@@ -37,18 +37,21 @@
                 </div>
                 <div class="panel-body">
                     <!--<img src="../images/tentang interior.png" style="width:100%; height:100%; opacity: 0.8;">-->
-
+                    <h4>Go to website :</h4>
+                    <h5>- Universitas Kristen Maranatha : <a href="https://www.maranatha.edu/"  target="_blank"> Click this Link </a> </h5>
+                    <h5>- FSRD Universitas Kristen Maranatha : <a href="http://art.maranatha.edu/?lang=en"  target="_blank"> Click this Link </a> </h5>
+                    <h5>- S1 Desain Interior FSRD Universitas Kristen Maranatha : <a href="http://art.maranatha.edu/program-studi/program-studi-s-1-desain-interior/?lang=en"  target="_blank"> Click this Link </a></h5>
+                
+                    <img src="../images/visimisifsrd.png" style="width:50%;  opacity: 0.8;">
                 </div>
             </div>
-<!--             Footer 
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2019</span>
+                        <span>Copyright &copy; 2019</span>
                     </div>
                 </div>
             </footer>
-             End of Footer -->
         </div>
 
 
