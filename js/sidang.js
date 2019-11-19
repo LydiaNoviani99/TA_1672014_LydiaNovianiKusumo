@@ -495,9 +495,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 $('#nilai_proses_3').show();
                                                                 $('#nilai_produk').hide();
                                                             }
-                                                        } 
-                                                        
-                                                        else {
+                                                        } else {
                                                             if (jenisSidang === "Sidang 1") {
                                                                 $('.nav-tabs li:eq(0) a').tab('show');
                                                                 $('#nilai_sidang_2').hide();
@@ -536,7 +534,10 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                             if (SD1RP1 !== ''
                                                                     && SD1PD1 !== '' && SD1PD2 !== ''
                                                                     && SD1AM1 !== '' && SD1AM2 !== '' && SD1AM3 !== '' && SD1AM4 !== '' && SD1AM5 !== '' && SD1AM6 !== ''
-                                                                    && SD1PR1 !== '' && SD1PR2 !== '') {
+                                                                    && SD1PR1 !== '' && SD1PR2 !== '' && SD1RP1 <= 100
+                                                                    && SD1PD1 <= 100 && SD1PD2 <= 100
+                                                                    && SD1AM1 <= 100 && SD1AM2 <= 100 && SD1AM3 <= 100 && SD1AM4 <= 100 && SD1AM5 <= 100 && SD1AM6 <= 100
+                                                                    && SD1PR1 <= 100 && SD1PR2 <= 100) {
 
                                                                 nrpSidang = gTopikMahasiswaNrp + "Sidang1";
                                                                 firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
@@ -591,7 +592,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang1(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
                                                         $("#btnSaveNilaiSidang2").click(function () {
@@ -626,7 +627,13 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                     && SD2LJ1 !== '' && SD2LJ2 !== '' && SD2LJ3 !== ''
                                                                     && SD2PP1 !== '' && SD2PP2 !== '' && SD2PP3 !== ''
                                                                     && SD2PD1 !== '' && SD2PD2 !== '' && SD2PD3 !== '' && SD2PD4 !== ''
-                                                                    && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '') {
+                                                                    && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '' && SD2GK1 <= 100 && SD2GK2 <= 100 && SD2GK3 <= 100 && SD2GK4 <= 100
+                                                                    && SD2GP1 <= 100 && SD2GP2 <= 100 && SD2GP3 <= 100 && SD2GP4 <= 100
+                                                                    && SD2GP5 <= 100 && SD2GP6 <= 100 && SD2GP7 <= 100 && SD2GP8 <= 100
+                                                                    && SD2LJ1 <= 100 && SD2LJ2 <= 100 && SD2LJ3 <= 100
+                                                                    && SD2PP1 <= 100 && SD2PP2 <= 100 && SD2PP3 <= 100
+                                                                    && SD2PD1 <= 100 && SD2PD2 <= 100 && SD2PD3 <= 100 && SD2PD4 <= 100
+                                                                    && SD2PD5 <= 100 && SD2PD6 <= 100 && SD2PD7 <= 100) {
 
                                                                 nrpSidang = gTopikMahasiswaNrp + "Sidang2";
                                                                 firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
@@ -735,7 +742,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang2(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
                                                         $("#btnSaveNilaiSidang3").click(function () {
@@ -748,7 +755,9 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                             var SD3MJ5 = $('#nilaiB5Sidang3').val();
                                                             if (SD3MP1 !== '' && SD3MP2 !== ''
                                                                     && SD3MJ1 !== '' && SD3MJ2 !== '' && SD3MJ3 !== ''
-                                                                    && SD3MJ4 !== '' && SD3MJ5 !== '') {
+                                                                    && SD3MJ4 !== '' && SD3MJ5 !== '' && SD3MP1 <=100 && SD3MP2 <=100
+                                                                    && SD3MJ1 <=100 && SD3MJ2 <=100 && SD3MJ3 <=100
+                                                                    && SD3MJ4 <=100 && SD3MJ5 <=100) {
                                                                 nrpSidang = gTopikMahasiswaNrp + "Sidang3";
                                                                 firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
 
@@ -786,7 +795,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang3(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
 
                                                         });
@@ -812,7 +821,11 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                     && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== ''
                                                                     && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
                                                                     && PTALJ1 !== '' && PTALJ2 !== ''
-                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
+                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '' && PTAGK1 <=100 && PTAGK2 <=100 && PTAGK3 <=100 && PTAGK4 <=100
+                                                                    && PTAGP1 <=100 && PTAGP2 <=100 && PTAGP3 <=100 && PTAGP4 <=100
+                                                                    && PTAGP5 <=100 && PTAGP6 <=100 && PTAGP7 <=100 && PTAGP8 <=100
+                                                                    && PTALJ1 <=100 && PTALJ2 <=100
+                                                                    && PTAMB1 <=100 && PTAMB2 <=100 && PTAMB3 <=100) {
                                                                 nrpSidang = gTopikMahasiswaNrp + "NProduk";
                                                                 firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
                                                                     PTAGK1: {
@@ -888,7 +901,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang3(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
 
                                                         });
@@ -900,7 +913,9 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                             var NP1IN5 = $('#nilai5ProsesSidang1').val();
                                                             if (NP1IN1 !== ''
                                                                     && NP1IN2 !== '' && NP1IN3 !== ''
-                                                                    && NP1IN4 !== '' && NP1IN5 !== '') {
+                                                                    && NP1IN4 !== '' && NP1IN5 !== '' && NP1IN1 <=100
+                                                                    && NP1IN2 <=100 && NP1IN3 <=100
+                                                                    && NP1IN4 <=100 && NP1IN5 <=100) {
                                                                 nrpSidang = gTopikMahasiswaNrp + "Proses1";
                                                                 firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
                                                                     NP1IN1: {
@@ -927,7 +942,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungTotalNilaiSidang1_Pemb1_Proses(nrpSidang, idSidang);
                                                                 HitungNilaiAkhirSidang1(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
                                                         $("#btnSaveNilaiSidangProses2").click(function () {
@@ -943,7 +958,11 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                     && NP2IN2 !== '' && NP2IN3 !== ''
                                                                     && NP2IN4 !== '' && NP2IN5 !== ''
                                                                     && NP2IN6 !== ''
-                                                                    && NP2IN7 !== '' && NP2IN8 !== '') {
+                                                                    && NP2IN7 !== '' && NP2IN8 !== '' && NP2IN1 <=100
+                                                                    && NP2IN2 <=100 && NP2IN3 <=100
+                                                                    && NP2IN4 <=100 && NP2IN5 <=100
+                                                                    && NP2IN6 <=100
+                                                                    && NP2IN7 <=100 && NP2IN8 <=100) {
                                                                 nrpSidang = gTopikMahasiswaNrp + "Proses2";
                                                                 firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
                                                                     NP2IN1: {
@@ -983,7 +1002,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang2(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
                                                         $("#btnSaveNilaiSidangProses3").click(function () {
@@ -991,7 +1010,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                             var NP3IN2 = $('#nilai2ProsesSidang3').val();
                                                             var NP3IN3 = $('#nilai3ProsesSidang3').val();
                                                             if (NP3IN1 !== '' && NP3IN2 !== ''
-                                                                    && NP3IN3 !== '') {
+                                                                    && NP3IN3 !== '' && NP3IN1 <=100 && NP3IN2 <=100
+                                                                    && NP3IN3 <=100) {
                                                                 nrpSidang = gTopikMahasiswaNrp + "Proses3";
                                                                 firebase.database().ref('nilai_pemb1/').child(nrpSidang).set({
                                                                     NP3IN1: {
@@ -1011,7 +1031,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang3(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
                                                     }
@@ -1086,7 +1106,11 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                     && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== ''
                                                                     && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
                                                                     && PTALJ1 !== '' && PTALJ2 !== ''
-                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
+                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '' && PTAGK1 <=100 && PTAGK2 <=100 && PTAGK3 <=100 && PTAGK4 <=100
+                                                                    && PTAGP1 <=100 && PTAGP2 <=100 && PTAGP3 <=100 && PTAGP4 <=100
+                                                                    && PTAGP5 <=100 && PTAGP6 <=100 && PTAGP7 <=100 && PTAGP8 <=100
+                                                                    && PTALJ1 <=100 && PTALJ2 <=100
+                                                                    && PTAMB1 <=100 && PTAMB2 <=100 && PTAMB3 <=100) {
                                                                 nrpSidang = gTopikMahasiswaNrp + "NProduk";
                                                                 firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
                                                                     PTAGK1: {
@@ -1162,7 +1186,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang3(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
 
@@ -1174,7 +1198,9 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                             var NP1IN5 = $('#nilai5ProsesSidang1').val();
                                                             if (NP1IN1 !== ''
                                                                     && NP1IN2 !== '' && NP1IN3 !== ''
-                                                                    && NP1IN4 !== '' && NP1IN5 !== '') {
+                                                                    && NP1IN4 !== '' && NP1IN5 !== '' && NP1IN1 <=100
+                                                                    && NP1IN2 <=100 && NP1IN3 <=100
+                                                                    && NP1IN4 <=100 && NP1IN5 <=100) {
 
                                                                 nrpSidang = gTopikMahasiswaNrp + "Proses1";
                                                                 firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
@@ -1203,7 +1229,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang1(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
 
@@ -1221,7 +1247,11 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                     && NP2IN2 !== '' && NP2IN3 !== ''
                                                                     && NP2IN4 !== '' && NP2IN5 !== ''
                                                                     && NP2IN6 !== ''
-                                                                    && NP2IN7 !== '' && NP2IN8 !== '') {
+                                                                    && NP2IN7 !== '' && NP2IN8 !== '' && NP2IN1 <=100
+                                                                    && NP2IN2 <=100 && NP2IN3 <=100
+                                                                    && NP2IN4 <=100 && NP2IN5 <=100
+                                                                    && NP2IN6 <=100
+                                                                    && NP2IN7 <=100 && NP2IN8 <=100) {
                                                                 nrpSidang = gTopikMahasiswaNrp + "Proses2";
                                                                 firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
                                                                     NP2IN1: {
@@ -1261,7 +1291,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang2(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
 
@@ -1270,7 +1300,8 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                             var NP3IN2 = $('#nilai2ProsesSidang3').val();
                                                             var NP3IN3 = $('#nilai3ProsesSidang3').val();
                                                             if (NP3IN1 !== '' && NP3IN2 !== ''
-                                                                    && NP3IN3 !== '') {
+                                                                    && NP3IN3 !== '' && NP3IN1 <=100 && NP3IN2 <=100
+                                                                    && NP3IN3 <=100) {
                                                                 nrpSidang = gTopikMahasiswaNrp + "Proses3";
                                                                 firebase.database().ref('nilai_pemb2/').child(nrpSidang).set({
                                                                     NP3IN1: {
@@ -1290,7 +1321,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang3(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
                                                     }
@@ -1384,7 +1415,10 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                             if (SD1RP1 !== ''
                                                                     && SD1PD1 !== '' && SD1PD2 !== ''
                                                                     && SD1AM1 !== '' && SD1AM2 !== '' && SD1AM3 !== '' && SD1AM4 !== '' && SD1AM5 !== '' && SD1AM6 !== ''
-                                                                    && SD1PR1 !== '' && SD1PR2 !== '') {
+                                                                    && SD1PR1 !== '' && SD1PR2 !== '' && SD1RP1 <=100
+                                                                    && SD1PD1 <=100 && SD1PD2 <=100
+                                                                    && SD1AM1 <=100 && SD1AM2 <=100 && SD1AM3 <=100 && SD1AM4 <=100 && SD1AM5 <=100 && SD1AM6 <=100
+                                                                    && SD1PR1 <=100 && SD1PR2 <=100) {
 
                                                                 nrpSidang = gTopikMahasiswaNrp + "Sidang1";
 
@@ -1439,7 +1473,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
 
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
 
@@ -1475,7 +1509,13 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                     && SD2LJ1 !== '' && SD2LJ2 !== '' && SD2LJ3 !== ''
                                                                     && SD2PP1 !== '' && SD2PP2 !== '' && SD2PP3 !== ''
                                                                     && SD2PD1 !== '' && SD2PD2 !== '' && SD2PD3 !== '' && SD2PD4 !== ''
-                                                                    && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '') {
+                                                                    && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '' && SD2GK1 <=100 && SD2GK2 <=100 && SD2GK3 <=100 && SD2GK4 <=100
+                                                                    && SD2GP1 <=100 && SD2GP2 <=100 && SD2GP3 <=100 && SD2GP4 <=100
+                                                                    && SD2GP5 <=100 && SD2GP6 <=100 && SD2GP7 <=100 && SD2GP8 <=100
+                                                                    && SD2LJ1 <=100 && SD2LJ2 <=100 && SD2LJ3 <=100
+                                                                    && SD2PP1 <=100 && SD2PP2 <=100 && SD2PP3 <=100
+                                                                    && SD2PD1 <=100 && SD2PD2 <=100 && SD2PD3 <=100 && SD2PD4 <=100
+                                                                    && SD2PD5 <=100 && SD2PD6 <=100 && SD2PD7 <=100) {
                                                                 nrpSidang = gTopikMahasiswaNrp + "Sidang2";
                                                                 firebase.database().ref('nilai_peng1/').child(nrpSidang).set({
                                                                     SD2GK1: {
@@ -1583,7 +1623,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang2(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
 
                                                         });
@@ -1598,7 +1638,9 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                             var SD3MJ5 = $('#nilaiB5Sidang3').val();
                                                             if (SD3MP1 !== '' && SD3MP2 !== ''
                                                                     && SD3MJ1 !== '' && SD3MJ2 !== '' && SD3MJ3 !== ''
-                                                                    && SD3MJ4 !== '' && SD3MJ5 !== '') {
+                                                                    && SD3MJ4 !== '' && SD3MJ5 !== '' && SD3MP1 <=100 && SD3MP2 <=100
+                                                                    && SD3MJ1 <=100 && SD3MJ2 <=100 && SD3MJ3 <=100
+                                                                    && SD3MJ4 <=100 && SD3MJ5 <=100) {
 
                                                                 nrpSidang = gTopikMahasiswaNrp + "Sidang3";
                                                                 firebase.database().ref('nilai_peng1/').child(nrpSidang).set({
@@ -1637,7 +1679,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang3(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
 
@@ -1664,7 +1706,11 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                     && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== ''
                                                                     && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
                                                                     && PTALJ1 !== '' && PTALJ2 !== ''
-                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
+                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '' && PTAGK1 <= 100 && PTAGK2 <= 100 && PTAGK3 <= 100 && PTAGK4 <= 100
+                                                                    && PTAGP1 <= 100 && PTAGP2 <= 100 && PTAGP3 <= 100 && PTAGP4 <= 100
+                                                                    && PTAGP5 <= 100 && PTAGP6 <= 100 && PTAGP7 <= 100 && PTAGP8 <= 100
+                                                                    && PTALJ1 <= 100 && PTALJ2 <= 100
+                                                                    && PTAMB1 <= 100 && PTAMB2 <= 100 && PTAMB3 <= 100) {
 
                                                                 nrpSidang = gTopikMahasiswaNrp + "NProduk";
                                                                 firebase.database().ref('nilai_peng1/').child(nrpSidang).set({
@@ -1741,7 +1787,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang3(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
 
@@ -1856,7 +1902,10 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                             if (SD1RP1 !== ''
                                                                     && SD1PD1 !== '' && SD1PD2 !== ''
                                                                     && SD1AM1 !== '' && SD1AM2 !== '' && SD1AM3 !== '' && SD1AM4 !== '' && SD1AM5 !== '' && SD1AM6 !== ''
-                                                                    && SD1PR1 !== '' && SD1PR2 !== '') {
+                                                                    && SD1PR1 !== '' && SD1PR2 !== '' && SD1RP1 <= 100
+                                                                    && SD1PD1 <= 100 && SD1PD2 <= 100
+                                                                    && SD1AM1 <= 100 && SD1AM2 <= 100 && SD1AM3 <= 100 && SD1AM4 <= 100 && SD1AM5 <= 100 && SD1AM6 <= 100
+                                                                    && SD1PR1 <= 100 && SD1PR2 <= 100) {
 
                                                                 nrpSidang = gTopikMahasiswaNrp + "Sidang1";
                                                                 firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
@@ -1909,7 +1958,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang1(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
                                                         $("#btnSaveNilaiSidang2").click(function () {
@@ -1944,7 +1993,14 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                     && SD2LJ1 !== '' && SD2LJ2 !== '' && SD2LJ3 !== ''
                                                                     && SD2PP1 !== '' && SD2PP2 !== '' && SD2PP3 !== ''
                                                                     && SD2PD1 !== '' && SD2PD2 !== '' && SD2PD3 !== '' && SD2PD4 !== ''
-                                                                    && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '') {
+                                                                    && SD2PD5 !== '' && SD2PD6 !== '' && SD2PD7 !== '' && SD2GK1 <= 100 && SD2GK2 <= 100 && SD2GK3 <= 100 && SD2GK4 <= 100
+                                                                    && SD2GP1 <= 100 && SD2GP2 <= 100 && SD2GP3 <= 100 && SD2GP4 <= 100
+                                                                    && SD2GP5 <= 100 && SD2GP6 <= 100 && SD2GP7 <= 100 && SD2GP8 <= 100
+                                                                    && SD2LJ1 <= 100 && SD2LJ2 <= 100 && SD2LJ3 <= 100
+                                                                    && SD2PP1 <= 100 && SD2PP2 <= 100 && SD2PP3 <= 100
+                                                                    && SD2PD1 <= 100 && SD2PD2 <= 100 && SD2PD3 <= 100 && SD2PD4 <= 100
+                                                                    && SD2PD5 <= 100 && SD2PD6 <= 100 && SD2PD7 <= 100) {
+
 
                                                                 nrpSidang = gTopikMahasiswaNrp + "Sidang2";
                                                                 firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
@@ -2053,7 +2109,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang2(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
                                                         $("#btnSaveNilaiSidang3").click(function () {
@@ -2066,7 +2122,9 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                             var SD3MJ5 = $('#nilaiB5Sidang3').val();
                                                             if (SD3MP1 !== '' && SD3MP2 !== ''
                                                                     && SD3MJ1 !== '' && SD3MJ2 !== '' && SD3MJ3 !== ''
-                                                                    && SD3MJ4 !== '' && SD3MJ5 !== '') {
+                                                                    && SD3MJ4 !== '' && SD3MJ5 !== '' && SD3MP1 <= 100 && SD3MP2 <= 100
+                                                                    && SD3MJ1 <= 100 && SD3MJ2 <= 100 && SD3MJ3 <= 100
+                                                                    && SD3MJ4 <= 100 && SD3MJ5 <= 100) {
                                                                 nrpSidang = gTopikMahasiswaNrp + "Sidang3";
                                                                 firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
 
@@ -2104,7 +2162,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang3(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
                                                         $("#btnSaveNilaiProduk").click(function () {
@@ -2128,7 +2186,12 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                             if (PTAGK1 !== '' && PTAGK2 !== '' && PTAGK3 !== '' && PTAGK4 !== ''
                                                                     && PTAGP1 !== '' && PTAGP2 !== '' && PTAGP3 !== '' && PTAGP4 !== '' && PTAGP5 !== '' && PTAGP6 !== '' && PTAGP7 !== '' && PTAGP8 !== ''
                                                                     && PTALJ1 !== '' && PTALJ2 !== ''
-                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '') {
+                                                                    && PTAMB1 !== '' && PTAMB2 !== '' && PTAMB3 !== '' && PTAGK1 <= 100 && PTAGK2 <= 100 && PTAGK3 <= 100 && PTAGK4 <= 100
+                                                                    && PTAGP1 <= 100 && PTAGP2 <= 100 && PTAGP3 <= 100 && PTAGP4 <= 100 && PTAGP5 <= 100 && PTAGP6 <= 100 && PTAGP7 <= 100 && PTAGP8 <= 100
+                                                                    && PTALJ1 <= 100 && PTALJ2 <= 100
+                                                                    && PTAMB1 <= 100 && PTAMB2 <= 100 && PTAMB3 <= 100) {
+
+
                                                                 nrpSidang = gTopikMahasiswaNrp + "NProduk";
                                                                 firebase.database().ref('nilai_peng2/').child(nrpSidang).set({
                                                                     PTAGK1: {
@@ -2204,7 +2267,7 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                                                                 HitungNilaiAkhirSidang3(gTopikId, idSidang);
                                                                 HitungNilaiAkhirTugasAkhirMahasiswa(gTopikId, idSidang);
                                                             } else {
-                                                                alert("Masih ada nilai yang belum diisi.");
+                                                                alert("Masih ada nilai yang belum diisi (Isi nilai : 0 - 100).");
                                                             }
                                                         });
                                                     }

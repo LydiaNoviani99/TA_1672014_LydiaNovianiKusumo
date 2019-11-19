@@ -52,35 +52,39 @@ $("#btnSaveTahun_Ajaran").click(function () {
 
         var berhasil = false;
         var duplikat = false;
-        var tahun_AjaranDataRef = firebase.database().ref('tahun_ajaran/');
-        tahun_AjaranDataRef.on('value', function (snap) {
-            if (snap.exists()) {
-                obj = [];
-                snap.forEach(function (childSnap) {
-                    var c2 = childSnap.val();
-                    obj2 = {'id': c2.id, 'name': c2.name, 'status': c2.status};
-                    if (tahun_AjaranStatus == "true" && c2.status == "true") {
-                        duplikat = true;
-                    }
-                });
-            }
+        if (tahun_AjaranName != "") {
+            var tahun_AjaranDataRef = firebase.database().ref('tahun_ajaran/');
+            tahun_AjaranDataRef.on('value', function (snap) {
+                if (snap.exists()) {
+                    obj = [];
+                    snap.forEach(function (childSnap) {
+                        var c2 = childSnap.val();
+                        obj2 = {'id': c2.id, 'name': c2.name, 'status': c2.status};
+                        if (tahun_AjaranStatus == "true" && c2.status == "true") {
+                            duplikat = true;
+                        }
+                    });
+                }
 
-            if (duplikat == true) {
-                berhasil = false;
-            } else if (duplikat == false) {
-                firebase.database().ref('tahun_ajaran').child(tahun_AjaranId).set({
-                    id: tahun_AjaranId,
-                    name: tahun_AjaranName,
-                    status: tahun_AjaranStatus
-                });
-                berhasil = true;
-            }
-        });
+                if (duplikat == true) {
+                    berhasil = false;
+                } else if (duplikat == false) {
+                    firebase.database().ref('tahun_ajaran').child(tahun_AjaranId).set({
+                        id: tahun_AjaranId,
+                        name: tahun_AjaranName,
+                        status: tahun_AjaranStatus
+                    });
+                    berhasil = true;
+                }
+            });
 
-        if (berhasil == true) {
-            alert("Data berhasil tersimpan");
+            if (berhasil == true) {
+                alert("Data berhasil tersimpan");
+            } else {
+                alert("Gagal! Data Duplikasi (Sudah ada tahun ajaran yang aktif)");
+            }
         } else {
-            alert("Gagal! Data Duplikasi (Sudah ada tahun ajaran yang aktif)");
+            alert("Data masih ada yang kosong");
         }
 
     } else {
@@ -89,34 +93,40 @@ $("#btnSaveTahun_Ajaran").click(function () {
 
         var berhasil = false;
         var duplikat = false;
-        var tahun_AjaranDataRef = firebase.database().ref('tahun_ajaran/');
-        tahun_AjaranDataRef.on('value', function (snap) {
-            if (snap.exists()) {
-                obj = [];
-                snap.forEach(function (childSnap) {
-                    var c2 = childSnap.val();
-                    obj2 = {'id': c2.id, 'name': c2.name, 'status': c2.status};
-                    if (tahun_AjaranStatus == "true" && c2.status == "true") {
-                        duplikat = true;
-                    }
-                });
-                if (duplikat == true) {
-                    berhasil = false;
-                } else if (duplikat == false) {
-                    firebase.database().ref('tahun_ajaran').child(tempKey).set({
-                        id: tempKey,
-                        name: tahun_AjaranName,
-                        status: tahun_AjaranStatus
+
+        if (tahun_AjaranName != "") {
+            var tahun_AjaranDataRef = firebase.database().ref('tahun_ajaran/');
+            tahun_AjaranDataRef.on('value', function (snap) {
+                if (snap.exists()) {
+                    obj = [];
+                    snap.forEach(function (childSnap) {
+                        var c2 = childSnap.val();
+                        obj2 = {'id': c2.id, 'name': c2.name, 'status': c2.status};
+                        if (tahun_AjaranStatus == "true" && c2.status == "true") {
+                            duplikat = true;
+                        }
                     });
-                    berhasil = true;
+                    if (duplikat == true) {
+                        berhasil = false;
+                    } else if (duplikat == false) {
+                        firebase.database().ref('tahun_ajaran').child(tempKey).set({
+                            id: tempKey,
+                            name: tahun_AjaranName,
+                            status: tahun_AjaranStatus
+                        });
+                        berhasil = true;
+                    }
                 }
+            });
+            if (berhasil == true) {
+                alert("Data berhasil terbaharui");
+            } else {
+                alert("Gagal! Data Duplikasi (Sudah ada tahun ajaran yang aktif)");
             }
-        });
-        if (berhasil == true) {
-            alert("Data berhasil terbaharui");
         } else {
-            alert("Gagal! Data Duplikasi (Sudah ada tahun ajaran yang aktif)");
+            alert("Data masih ada yang kosong");
         }
+
     }
 
     document.getElementById("formTahun_Ajaran").reset();

@@ -1,5 +1,8 @@
 <h4>Nilai Proses Sidang 1</h4>
 
+<label> <b>(Isi nilai : 0 - 100)</b> </label>
+
+
 <br/>
 
 

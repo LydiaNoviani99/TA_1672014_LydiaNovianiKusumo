@@ -1,6 +1,9 @@
 
 <h4>Nilai Produk Tugas Akhir</h4>
 
+<label> <b>(Isi nilai : 0 - 100)</b> </label>
+
+
 <br/>
 
 <table class="table table-striped" id="tblGrid">

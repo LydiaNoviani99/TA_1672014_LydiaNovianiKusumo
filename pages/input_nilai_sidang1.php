@@ -1,5 +1,8 @@
 <h4>Nilai Sidang 1</h4>
 
+<label> <b>(Isi nilai : 0 - 100)</b> </label>
+
+
 <br/>
 
 <table class="table table-striped" id="tblGrid">
@@ -128,7 +131,7 @@
             <td class="text-right"><input id="nilai3fSidang1" type="text" class="form-control calculateSidang1" required=""/></td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
-        
+
         <!--Sidang 1 D-->
         <tr>
             <td><b>D</b></td>
@@ -157,7 +160,7 @@
             <td><input type="text" id="nilai4bSidang1" class="form-control calculateSidang1" required=""/></td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
-      
+
     </tbody>
 </table>
 

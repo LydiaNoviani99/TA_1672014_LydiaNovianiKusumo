@@ -1,5 +1,8 @@
 <h4>Nilai Sidang 2</h4>
 
+
+<label> <b>(Isi nilai : 0 - 100)</b> </label>
+
 <br/>
 
 <table class="table table-striped" id="tblGrid">
