@@ -14,6 +14,16 @@
 
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+        
+        <style type="text/css">
+            div.dataTables_scrollBody thead th,
+            div.dataTables_scrollBody thead td {
+                line-height: 0;
+                opacity:0.0;
+                width: 0px;
+                height:0px;
+            }
+        </style>
     </head>
 
     <body>
@@ -264,7 +274,12 @@
                                         })();
                                         $(document).ready(function () {
                                             var table = $('#nilaiAkhirTable').DataTable({
-                                                columns: [
+                                                "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
                                                     {data: 'mahasiswa.nrp'},
                                                     {data: 'mahasiswa.name'},
                                                     {

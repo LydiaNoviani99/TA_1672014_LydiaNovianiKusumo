@@ -40,5 +40,7 @@ $(document).ready(function () {
     $("#page_tahunAjaran").hide();
     $("#labelDosen").hide();
     $("#labelAdmin").hide();
+    $("#page_belum_dinilai_admin").hide();
+    $("#page_belum_dinilai").hide();
 });
 

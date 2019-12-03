@@ -8,6 +8,7 @@ var nameFilterDosen;
 
 var jmlBelumNilai;
 var jmlBelumNilaiSemuaSidang;
+
 $(document).ready(function () {
 
     var tahun_AjaranDataRef = firebase.database().ref().child('tahun_ajaran');
@@ -22,18 +23,139 @@ $(document).ready(function () {
             addComboTahun_Ajaran(obj);
         }
     });
-
-
     tahun_ajaranGlobal = $('#filterTahun_Ajaran option:selected').val();
-});
 
-function addComboFilterDosen(data) {
+    var DosenDataRef = firebase.database().ref().child('dosen');
+    DosenDataRef.on('value', function (snap) {
+        if (snap.exists()) {
+            obj = [];
+            snap.forEach(function (childSnap) {
+                var c2 = childSnap.val();
+//                console.log(c2);
+                obj2 = {'nik': c2.nik, 'name': c2.name, 'email': c2.email, 'id_role': c2.id_role, 'nama_role': c2.nama_role};
+                obj.push(obj2);
+            });
+            addComboDosen(obj);
+        }
+    });
+});
+function addComboTahun_Ajaran(data) {
+    $('#filterTahun_Ajaran').empty();
+    $('#filterTahun_Ajaran')
+            .append($("<option></option>")
+                    .attr("value", "-")
+                    .text("Pilih Semua Tahun Ajaran"));
+    $.each(data, function (key, value) {
+        $('#filterTahun_Ajaran')
+                .append($("<option></option>")
+                        .attr("value", value.idx)
+                        .text(value.name));
+    });
+    viewTopik()
+    showPieNilai();
+    showJumlahTopik();
+    initializeGrafikJumlah();
+    showGrafikJumlahTopik();
+
+    $("#filterTahun_Ajaran").change(function () {
+        viewTopik()
+        showPieNilai();
+        showJumlahTopik();
+        $("#filterDosen").val('-');
+        initializeGrafikJumlah();
+        showGrafikJumlahTopik();
+
+    });
+    $("#filterDosen").change(function () {
+        hitungJumlahSidang();
+    });
+}
+function initializeGrafikJumlah() {
+    var chart = new CanvasJS.Chart("chartContainerJumlahBimbingan", {
+        animationEnabled: true,
+        title: {
+            text: "Grafik Jumlah Mahasiswa Yang Dibimbing dan Diuji Dalam 1 Semester",
+            fontSize: 15
+        },
+        axisY: {
+            title: "Total Sidang",
+            titleFontColor: "#594a4e",
+            lineColor: "#594a4e",
+            labelFontColor: "#594a4e",
+            tickColor: "#594a4e"
+        },
+        toolTip: {
+            shared: true
+        },
+        legend: {
+            cursor: "pointer",
+            itemclick: toggleDataSeries
+        },
+        data: [
+            {
+                type: "column",
+                name: "Pembimbing 1",
+                legendText: "Pembimbing 1",
+                showInLegend: true,
+                dataPoints: [
+                    {label: "Sidang 1", y: 0},
+                    {label: "Sidang 2", y: 0},
+                    {label: "Sidang 3", y: 0},
+                ]
+            },
+            {
+                type: "column",
+                name: "Pembimbing 2",
+                legendText: "Pembimbing 2",
+                showInLegend: true,
+                dataPoints: [
+                    {label: "Sidang 1", y: 0},
+                    {label: "Sidang 2", y: 0},
+                    {label: "Sidang 3", y: 0},
+                ]
+            },
+            {
+                type: "column",
+                name: "Penguji 1",
+                legendText: "Penguji 1",
+                showInLegend: true,
+                dataPoints: [
+                    {label: "Sidang 1", y: 0},
+                    {label: "Sidang 2", y: 0},
+                    {label: "Sidang 3", y: 0},
+                ]
+            },
+            {
+                type: "column",
+                name: "Penguji 2",
+                legendText: "Penguji 2",
+                showInLegend: true,
+                dataPoints: [
+                    {label: "Sidang 1", y: 0},
+                    {label: "Sidang 2", y: 0},
+                    {label: "Sidang 3", y: 0},
+                ]
+            }
+        ]
+    });
+    chart.render();
+    function toggleDataSeries(e) {
+        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        } else {
+            e.dataSeries.visible = true;
+        }
+        chart.render();
+    }
+}
+
+
+function addComboDosen(data) {
     $('#filterDosen').empty();
     $('#filterDosen')
             .append($("<option></option>")
-                    .attr("value", "--")
+                    .attr("value", "-")
                     .text("--Pilih Dosen--"));
-
     $.each(data, function (key, value) {
         $('#filterDosen')
                 .append($("<option></option>")
@@ -42,794 +164,577 @@ function addComboFilterDosen(data) {
     });
 }
 
-function addComboTahun_Ajaran(data) {
-    $('#filterTahun_Ajaran').empty();
-    $('#filterTahun_Ajaran')
-            .append($("<option></option>")
-                    .attr("value", "-")
-                    .text("--Pilih Tahun Ajaran--"));
-    $.each(data, function (key, value) {
-        $('#filterTahun_Ajaran')
-                .append($("<option></option>")
-                        .attr("value", value.idx)
-                        .text(value.name));
-    });
+function viewTopik() {
+    $('#tabelNilaiMutu').DataTable().clear().draw();
+    var p_id = $('#filterTahun_Ajaran option:selected').val();
+    $('#tabelNilaiMutu').DataTable().clear().draw();
+    tahun_ajaranGlobal = p_id;
 
-
-
-//    hitungJumlahSidang();
-    view_belumNilaiTable();
-    view_belumNilaiTable_semuanya();
-
-    $("#filterTahun_Ajaran").change(function () {
-        inisialisasi();
-        view_belumNilaiTable_semuanya();
-        var DosenDataRef = firebase.database().ref().child('dosen');
-        DosenDataRef.on('value', function (snap) {
+    if (p_id == "-") {
+        var topikDataRef = firebase.database().ref('topik/');
+        topikDataRef.on('value', function (snap) {
+            objAll = [];
+            if (snap.exists()) {
+                obj = [];
+                snap.forEach(function (childSnap) {
+                    childSnap.forEach(function (childSnap2) {
+                        var c2 = childSnap2.val();
+                        obj2 = {'id': c2.id,
+                            'judul_topik': c2.judul_topik,
+                            'mahasiswa': c2.mahasiswa,
+                            'dosen_pembimbing1': c2.dosen_pembimbing1,
+                            'dosen_pembimbing2': c2.dosen_pembimbing2,
+                            'nilaiMutu': c2.nilaiMutu,
+                            'tahun_ajaran': c2.tahun_ajaran
+                        };
+                        objAll.push(obj2);
+                        addTabelNilaiMutu(objAll);
+                    });
+                });
+            }
+        });
+    } else {
+        var topikDataRef = firebase.database().ref('topik/' + tahun_ajaranGlobal);
+        topikDataRef.on('value', function (snap) {
+            obj = [];
             if (snap.exists()) {
                 obj = [];
                 snap.forEach(function (childSnap) {
                     var c2 = childSnap.val();
-                    obj2 = {'nik': c2.nik, 'name': c2.name, 'email': c2.email, 'id_role': c2.id_role, 'nama_role': c2.nama_role};
+                    obj2 = {'id': c2.id,
+                        'judul_topik': c2.judul_topik,
+                        'mahasiswa': c2.mahasiswa,
+                        'nilaiMutu': c2.nilaiMutu,
+                        'tahun_ajaran': c2.tahun_ajaran
+                    };
+
                     obj.push(obj2);
+                    addTabelNilaiMutu(obj);
                 });
-                addComboFilterDosen(obj);
             }
         });
+    }
+}
+function addTabelNilaiMutu(data) {
+    $('#tabelNilaiMutu').DataTable().clear().draw();
+    $('#tabelNilaiMutu').DataTable().rows.add(data).draw();
+}
 
-        $("#filterDosen").change(function () {
-            hitungJumlahSidang();
-            view_belumNilaiTable();
-            view_belumNilaiTable_semuanya();
+var nilaiA = 0;
+var nilaiBplus = 0;
+var nilaiB = 0;
+var nilaiCplus = 0;
+var nilaiC = 0;
+var nilaiD = 0;
+var nilaiE = 0;
+function showPieNilai() {
+    if (tahun_ajaranGlobal == "-") {
+        nilaiA = 0;
+        nilaiBplus = 0;
+        nilaiB = 0;
+        nilaiCplus = 0;
+        nilaiC = 0;
+        nilaiD = 0;
+        nilaiE = 0;
+        var topikDataRef = firebase.database().ref('topik/');
+        topikDataRef.on('value', function (snap) {
+            obj = [];
+            if (snap.exists()) {
+                obj = [];
+                snap.forEach(function (childSnap) {
+                    childSnap.forEach(function (childSnap3) {
+
+                        var c2 = childSnap3.val();
+                        obj2 = {'id': c2.id,
+                            'judul_topik': c2.judul_topik,
+                            'mahasiswa': c2.mahasiswa,
+                            'nilaiMutu': c2.nilaiMutu,
+                            'tahun_ajaran': c2.tahun_ajaran
+                        };
+                        if (c2.nilaiMutu == "A") {
+                            nilaiA++;
+                        }
+                        if (c2.nilaiMutu == "B+") {
+                            nilaiBplus++;
+                        }
+                        if (c2.nilaiMutu == "B") {
+                            nilaiB++;
+                        }
+                        if (c2.nilaiMutu == "C+") {
+                            nilaiCplus++;
+                        }
+                        if (c2.nilaiMutu == "C") {
+                            nilaiC++;
+                        }
+                        if (c2.nilaiMutu == "D") {
+                            nilaiD++;
+                        }
+                        if (c2.nilaiMutu == "E") {
+                            nilaiE++;
+                        }
+                    });
+                });
+                var chart = new CanvasJS.Chart("myChartNilai", {
+                    animationEnabled: true,
+                    title: {
+                        text: "Grafik Nilai Dalam 1 Semester",
+                        fontSize: 15
+                    },
+                    data: [{
+                            type: "pie",
+                            startAngle: 240,
+                            indexLabel: "{label} {y}",
+                            dataPoints: [
+                                {y: nilaiA, label: "A"},
+                                {y: nilaiBplus, label: "B+"},
+                                {y: nilaiB, label: "B"},
+                                {y: nilaiCplus, label: "C+"},
+                                {y: nilaiC, label: "C"},
+                                {y: nilaiD, label: "D"},
+                                {y: nilaiE, label: "E"}
+                            ]
+                        }]
+                });
+                chart.render();
+            }
         });
-    });
+    } else {
+        nilaiA = 0;
+        nilaiBplus = 0;
+        nilaiB = 0;
+        nilaiCplus = 0;
+        nilaiC = 0;
+        nilaiD = 0;
+        nilaiE = 0;
+        var topikDataRef = firebase.database().ref('topik/').child(tahun_ajaranGlobal);
+        topikDataRef.on('value', function (snap) {
+            obj = [];
+            if (snap.exists()) {
+                obj = [];
+                snap.forEach(function (childSnap) {
+                    var c2 = childSnap.val();
+                    obj2 = {'id': c2.id,
+                        'judul_topik': c2.judul_topik,
+                        'mahasiswa': c2.mahasiswa,
+                        'nilaiMutu': c2.nilaiMutu,
+                        'tahun_ajaran': c2.tahun_ajaran
+                    };
+                    if (c2.nilaiMutu == "A") {
+                        nilaiA++;
+                    }
+                    if (c2.nilaiMutu == "B+") {
+                        nilaiBplus++;
+                    }
+                    if (c2.nilaiMutu == "B") {
+                        nilaiB++;
+                    }
+                    if (c2.nilaiMutu == "C+") {
+                        nilaiCplus++;
+                    }
+                    if (c2.nilaiMutu == "C") {
+                        nilaiC++;
+                    }
+                    if (c2.nilaiMutu == "D") {
+                        nilaiD++;
+                    }
+                    if (c2.nilaiMutu == "E") {
+                        nilaiE++;
+                    }
+                });
+                var chart = new CanvasJS.Chart("myChartNilai", {
+                    animationEnabled: true,
+                    title: {
+                        text: "Grafik Nilai Dalam 1 Semester",
+                        fontSize: 15
+                    },
+
+                    data: [{
+                            type: "pie",
+                            startAngle: 240,
+                            indexLabel: "{label} {y}",
+                            dataPoints: [
+                                {y: nilaiA, label: "A"},
+                                {y: nilaiBplus, label: "B+"},
+                                {y: nilaiB, label: "B"},
+                                {y: nilaiCplus, label: "C+"},
+                                {y: nilaiC, label: "C"},
+                                {y: nilaiD, label: "D"},
+                                {y: nilaiE, label: "E"}
+                            ]
+                        }]
+                });
+                chart.render();
+            } else {
+                var chart = new CanvasJS.Chart("myChartNilai", {
+                    animationEnabled: true,
+                    title: {
+                        text: "Grafik Nilai Dalam 1 Semester",
+                        fontSize: 15
+                    },
+                    data: [{
+                            type: "pie",
+                            startAngle: 240,
+                            indexLabel: "{label} {y}",
+                            dataPoints: [
+                                {y: 0, label: "A"},
+                                {y: 0, label: "B+"},
+                                {y: 0, label: "B"},
+                                {y: 0, label: "C+"},
+                                {y: 0, label: "C"},
+                                {y: 0, label: "D"},
+                                {y: 0, label: "E"}
+                            ]
+                        }]
+                });
+                chart.render();
+            }
+        });
+    }
+}
+var jmlTopik = 0;
+var jmlTopikSudahDinilai = 0;
+function showJumlahTopik() {
+    jmlTopik = 0;
+    jmlTopikSudahDinilai = 0;
+    if (tahun_ajaranGlobal !== "-") {
+        var topikDataRef = firebase.database().ref('topik/').child(tahun_ajaranGlobal);
+        topikDataRef.on('value', function (snap) {
+            obj = [];
+            if (snap.exists()) {
+                obj = [];
+                snap.forEach(function (childSnap) {
+                    var c2 = childSnap.val();
+                    obj2 = {'id': c2.id,
+                        'judul_topik': c2.judul_topik,
+                        'mahasiswa': c2.mahasiswa,
+                        'nilaiMutu': c2.nilaiMutu,
+                        'tahun_ajaran': c2.tahun_ajaran
+                    };
+                    jmlTopik++;
+                    if (typeof c2.nilaiMutu !== 'undefined') {
+                        jmlTopikSudahDinilai++;
+                    }
+                });
+            }
+            document.getElementById('jmlTopik').innerHTML = jmlTopik;
+            document.getElementById('jmlTopikSudahDinilai').innerHTML = jmlTopikSudahDinilai;
+        });
+    } else {
+        var topikDataRef = firebase.database().ref('topik/');
+        topikDataRef.on('value', function (snap) {
+            obj = [];
+            if (snap.exists()) {
+                obj = [];
+                snap.forEach(function (childSnap) {
+                    childSnap.forEach(function (childSnap2) {
+                        var c2 = childSnap2.val();
+                        jmlTopik++;
+                        if (typeof c2.nilaiMutu !== 'undefined') {
+                            jmlTopikSudahDinilai++;
+                        }
+                    });
+                });
+                document.getElementById('jmlTopik').innerHTML = jmlTopik;
+                document.getElementById('jmlTopikSudahDinilai').innerHTML = jmlTopikSudahDinilai;
+            }
+
+        });
+    }
+
 }
 
-function inisialisasi() {
-
-    jmlBelumNilai = 0;
-    document.getElementById("jmlBelumNilai").innerHTML = jmlBelumNilai;
-    jmlBelumNilaiSemuaSidang = 0;
-    document.getElementById("jmlBelumNilaiSemuaSidang").innerHTML = jmlBelumNilaiSemuaSidang;
-
-
-    $('#belumNilaiTable').DataTable().clear().draw();
-}
 function hitungJumlahSidang() {
-    filterDosenGlobal = $('#filterDosen option:selected').text();
-    nikFilterDosen = filterDosenGlobal.substr(0, filterDosenGlobal.indexOf(' -'));
-    nameFilterDosen = filterDosenGlobal.substr(filterDosenGlobal.indexOf('- ') + 2);
+
+    jmlPemb1Sidang1 = 0;
+    jmlPemb2Sidang1 = 0;
+    jmlPeng1Sidang1 = 0;
+    jmlPeng2Sidang1 = 0;
+    jmlPemb1Sidang2 = 0;
+    jmlPemb2Sidang2 = 0;
+    jmlPeng1Sidang2 = 0;
+    jmlPeng2Sidang2 = 0;
+    jmlPemb1Sidang3 = 0;
+    jmlPemb2Sidang3 = 0;
+    jmlPeng1Sidang3 = 0;
+    jmlPeng2Sidang3 = 0;
+
+    var dosenTerpilih = $('#filterDosen option:selected').val();
 
     tahun_ajaranGlobal = $('#filterTahun_Ajaran option:selected').val();
+
     var assignSidangDataRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal);
     assignSidangDataRef.on("value", function (snap) {
-        objB = [];
         if (snap.exists()) {
-            objB = [];
+            objTanggal = [];
             snap.forEach(function (childSnap) {
                 var c21 = childSnap.val();
-                var topikDataRef = firebase.database().ref('topik/' + tahun_ajaranGlobal + '/');
+                var topikDataRef = firebase.database().ref('topik/' + tahun_ajaranGlobal);
                 topikDataRef.on('value', function (snap) {
                     snap.forEach(function (data) {
                         var c2T = data.val();
-                        obj2B = {
-                            'id_topik': c2T.id,
-                            'judul2_topik': c2T.judul_topik,
-                            'mahasiswa': c2T.mahasiswa,
-                            'dosen_pembimbing1': c2T.dosen_pembimbing1,
-                            'dosen_pembimbing2': c2T.dosen_pembimbing2,
-                            'sidangName': c21.sidangName,
-                            'dosen_penguji1': c21.dosen_penguji1,
-                            'dosen_penguji2': c21.dosen_penguji2
-                        };
+                        gSidangName = c21.sidangName;
+
+                        if (c2T.dosen_pembimbing1.nik === dosenTerpilih) {
+                            if (c21.idTopik === c2T.id) {
+                                if (gSidangName == "Sidang 1") {
+                                    jmlPemb1Sidang1++;
+                                } else if (gSidangName == "Sidang 2") {
+                                    jmlPemb1Sidang2++;
+                                } else if (gSidangName == "Sidang 3") {
+                                    jmlPemb1Sidang3++;
+                                }
+                            }
+                        }
+                        if (c2T.dosen_pembimbing2.nik === dosenTerpilih) {
+                            if (c21.idTopik === c2T.id) {
+                                if (gSidangName == "Sidang 1") {
+                                    jmlPemb2Sidang1++;
+                                } else if (gSidangName == "Sidang 2") {
+                                    jmlPemb2Sidang2++;
+                                } else if (gSidangName == "Sidang 3") {
+                                    jmlPemb2Sidang3++;
+                                }
+                            }
+                        }
+                        if (c21.dosen_penguji1.nik === dosenTerpilih) {
+                            if (c21.idTopik === c2T.id) {
+                                if (gSidangName == "Sidang 1") {
+                                    jmlPeng1Sidang1++;
+                                } else if (gSidangName == "Sidang 2") {
+                                    jmlPeng1Sidang2++;
+                                } else if (gSidangName == "Sidang 3") {
+                                    jmlPeng1Sidang3++;
+                                }
+                            }
+                        }
+                        if (c21.dosen_penguji2.nik === dosenTerpilih) {
+                            if (c21.idTopik === c2T.id) {
+                                if (gSidangName == "Sidang 1") {
+                                    jmlPeng2Sidang1++;
+                                } else if (gSidangName == "Sidang 2") {
+                                    jmlPeng2Sidang2++;
+                                } else if (gSidangName == "Sidang 3") {
+                                    jmlPeng2Sidang3++;
+                                }
+                            }
+                        }
+                        var chart = new CanvasJS.Chart("chartContainerJumlahBimbingan", {
+                            animationEnabled: true,
+                            title: {
+                                text: "Grafik Jumlah Mahasiswa Yang Dibimbing dan Diuji Dalam 1 Semester",
+                                fontSize: 15
+                            },
+                            axisY: {
+                                title: "Total Sidang",
+                                titleFontColor: "#594a4e",
+                                lineColor: "#594a4e",
+                                labelFontColor: "#594a4e",
+                                tickColor: "#594a4e"
+                            },
+                            toolTip: {
+                                shared: true
+                            },
+                            legend: {
+                                cursor: "pointer",
+                                itemclick: toggleDataSeries
+                            },
+                            data: [
+                                {
+                                    type: "column",
+                                    name: "Pembimbing 1",
+                                    legendText: "Pembimbing 1",
+                                    showInLegend: true,
+                                    dataPoints: [
+                                        {label: "Sidang 1", y: jmlPemb1Sidang1},
+                                        {label: "Sidang 2", y: jmlPemb1Sidang2},
+                                        {label: "Sidang 3", y: jmlPemb1Sidang3},
+                                    ]
+                                },
+                                {
+                                    type: "column",
+                                    name: "Pembimbing 2",
+                                    legendText: "Pembimbing 2",
+                                    showInLegend: true,
+                                    dataPoints: [
+                                        {label: "Sidang 1", y: jmlPemb2Sidang1},
+                                        {label: "Sidang 2", y: jmlPemb2Sidang2},
+                                        {label: "Sidang 3", y: jmlPemb2Sidang3},
+                                    ]
+                                },
+                                {
+                                    type: "column",
+                                    name: "Penguji 1",
+                                    legendText: "Penguji 1",
+                                    showInLegend: true,
+                                    dataPoints: [
+                                        {label: "Sidang 1", y: jmlPeng1Sidang1},
+                                        {label: "Sidang 2", y: jmlPeng1Sidang2},
+                                        {label: "Sidang 3", y: jmlPeng1Sidang3},
+                                    ]
+                                },
+                                {
+                                    type: "column",
+                                    name: "Penguji 2",
+                                    legendText: "Penguji 2",
+                                    showInLegend: true,
+                                    dataPoints: [
+                                        {label: "Sidang 1", y: jmlPeng2Sidang1},
+                                        {label: "Sidang 2", y: jmlPeng2Sidang2},
+                                        {label: "Sidang 3", y: jmlPeng2Sidang3},
+                                    ]
+                                }
+                            ]
+                        });
+                        chart.render();
+                        function toggleDataSeries(e) {
+                            if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                                e.dataSeries.visible = false;
+                            } else {
+                                e.dataSeries.visible = true;
+                            }
+                            chart.render();
+                        }
+
                     });
                 });
             });
+        } else {
+            var chart = new CanvasJS.Chart("chartContainerJumlahBimbingan", {
+                animationEnabled: true,
+                title: {
+                    text: "Grafik Jumlah Mahasiswa Yang Dibimbing dan Diuji Dalam 1 Semester",
+                    fontSize: 15
+                },
+                axisY: {
+                    title: "Total Sidang",
+                    titleFontColor: "#594a4e",
+                    lineColor: "#594a4e",
+                    labelFontColor: "#594a4e",
+                    tickColor: "#594a4e"
+                },
+                toolTip: {
+                    shared: true
+                },
+                legend: {
+                    cursor: "pointer",
+                    itemclick: toggleDataSeries
+                },
+                data: [
+                    {
+                        type: "column",
+                        name: "Pembimbing 1",
+                        legendText: "Pembimbing 1",
+                        showInLegend: true,
+                        dataPoints: [
+                            {label: "Sidang 1", y: 0},
+                            {label: "Sidang 2", y: 0},
+                            {label: "Sidang 3", y: 0},
+                        ]
+                    },
+                    {
+                        type: "column",
+                        name: "Pembimbing 2",
+                        legendText: "Pembimbing 2",
+                        showInLegend: true,
+                        dataPoints: [
+                            {label: "Sidang 1", y: 0},
+                            {label: "Sidang 2", y: 0},
+                            {label: "Sidang 3", y: 0},
+                        ]
+                    },
+                    {
+                        type: "column",
+                        name: "Penguji 1",
+                        legendText: "Penguji 1",
+                        showInLegend: true,
+                        dataPoints: [
+                            {label: "Sidang 1", y: 0},
+                            {label: "Sidang 2", y: 0},
+                            {label: "Sidang 3", y: 0},
+                        ]
+                    },
+                    {
+                        type: "column",
+                        name: "Penguji 2",
+                        legendText: "Penguji 2",
+                        showInLegend: true,
+                        dataPoints: [
+                            {label: "Sidang 1", y: 0},
+                            {label: "Sidang 2", y: 0},
+                            {label: "Sidang 3", y: 0},
+                        ]
+                    }
+                ]
+            });
+            chart.render();
+            function toggleDataSeries(e) {
+                if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+                    e.dataSeries.visible = false;
+                } else {
+                    e.dataSeries.visible = true;
+                }
+                chart.render();
+            }
         }
     });
-
 }
-var tanggalSidang;
-function view_belumNilaiTable() {
-    jmlBelumNilai = 0;
-    var p_id = $('#filterTahun_Ajaran option:selected').val();
-    $('#belumNilaiSemuaTable').DataTable().clear().draw();
-    tahun_ajaranGlobal = p_id;
-    if (p_id == "-") {
-        $('#belumNilaiSemuaTable').DataTable().clear().draw();
-    } else {
-        var assignSidangDataRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal);
-        assignSidangDataRef.on("value", function (snap) {
-            if (snap.exists()) {
-                obj = [];
-                obj1 = [];
-                obj2 = [];
-                obj3 = [];
-                snap.forEach(function (childSnap) {
-                    var c21 = childSnap.val();
-                    var topikDataRef = firebase.database().ref('topik/' + tahun_ajaranGlobal + '/');
-                    topikDataRef.on('value', function (snap) {
-                        snap.forEach(function (data) {
-                            var c2T = data.val();
-                            var formatter = 'dddd, DD MMMM YYYY, 23:59:59';
-                            var date = new Date(c21.tanggal);
-                            var tanggalSidang = moment(date).format(formatter);
-                            obj2AAA = {
-                                'id_topik': c2T.id,
-                                'mahasiswa': c2T.mahasiswa,
-                                'dosen_pembimbing1': c2T.dosen_pembimbing1,
-                                'dosen_pembimbing2': c2T.dosen_pembimbing2,
-                                'idTopik': c21.idTopik,
-                                'sidangId': c21.sidangId,
-                                'sidangName': c21.sidangName,
-                                'tanggal': tanggalSidang,
-                                'dosen_penguji1': c21.dosen_penguji1,
-                                'dosen_penguji2': c21.dosen_penguji2
-                            };
-                            var proses_sidang1_pemb1 = c21.nilai_proses_sidang1_pemb1;
-                            var proses_sidang1_pemb2 = c21.nilai_proses_sidang1_pemb2;
-                            var sidang1_pemb1 = c21.nilai_sidang1_pemb1;
-                            var sidang1_peng1 = c21.nilai_sidang1_peng1;
-                            var sidang1_peng2 = c21.nilai_sidang1_peng2;
 
-                            var proses_sidang2_pemb1 = c21.nilai_proses_sidang2_pemb1;
-                            var proses_sidang2_pemb2 = c21.nilai_proses_sidang2_pemb2;
-                            var sidang2_pemb1 = c21.nilai_sidang2_pemb1;
-                            var sidang2_peng1 = c21.nilai_sidang2_peng1;
-                            var sidang2_peng2 = c21.nilai_sidang2_peng2;
+function showGrafikJumlahTopik() {
+    var arr_tahun = [];
+    var tahun_AjaranDataRef = firebase.database().ref('tahun_ajaran/');
+    tahun_AjaranDataRef.on('value', function (snap) {
+        if (snap.exists()) {
+            obj = [];
+            snap.forEach(function (childSnap) {
+                var c2 = childSnap.val();
+                arr_tahun.push(c2.name);
 
-                            var proses_sidang3_pemb1 = c21.nilai_proses_sidang3_pemb1;
-                            var proses_sidang3_pemb2 = c21.nilai_proses_sidang3_pemb2;
-                            var sidang3_pemb1 = c21.nilai_sidang3_pemb1;
-                            var sidang3_peng1 = c21.nilai_sidang3_peng1;
-                            var sidang3_peng2 = c21.nilai_sidang3_peng2;
-
-                            var produk_pemb1 = c21.nilai_produk_pemb1;
-                            var produk_pemb2 = c21.nilai_produk_pemb2;
-                            var produk_peng1 = c21.nilai_produk_peng1;
-                            var produk_peng2 = c21.nilai_produk_peng2;
-
-                            if (c2T.dosen_pembimbing1.nik === nikFilterDosen) {
-                                if (c21.idTopik === c2T.id) {
-                                    if (c21.sidangName === "Sidang 1") {
-                                        if (typeof proses_sidang1_pemb1 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': "-",
-                                                'keterangan': "nilai proses",
-                                                "sebagai": "Pembimbing 1",
-                                                "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                        if (typeof sidang1_pemb1 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai sidang",
-                                                "sebagai": "Pembimbing 1",
-                                                "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    } else if (c21.sidangName === "Sidang 2") {
-                                        if (typeof proses_sidang2_pemb1 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': "-",
-                                                'keterangan': "nilai proses",
-                                                "sebagai": "Pembimbing 1",
-                                                "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                        if (typeof sidang2_pemb1 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai sidang",
-                                                "sebagai": "Pembimbing 1",
-                                                "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    } else if (c21.sidangName === "Sidang 3") {
-                                        if (typeof proses_sidang3_pemb1 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': "-",
-                                                'keterangan': "nilai proses",
-                                                "sebagai": "Pembimbing 1",
-                                                "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                        if (typeof sidang3_pemb1 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai sidang",
-                                                "sebagai": "Pembimbing 1",
-                                                "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                        if (typeof produk_pemb1 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai produk",
-                                                "sebagai": "Pembimbing 1",
-                                                "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    }
-                                }
-                            } else if (c2T.dosen_pembimbing2.nik === nikFilterDosen) {
-                                if (c21.idTopik === c2T.id) {
-                                    if (c21.sidangName === "Sidang 1") {
-                                        if (typeof proses_sidang1_pemb2 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': "-",
-                                                'keterangan': "nilai proses",
-                                                "sebagai": "Pembimbing 2",
-                                                "dosen": c2T.dosen_pembimbing2.nik + " - " + c2T.dosen_pembimbing2.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    } else if (c21.sidangName === "Sidang 2") {
-                                        if (typeof proses_sidang2_pemb2 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': "-",
-                                                'keterangan': "nilai proses",
-                                                "sebagai": "Pembimbing 2",
-                                                "dosen": c2T.dosen_pembimbing2.nik + " - " + c2T.dosen_pembimbing2.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    } else if (c21.sidangName === "Sidang 3") {
-                                        if (typeof proses_sidang3_pemb2 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': "-",
-                                                'keterangan': "nilai proses",
-                                                "sebagai": "Pembimbing 2",
-                                                "dosen": c2T.dosen_pembimbing2.nik + " - " + c2T.dosen_pembimbing2.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                        if (typeof produk_pemb2 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai produk",
-                                                "sebagai": "Pembimbing 2",
-                                                "dosen": c2T.dosen_pembimbing2.nik + " - " + c2T.dosen_pembimbing2.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    }
-                                }
-                            } else if (c21.dosen_penguji1.nik === nikFilterDosen) {
-                                if (c21.idTopik === c2T.id) {
-                                    if (c21.sidangName === "Sidang 1") {
-                                        if (typeof sidang1_peng1 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai sidang",
-                                                "sebagai": "Penguji 1",
-                                                "dosen": c21.dosen_penguji1.nik + " - " + c21.dosen_penguji1.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    } else if (c21.sidangName === "Sidang 2") {
-                                        if (typeof sidang2_peng1 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai sidang",
-                                                "sebagai": "Penguji 1",
-                                                "dosen": c21.dosen_penguji1.nik + " - " + c21.dosen_penguji1.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    } else if (c21.sidangName === "Sidang 3") {
-                                        if (typeof sidang3_peng1 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai sidang",
-                                                "sebagai": "Penguji 1",
-                                                "dosen": c21.dosen_penguji1.nik + " - " + c21.dosen_penguji1.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                        if (typeof produk_peng1 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai produk",
-                                                "sebagai": "Penguji 1",
-                                                "dosen": c21.dosen_penguji1.nik + " - " + c21.dosen_penguji1.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    }
-                                }
-                            } else if (c21.dosen_penguji2.nik === nikFilterDosen) {
-                                if (c21.idTopik === c2T.id) {
-                                    if (c21.sidangName === "Sidang 1") {
-                                        if (typeof sidang1_peng2 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai sidang",
-                                                "sebagai": "Penguji 2",
-                                                "dosen": c21.dosen_penguji2.nik + " - " + c21.dosen_penguji2.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    } else if (c21.sidangName === "Sidang 2") {
-                                        if (typeof sidang2_peng2 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai sidang",
-                                                "sebagai": "Penguji 2",
-                                                "dosen": c21.dosen_penguji2.nik + " - " + c21.dosen_penguji2.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    } else if (c21.sidangName === "Sidang 3") {
-                                        if (typeof sidang3_peng2 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai sidang",
-                                                "sebagai": "Penguji 2",
-                                                "dosen": c21.dosen_penguji2.nik + " - " + c21.dosen_penguji2.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                        if (typeof produk_peng2 === 'undefined') {
-                                            obj2AAA = {
-                                                'mahasiswa': c2T.mahasiswa,
-                                                'sidangId': c21.sidangId,
-                                                'sidangName': c21.sidangName,
-                                                'tanggal': tanggalSidang,
-                                                'keterangan': "nilai produk",
-                                                "sebagai": "Penguji 2",
-                                                "dosen": c21.dosen_penguji2.nik + " - " + c21.dosen_penguji2.name
-                                            };
-                                            jmlBelumNilai++;
-                                            obj.push(obj2AAA);
-                                        }
-                                    }
-                                }
-                            }
-
-                            document.getElementById("jmlBelumNilai").innerHTML = jmlBelumNilai;
-                            addViewSidangBelumDinilai(obj);
-                        });
-                    });
+            });
+            console.log(arr_tahun)
+        }
+    });
+    let arr_jumlah = [];
+    var topikDataRef = firebase.database().ref('topik/');
+    topikDataRef.on('value', function (snap) {
+        objAll = [];
+        if (snap.exists()) {
+            obj = [];
+            snap.forEach(function (childSnap) {
+                childSnap.forEach(function (childSnap2) {
+                    var c2Topik = childSnap2.val();
+                    if (arr_jumlah[c2Topik.tahun_ajaran.name] === undefined)
+                        arr_jumlah[c2Topik.tahun_ajaran.name] = 1;
+                    else
+                        arr_jumlah[c2Topik.tahun_ajaran.name]++;
                 });
-            }
-        });
-    }
+            });
+            var hasil = "";
+            var cData = [];
+            arr_tahun.forEach(function (nama) {
+                obj = {
+                    'y': arr_jumlah[nama],
+                    'label': nama
+                }
+                cData.push(obj);
+            })
+//            console.log("hasil : ", hasil);
+//            console.log("hasil2 : ", cData);
 
-}
-
-function addViewSidangBelumDinilai(data) {
-    $('#belumNilaiTable').DataTable().clear().draw();
-    $('#belumNilaiTable').DataTable().rows.add(data).draw();
-}
-
-function view_belumNilaiTable_semuanya() {
-    jmlBelumNilaiSemuaSidang = 0;
-    var p_id = $('#filterTahun_Ajaran option:selected').val();
-    $('#belumNilaiSemuaTable').DataTable().clear().draw();
-    tahun_ajaranGlobal = p_id;
-
-    if (p_id == "-") {
-        $('#belumNilaiTable').DataTable().clear().draw();
-    } else {
-        var assignSidangDataRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal);
-        assignSidangDataRef.on("value", function (snap) {
-            if (snap.exists()) {
-                objSemua = [];
-                snap.forEach(function (childSnap) {
-                    var c21 = childSnap.val();
-                    var topikDataRef = firebase.database().ref('topik/' + tahun_ajaranGlobal + '/');
-                    topikDataRef.on('value', function (snap) {
-                        snap.forEach(function (data) {
-                            var c2T = data.val();
-                            var formatter = 'dddd, DD MMMM YYYY, 23:59:59';
-                            var date = new Date(c21.tanggal);
-                            var tanggalSidang = moment(date).format(formatter);
-                            obj2AAA = {
-                                'id_topik': c2T.id,
-                                'mahasiswa': c2T.mahasiswa,
-                                'dosen_pembimbing1': c2T.dosen_pembimbing1,
-                                'dosen_pembimbing2': c2T.dosen_pembimbing2,
-                                'idTopik': c21.idTopik,
-                                'sidangId': c21.sidangId,
-                                'sidangName': c21.sidangName,
-                                'tanggal': tanggalSidang,
-                                'dosen_penguji1': c21.dosen_penguji1,
-                                'dosen_penguji2': c21.dosen_penguji2
-                            };
-                            var proses_sidang1_pemb1 = c21.nilai_proses_sidang1_pemb1;
-                            var proses_sidang1_pemb2 = c21.nilai_proses_sidang1_pemb2;
-                            var sidang1_pemb1 = c21.nilai_sidang1_pemb1;
-                            var sidang1_peng1 = c21.nilai_sidang1_peng1;
-                            var sidang1_peng2 = c21.nilai_sidang1_peng2;
-
-                            var proses_sidang2_pemb1 = c21.nilai_proses_sidang2_pemb1;
-                            var proses_sidang2_pemb2 = c21.nilai_proses_sidang2_pemb2;
-                            var sidang2_pemb1 = c21.nilai_sidang2_pemb1;
-                            var sidang2_peng1 = c21.nilai_sidang2_peng1;
-                            var sidang2_peng2 = c21.nilai_sidang2_peng2;
-
-                            var proses_sidang3_pemb1 = c21.nilai_proses_sidang3_pemb1;
-                            var proses_sidang3_pemb2 = c21.nilai_proses_sidang3_pemb2;
-                            var sidang3_pemb1 = c21.nilai_sidang3_pemb1;
-                            var sidang3_peng1 = c21.nilai_sidang3_peng1;
-                            var sidang3_peng2 = c21.nilai_sidang3_peng2;
-
-                            var produk_pemb1 = c21.nilai_produk_pemb1;
-                            var produk_pemb2 = c21.nilai_produk_pemb2;
-                            var produk_peng1 = c21.nilai_produk_peng1;
-                            var produk_peng2 = c21.nilai_produk_peng2;
-
-
-                            if (c21.idTopik === c2T.id) {
-                                //Sidang 1
-                                if (c21.sidangName === "Sidang 1") {
-                                    // pemb1_proses1
-                                    if (typeof proses_sidang1_pemb1 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': "-",
-                                            'keterangan': "nilai proses",
-                                            "sebagai": "Pembimbing 1",
-                                            "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // pemb1_sidang1
-                                    if (typeof sidang1_pemb1 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai sidang",
-                                            "sebagai": "Pembimbing 1",
-                                            "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // pemb2_proses1
-                                    if (typeof proses_sidang1_pemb2 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': "-",
-                                            'keterangan': "nilai proses",
-                                            "sebagai": "Pembimbing 2",
-                                            "dosen": c2T.dosen_pembimbing2.nik + " - " + c2T.dosen_pembimbing2.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // peng1_sidang1
-                                    if (typeof sidang1_peng1 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai sidang",
-                                            "sebagai": "Penguji 1",
-                                            "dosen": c21.dosen_penguji1.nik + " - " + c21.dosen_penguji1.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // peng2_sidang1
-                                    if (typeof sidang1_peng2 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai sidang",
-                                            "sebagai": "Penguji 2",
-                                            "dosen": c21.dosen_penguji2.nik + " - " + c21.dosen_penguji2.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                }
-                                //Sidang 2
-                                else if (c21.sidangName === "Sidang 2") {
-
-                                    // pemb1_proses2
-                                    if (typeof proses_sidang2_pemb1 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': "-",
-                                            'keterangan': "nilai proses",
-                                            "sebagai": "Pembimbing 1",
-                                            "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // pemb1_sidang2
-                                    if (typeof sidang2_pemb1 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai sidang",
-                                            "sebagai": "Pembimbing 1",
-                                            "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // pemb2_proses2
-                                    if (typeof proses_sidang2_pemb2 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': "-",
-                                            'keterangan': "nilai proses",
-                                            "sebagai": "Pembimbing 2",
-                                            "dosen": c2T.dosen_pembimbing2.nik + " - " + c2T.dosen_pembimbing2.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // peng1_sidang2
-                                    if (typeof sidang2_peng1 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai sidang",
-                                            "sebagai": "Penguji 1",
-                                            "dosen": c21.dosen_penguji1.nik + " - " + c21.dosen_penguji1.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // peng2_sidang2
-                                    if (typeof sidang2_peng2 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai sidang",
-                                            "sebagai": "Penguji 2",
-                                            "dosen": c21.dosen_penguji2.nik + " - " + c21.dosen_penguji2.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                }
-                                //Sidang 3
-                                else if (c21.sidangName === "Sidang 3") {
-                                    // pemb1_proses3
-                                    if (typeof proses_sidang3_pemb1 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': "-",
-                                            'keterangan': "nilai proses",
-                                            "sebagai": "Pembimbing 1",
-                                            "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // pemb1_sidang3
-                                    if (typeof sidang3_pemb1 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai sidang",
-                                            "sebagai": "Pembimbing 1",
-                                            "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // pemb1_produk
-                                    if (typeof produk_pemb1 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai produk",
-                                            "sebagai": "Pembimbing 1",
-                                            "dosen": c2T.dosen_pembimbing1.nik + " - " + c2T.dosen_pembimbing1.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // pemb2_proses2
-                                    if (typeof proses_sidang3_pemb2 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': "-",
-                                            'keterangan': "nilai proses",
-                                            "sebagai": "Pembimbing 2",
-                                            "dosen": c2T.dosen_pembimbing2.nik + " - " + c2T.dosen_pembimbing2.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // pemb2_produk
-                                    if (typeof produk_pemb2 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai produk",
-                                            "sebagai": "Pembimbing 2",
-                                            "dosen": c2T.dosen_pembimbing2.nik + " - " + c2T.dosen_pembimbing2.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // peng1_sidang3
-                                    if (typeof sidang3_peng1 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai sidang",
-                                            "sebagai": "Penguji 1",
-                                            "dosen": c21.dosen_penguji1.nik + " - " + c21.dosen_penguji1.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // peng1_produk
-                                    if (typeof produk_peng1 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai produk",
-                                            "sebagai": "Penguji 1",
-                                            "dosen": c21.dosen_penguji1.nik + " - " + c21.dosen_penguji1.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // peng2_sidang3
-                                    if (typeof sidang3_peng2 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai sidang",
-                                            "sebagai": "Penguji 2",
-                                            "dosen": c21.dosen_penguji2.nik + " - " + c21.dosen_penguji2.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                    // peng2_produk
-                                    if (typeof produk_peng2 === 'undefined') {
-                                        obj2AAA = {
-                                            'mahasiswa': c2T.mahasiswa,
-                                            'sidangId': c21.sidangId,
-                                            'sidangName': c21.sidangName,
-                                            'tanggal': tanggalSidang,
-                                            'keterangan': "nilai produk",
-                                            "sebagai": "Penguji 2",
-                                            "dosen": c21.dosen_penguji2.nik + " - " + c21.dosen_penguji2.name
-                                        };
-                                        jmlBelumNilaiSemuaSidang++;
-                                        objSemua.push(obj2AAA);
-                                    }
-                                }
-                            }
-
-
-                            document.getElementById("jmlBelumNilaiSemuaSidang").innerHTML = jmlBelumNilaiSemuaSidang;
-                            addViewSidangBelumDinilai_semuanya(objSemua);
-                        });
-                    });
-                });
-            }
-        });
-    }
-}
-function addViewSidangBelumDinilai_semuanya(data) {
-    $('#belumNilaiSemuaTable').DataTable().clear().draw();
-    $('#belumNilaiSemuaTable').DataTable().rows.add(data).draw();
+            var chart = new CanvasJS.Chart("myChartJumlahTopik", {
+                animationEnabled: true,
+                theme: "light2",
+                title: {
+                    text: "Grafik Jumlah Topik Setiap Tahun Ajaran"
+                },
+                axisY: {
+                    includeZero: false
+                },
+                data: [{
+                        type: "column",
+                        dataPoints: cData
+                    }]
+            });
+            chart.render();
+        }
+    });
 }

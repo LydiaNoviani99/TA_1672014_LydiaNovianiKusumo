@@ -21,6 +21,14 @@
             select {
                 overflow-y: scroll;
             }
+
+            div.dataTables_scrollBody thead th,
+            div.dataTables_scrollBody thead td {
+                line-height: 0;
+                opacity:0.0;
+                width: 0px;
+                height:0px;
+            }
         </style>
     </head>
 
@@ -51,8 +59,8 @@
                                         <option></option>
                                     </select>
                                 </div>
-                                
-                                
+
+
                                 <h4>Pilih Dosen</h4>
                                 <div class="form-group">
                                     <select class="form-control" id="filterDosen" name="filterDosen">
@@ -115,7 +123,12 @@
         $(document).ready(function () {
 
             var table = $('#sidangSebagaiPembimbing').DataTable({
-                columns: [
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bScrollCollapse": true,
+                "fixedColumns": {
+                    "leftColumns": 1
+                }, columns: [
                     {data: 'mahasiswa2.nrp'},
                     {data: 'mahasiswa2.name'},
                     {data: 'judul2_topik'},
@@ -132,7 +145,12 @@
         $(document).ready(function () {
 
             var table2 = $('#sidangSebagaiPenguji').DataTable({
-                columns: [
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bScrollCollapse": true,
+                "fixedColumns": {
+                    "leftColumns": 1
+                }, columns: [
                     {data: 'mahasiswa2.nrp'},
                     {data: 'mahasiswa2.name'},
                     {data: 'judul2_topik'},

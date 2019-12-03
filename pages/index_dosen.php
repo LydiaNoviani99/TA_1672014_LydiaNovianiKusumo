@@ -31,6 +31,15 @@
             th {
                 text-align: center;
             }
+            
+            
+            div.dataTables_scrollBody thead th,
+            div.dataTables_scrollBody thead td {
+                line-height: 0;
+                opacity:0.0;
+                width: 0px;
+                height:0px;
+            }
         </style>
 
 
@@ -55,22 +64,34 @@
                         </select>
                     </div>
 
-                    <h5> Jumlah Mahasiswa Yang Belum Dinilai : <label id="jmlBelumNilai"></label> </h5>
-                    <div class="col-lg-12">
-                        <hr></hr>
-                    </div>
-                    <h4 style="color: red"><b> Daftar Sidang yang Belum Dinilai </b> </h4>
-                    <h6 style="color: red"> (Jika telah melewati batas, silahkan hubungi Koordinator Tugas Akhir) </h6>
-                    <table width="100%" class="table table-striped table-bordered table-hover" id="belumNilaiTable">
+
+
+
+                    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+                    <h5 style="color: red"><b> Sebagai Pembimbing 1 </b> </h5> 
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="sidangSebagaiPembimbing1">
                         <thead>
                             <tr>
                                 <th>NRP</th>
                                 <th>Nama</th>
-                                <th>Sidang</th>
-                                <th>Sebagai</th>
-                                <th>Batas</th>
-                                <th  style="color: red">Keterangan</th>
+                                <th>Judul</th>
+                                <th>Jenis Sidang</th>
                             </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                    <h5 style="color: red"><b> Sebagai Pembimbing 2 </b> </h5> 
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="sidangSebagaiPembimbing2">
+                        <thead>
+                            <tr>
+                                <th>NRP</th>
+                                <th>Nama</th>
+                                <th>Judul</th>
+                                <th>Jenis Sidang</th>
                         </thead>
                         <tbody>
 
@@ -78,14 +99,31 @@
                     </table>
 
 
-                    <div class="col-lg-12">
-                        <hr>
-                    </div>
-
-
-
+                    <h5 style="color: red"><b> Sebagai Penguji 1</b> </h5> 
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="sidangSebagaiPenguji1">
+                        <thead>
+                            <tr>
+                                <th>NRP</th>
+                                <th>Nama</th>
+                                <th>Judul</th>
+                                <th>Jenis Sidang</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <h5 style="color: red"><b> Sebagai Penguji 2</b> </h5> 
+                    <table width="100%" class="table table-striped table-bordered table-hover" id="sidangSebagaiPenguji2">
+                        <thead>
+                            <tr>
+                                <th>NRP</th>
+                                <th>Nama</th>
+                                <th>Judul</th>
+                                <th>Jenis Sidang</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
-
 
             </div>
             <!-- /#wrapper -->
@@ -96,14 +134,75 @@
             <script type="text/javascript">
                 $(document).ready(function () {
 
-                    var table = $('#belumNilaiTable').DataTable({
-                        columns: [
-                            {data: 'mahasiswa2.nrp'},
-                            {data: 'mahasiswa2.name'},
-                            {data: 'sidangName'},
-                            {data: 'sebagai'},
-                            {data: 'tanggal'},
-                            {data: 'keterangan'}
+                    var table = $('#sidangSebagaiPembimbing1').DataTable({
+                        "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
+                            {data: 'mahasiswa.nrp'},
+                            {data: 'mahasiswa.name'},
+                            {data: 'judul_topik'},
+                            {data: 'sidangName'}
+                        ]
+                    });
+
+                });
+            </script>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    var table = $('#sidangSebagaiPembimbing2').DataTable({
+                        "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
+                            {data: 'mahasiswa.nrp'},
+                            {data: 'mahasiswa.name'},
+                            {data: 'judul_topik'},
+                            {data: 'sidangName'}
+                        ]
+                    });
+
+                });
+            </script>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    var table2 = $('#sidangSebagaiPenguji1').DataTable({
+                        "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
+                            {data: 'mahasiswa.nrp'},
+                            {data: 'mahasiswa.name'},
+                            {data: 'judul_topik'},
+                            {data: 'sidangName'}
+                        ]
+                    });
+                });
+            </script>
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    var table2 = $('#sidangSebagaiPenguji2').DataTable({
+                        "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
+                            {data: 'mahasiswa.nrp'},
+                            {data: 'mahasiswa.name'},
+                            {data: 'judul_topik'},
+                            {data: 'sidangName'}
                         ]
                     });
                 });

@@ -40,6 +40,7 @@ var mainApp = {};
                     $("#page_nilaiAdmin").show();
                     $("#labelDosen").show();
                     $("#labelAdmin").show();
+                    $("#page_belum_dinilai_admin").show();
                 }
                 //Sekprodi
                 else if (sessionStorage.getItem("role") === "2") {
@@ -57,6 +58,7 @@ var mainApp = {};
                     $("#page_nilaiAdmin").show();
                     $("#labelDosen").show();
                     $("#labelAdmin").show();
+                    $("#page_belum_dinilai_admin").show();
                 }
                 //Koor TA
                 else if (sessionStorage.getItem("role") === "3") {
@@ -74,6 +76,7 @@ var mainApp = {};
                     $("#page_nilaiAdmin").show();
                     $("#labelDosen").show();
                     $("#labelAdmin").show();
+                    $("#page_belum_dinilai_admin").show();
                 }
                 //Petugas TU
                 else if (sessionStorage.getItem("role") === "4") {
@@ -91,6 +94,7 @@ var mainApp = {};
                     $("#page_nilaiAdmin").show();
                     $("#labelDosen").hide();
                     $("#labelAdmin").show();
+                    $("#page_belum_dinilai_admin").show();
                 }
                 //Dosen
                 else if (sessionStorage.getItem("role") === "5") {
@@ -107,7 +111,26 @@ var mainApp = {};
                     $("#page_Nilai").show();
                     $("#labelDosen").show();
                     $("#labelAdmin").hide();
+                    $("#page_belum_dinilai").show();
+                } else {
+                    $("#page_dashboardAdmin").hide();
+                    $("#page_dashboardDosen").hide();
+                    $("#page_sidang").hide();
+                    $("#page_Nilai").hide();
+                    $("#page_topik").hide();
+                    $("#page_assignSidang").hide();
+                    $("#page_sidangAdmin").hide();
+                    $("#page_nilaiAdmin").hide();
+                    $("#page_viewPembPeng").hide();
+                    $("#page_dosen").hide();
+                    $("#page_mahasiswa").hide();
+                    $("#page_tahunAjaran").hide();
+                    $("#labelDosen").hide();
+                    $("#labelAdmin").hide();
+                    $("#page_belum_dinilai_admin").hide();
+                    $("#page_belum_dinilai").hide();
                 }
+
             });
 
         } else {

@@ -19,6 +19,16 @@
         </script><script src="sweetalert2.all.min.js"></script>
         <script src="sweetalert2.min.js"></script>
         <link rel="stylesheet" href="sweetalert2.min.css">
+        
+        <style type="text/css">
+            div.dataTables_scrollBody thead th,
+            div.dataTables_scrollBody thead td {
+                line-height: 0;
+                opacity:0.0;
+                width: 0px;
+                height:0px;
+            }
+        </style>
     </head>
 
     <body>
@@ -3375,7 +3385,12 @@
         <script type='text/javascript'>
             $(document).ready(function () {
                 var tableSidang1 = $('#viewNilaiMahasiswa_sidang1').DataTable({
-                    columns: [
+                    "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
                         {data: 'mahasiswa.nrp'},
                         {data: 'mahasiswa.name'},
                         {data: 'sidangName'},
@@ -3412,7 +3427,12 @@
                 });
 
                 var tableSidang2 = $('#viewNilaiMahasiswa_sidang2').DataTable({
-                    columns: [
+                    "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
                         {data: 'mahasiswa.nrp'},
                         {data: 'mahasiswa.name'},
                         {data: 'sidangName'},
@@ -3448,7 +3468,12 @@
                     ]
                 });
                 var tableSidang3 = $('#viewNilaiMahasiswa_sidang3_produk').DataTable({
-                    columns: [
+                    "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
                         {data: 'mahasiswa.nrp'},
                         {data: 'mahasiswa.name'},
                         {data: 'sidangName'},

@@ -124,7 +124,7 @@ function addComboTahun_Ajaran(data) {
                     .attr("value", "-")
                     .text("--Pilih Tahun Ajaran--"));
     $.each(data, function (key, value) {
-        if (value.status === "true") {
+        if (value.status === "Aktif") {
             $('#filterTahun_Ajaran')
                     .append($("<option></option>")
                             .attr("value", value.idx)
@@ -191,7 +191,6 @@ function view_sidang_table_filter_tanggal() {
                                 'tanggal': new Date(c21.tanggal).toDateString(),
                                 'jam_mulai': c21.jam_mulai,
                                 'ruangan': c21.ruangan,
-                                'catatan': c21.catatan,
                                 'dosen_penguji1': c21.dosen_penguji1,
                                 'dosen_penguji2': c21.dosen_penguji2,
 
@@ -291,7 +290,6 @@ function view_sidang_table() {
                                 'tanggal': new Date(c21.tanggal).toDateString(),
                                 'jam_mulai': c21.jam_mulai,
                                 'ruangan': c21.ruangan,
-                                'catatan': c21.catatan,
                                 'dosen_penguji1': c21.dosen_penguji1,
                                 'dosen_penguji2': c21.dosen_penguji2,
 
@@ -390,7 +388,7 @@ function view_sidang_table() {
 
 var bobot_nilai_sidang1;
 var email_dosen_beri_nilai;
-function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
+function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal, peng1, peng2) {
     tempKeyTopik = id;
     $('#halaman_sidang').hide();
     $('#halaman_nilai').show();
@@ -423,16 +421,15 @@ function beriNilaiSidang(id, nrp, jenisSidang, idSidang, tanggal) {
                         'tanggal': new Date(c2Sidang.tanggal).toDateString(),
                         'jam_mulai': c2Sidang.jam_mulai,
                         'ruangan': c2Sidang.ruangan,
-                        'catatan': c2Sidang.catatan,
                         'dosen_penguji1': c2Sidang.dosen_penguji1,
                         'dosen_penguji2': c2Sidang.dosen_penguji2
                     };
                     //alert(c2Sidang.idTopik+"-"+gTopikId);
 
-                    if (c2Sidang.idTopik === gTopikId && ketemu == 0) {
+                    if (c2Sidang.idTopik === gTopikId) {
                         ketemu = 1;
-                        var gTopikDosenPeng1Nik = c2Sidang.dosen_penguji1.nik;
-                        var gTopikDosenPeng2Nik = c2Sidang.dosen_penguji2.nik;
+                        var gTopikDosenPeng1Nik = peng1;
+                        var gTopikDosenPeng2Nik = peng2;
                         var dosenDataRef = firebase.database().ref('dosen/');
 
                         var hariIni = new Date();

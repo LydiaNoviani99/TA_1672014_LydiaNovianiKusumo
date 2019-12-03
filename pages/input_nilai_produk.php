@@ -32,7 +32,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiA1Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiA1Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -43,7 +43,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiA2bProduk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiA2bProduk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -54,7 +54,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiA3Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiA3Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -65,7 +65,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiA4Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiA4Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -85,7 +85,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiB1Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiB1Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -96,7 +96,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiB2Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiB2Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -107,7 +107,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiB3Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiB3Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -118,7 +118,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiB4Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiB4Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -129,7 +129,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiB5Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiB5Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -140,7 +140,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiB6Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiB6Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -151,7 +151,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiB7Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiB7Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -162,7 +162,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiB8Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiB8Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -182,7 +182,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiC1Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiC1Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -193,7 +193,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiC2Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiC2Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -215,7 +215,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiD1Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiD1Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -226,7 +226,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiD2Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiD2Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -237,7 +237,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilaiD3Produk" type="text" class="form-control calculateProduk"/>
+                <input id="nilaiD3Produk" type="number" min="0" max="100" class="form-control calculateProduk"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>

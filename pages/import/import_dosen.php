@@ -11,9 +11,9 @@ if (isset($_POST["submit_file"]) && $_FILES["file"]["tmp_name"] != null) {
             $object = (object) [
                         'NIK' => $csv[0],
                         'Nama' => $csv[1],
-                        'Email' => "-",
-                        'IdJabatan' => "-",
-                        'NamaJabatan' => "-"
+                        'Email' => $csv[2],
+                        'IdJabatan' => "5",
+                        'NamaJabatan' => "Dosen"
             ];
             var_dump($object);
             array_push($data, $object);

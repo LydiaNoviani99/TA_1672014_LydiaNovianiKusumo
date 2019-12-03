@@ -1,5 +1,6 @@
 var db = firebase.database();
 var tahun_ajaranGlobal;
+var tahun_ajaranGlobal_name;
 $(document).ready(function () {
     var tahun_AjaranDataRef = firebase.database().ref().child('tahun_ajaran');
     tahun_AjaranDataRef.on('value', function (snap) {
@@ -19,9 +20,9 @@ $(document).ready(function () {
         $('#filterTahun_Ajaran')
                 .append($("<option></option>")
                         .attr("value", "-")
-                        .text("--Pilih Tahun Ajaran--"));
+                        .text("--Pilih Semua Tahun Ajaran--"));
         $.each(data, function (key, value) {
-            if (value.status === "true") {
+            if (value.status === "Aktif") {
                 $('#filterTahun_Ajaran')
                         .append($("<option></option>")
                                 .attr("value", value.idx)
@@ -32,16 +33,21 @@ $(document).ready(function () {
                         .append($("<option></option>")
                                 .attr("value", value.idx)
                                 .text(value.name));
+
             }
         });
         tahun_ajaranGlobal = $('#filterTahun_Ajaran option:selected').val();
-        ImportPengajuan(tahun_ajaranGlobal);
+        tahun_ajaranGlobal_name = $('#filterTahun_Ajaran option:selected').text();
+
+        $("#filterTanggalSidang").change(function () {
+            ImportPengajuan(tahun_ajaranGlobal);
+        });
     }
 });
 
 
 function ImportPengajuan(tahun_ajaranGlobal) {
-//    alert("as")
+    alert(tahun_ajaranGlobal)
     var url_string = window.location.href;
     var url = new URL(url_string);
     var data = url.searchParams.get("data");
@@ -55,10 +61,13 @@ function ImportPengajuan(tahun_ajaranGlobal) {
             var nama_dosenPemb1 = myobj[key].nama_dosenPemb1;
             var nik_dosenPemb2 = myobj[key].nik_dosenPemb2;
             var nama_dosenPemb2 = myobj[key].nama_dosenPemb2;
+            var tahun_ajaran_id = $('#filterTahun_Ajaran option:selected').val();
+            var tahun_ajaran_name = $('#filterTahun_Ajaran option:selected').text();
 //            alert(v_nrp)
 //            alert(v_nama)
 //            alert(judul_topik)
-//            alert(nama_dosenPemb1)
+            alert(tahun_ajaran_id)
+            alert(tahun_ajaran_name)
             var idTopik = firebase.database().ref().child('topik').push().key;
 //            alert(idTopik)
             db.ref('topik/').child(tahun_ajaranGlobal).child(idTopik).set({
@@ -75,6 +84,10 @@ function ImportPengajuan(tahun_ajaranGlobal) {
                 dosen_pembimbing2: {
                     name: nama_dosenPemb2,
                     nik: nik_dosenPemb2
+                },
+                tahun_ajaran: {
+                    id: tahun_ajaranGlobal,
+                    name: tahun_ajaranGlobal_name
                 }
             });
         });

@@ -21,6 +21,12 @@
             select {
                 overflow-y: scroll;
             }
+            div.dataTables_scrollBody thead {
+                line-height: 0;
+                opacity:0.0;
+                width: 0px;
+                height:0px;
+            }
         </style>
     </head>
 
@@ -70,6 +76,32 @@
                                     </tbody>
                                 </table>
 
+
+                                <hr style="width: 100%; border: 1px solid black;"/>
+
+                                <table>
+                                    <col width="10%">
+                                    <col width="10%">
+                                    <col width="80%">
+                                    <tr>
+                                        <td colspan="3"><h5><b>Keterangan Tombol </b></h5> </td>
+                                    </tr>
+                                    <tr style="margin: 7%">
+                                        <td><button id="btn_assignSidang1" class="btn btn-primary btn-circle"><b>1</b></button></td>
+                                        <td> : </td>
+                                        <td>Sidang Aktif / Dapat memasukkan data sidang / Dapat ditekan </td>
+                                    </tr>
+                                    <tr style="margin: 7%">
+                                        <td><button class="btn btn-success btn-circle"><i class="fa fa-check"></i></button></td>
+                                        <td> : </td>
+                                        <td>Sidang Selesai / Sudah ada nilainya / Tidak dapat ditekan </td>
+                                    </tr>
+                                    <tr style="margin: 7%">
+                                        <td><button id="btn_assignSidang2" class="btn btn-primary btn-circle" style="background-color:lightgrey"><b>1</b></button></td>
+                                        <td> : </td>
+                                        <td>Pengisian nilai disidang sebelumnya belum selesai / Ketika ditekan muncul peringatan</td>
+                                    </tr>
+                                </table>
                                 <!-- add modal -->
                                 <div class="modal fade" tabindex="-1" role="dialog" id="lihatDetailSidang"  data-keyboard="false" data-backdrop="static">
                                     <div class="modal-dialog" style="width: 50%" role="document">
@@ -166,13 +198,6 @@
                                                                     <!-- here the text will apper -->
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group"> <!--/here teh addclass has-error will appear -->
-                                                                <label class="col-sm-4 control-label">Catatan : </label>
-                                                                <div class="col-sm-8"> 
-                                                                    <b id='lihatCatatanSidang'></b>
-                                                                    <!-- here the text will apper -->
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                         <div id="detailSidang2" class="tab-pane">
                                                             <div class="form-group"> <!--/here teh addclass has-error will appear -->
@@ -210,13 +235,6 @@
                                                                     <!-- here the text will apper -->
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group"> <!--/here teh addclass has-error will appear -->
-                                                                <label class="col-sm-4 control-label">Catatan : </label>
-                                                                <div class="col-sm-8"> 
-                                                                    <b id='lihat2CatatanSidang'></b>
-                                                                    <!-- here the text will apper -->
-                                                                </div>
-                                                            </div>
                                                         </div>
                                                         <div id="detailSidang3" class="tab-pane">
                                                             <div class="form-group"> <!--/here teh addclass has-error will appear -->
@@ -251,13 +269,6 @@
                                                                 <label class="col-sm-4 control-label">Ruangan : </label>
                                                                 <div class="col-sm-8"> 
                                                                     <b id='lihat3RuanganSidang'></b>
-                                                                    <!-- here the text will apper -->
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group"> <!--/here teh addclass has-error will appear -->
-                                                                <label class="col-sm-4 control-label">Catatan : </label>
-                                                                <div class="col-sm-8"> 
-                                                                    <b id='lihat3CatatanSidang'></b>
                                                                     <!-- here the text will apper -->
                                                                 </div>
                                                             </div>
@@ -377,13 +388,6 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group"> <!--/here teh addclass has-error will appear -->
-                                                        <label for="txtSidang1Catatan" class="col-sm-4 control-label">Catatan untuk Sidang</label>
-                                                        <div class="col-sm-8"> 
-                                                            <textarea style="width: 100%"  name="txtSidang1Catatan" id="txtSidang1Catatan" cols="30" rows="5"  required></textarea>
-                                                            <!-- here the text will apper -->
-                                                        </div>
-                                                    </div>
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -417,7 +421,12 @@
     <script type="text/javascript">
                                                         $(document).ready(function () {
                                                             var table = $('#assign_sidangTable').DataTable({
-                                                                columns: [
+                                                                "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
                                                                     {
                                                                         data: 'null',
                                                                         render: function (data, type, row) {
@@ -431,9 +440,15 @@
                                                                         data: 'null',
                                                                         render: function (data, type, row) {
                                                                             if (typeof row.nilaiMutu !== 'undefined') {
-                                                                                return '<span style=color:red; >DONE</span>'
+                                                                                return '<button class="btn btn-success btn-circle"><i class="fa fa-check"></i></button>'
+
                                                                             } else {
-                                                                                return '<button id="btn_assignSidang1" class="btn btn-success btn-circle" onClick="assignSidang1(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>1</b></button>'
+                                                                                if (typeof row.nilaiSidang1 !== "Belum Lengkap" && row.nilaiSidang1 !== "-") {
+
+                                                                                    return '<button class="btn btn-success btn-circle"><i class="fa fa-check"></i></button>'
+                                                                                } else {
+                                                                                    return '<button id="btn_assignSidang1" class="btn btn-primary btn-circle" onClick="assignSidang1(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>1</b></button>'
+                                                                                }
                                                                             }
 
 
@@ -443,12 +458,13 @@
                                                                         data: 'null',
                                                                         render: function (data, type, row) {
                                                                             if (row.nilaiSidang1 == "Belum Lengkap" || row.nilaiSidang1 == "-") {
-                                                                                return '<button id="btn_assignSidang2" class="btn btn-success btn-circle" style="background-color:lightgrey"onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>2</b></button>'
+                                                                                return '<button id="btn_assignSidang2" class="btn btn-primary btn-circle" style="background-color:lightgrey"onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>2</b></button>'
                                                                             } else {
-                                                                                if (typeof row.nilaiMutu !== 'undefined') {
-                                                                                    return '<span style=color:red; >DONE</span>'
+                                                                                if (typeof row.nilaiSidang2 !== "Belum Lengkap" && row.nilaiSidang2 !== "-") {
+
+                                                                                    return '<button class="btn btn-success btn-circle"><i class="fa fa-check"></i></button>'
                                                                                 } else {
-                                                                                    return '<button id="btn_assignSidang2" class="btn btn-success btn-circle" onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>2</b></button>'
+                                                                                    return '<button id="btn_assignSidang2" class="btn btn-primary btn-circle" onClick="assignSidang2(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>2</b></button>'
                                                                                 }
 
                                                                             }
@@ -458,12 +474,17 @@
                                                                         data: 'null',
                                                                         render: function (data, type, row) {
                                                                             if (row.nilaiSidang2 == "Belum Lengkap" || row.nilaiSidang2 == "-") {
-                                                                                return '<button id="btn_assignSidang3" class="btn btn-success btn-circle" style="background-color:lightgrey"onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
+                                                                                return '<button id="btn_assignSidang3" class="btn btn-primary btn-circle" style="background-color:lightgrey"onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
                                                                             } else {
                                                                                 if (typeof row.nilaiMutu !== 'undefined') {
-                                                                                    return '<span style=color:red; >DONE</span>'
+
+                                                                                    return '<button class="btn btn-success btn-circle"><i class="fa fa-check"></i></button>'
                                                                                 } else {
-                                                                                    return '<button class="btn btn-success btn-circle" onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
+                                                                                    return '<button class="btn btn-primary btn-circle" onClick="assignSidang3(\'' + row.id_topik + '\',\'' + row.mahasiswa.nrp + '\',\'' + row.sidangId + '\')"><b>3</b></button>'
+                                                                                }
+                                                                                if (typeof row.nilaiSidang3 !== "Belum Lengkap" && row.nilaiSidang3 !== "-") {
+
+                                                                                    return '<button class="btn btn-success btn-circle"><i class="fa fa-check"></i></button>'
                                                                                 }
                                                                             }
                                                                         }

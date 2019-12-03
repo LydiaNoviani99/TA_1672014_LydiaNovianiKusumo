@@ -13,6 +13,17 @@
 
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
+        
+        
+        <style type="text/css">
+            div.dataTables_scrollBody thead th,
+            div.dataTables_scrollBody thead td {
+                line-height: 0;
+                opacity:0.0;
+                width: 0px;
+                height:0px;
+            }
+        </style>
     </head>
 
     <body>
@@ -42,7 +53,7 @@
                                     <button type="button" data-toggle="modal" data-target="#topikModal" id="btn-newTopik" value="Simpan" class="btn btn-info">Tambah Topik</button>
                                 </div>
 
-                                <div class="col-sm-6" style="text-align: right;">
+                                <div class="col-sm-6" style="text-align: right;" id="btn-importTopik">
                                     <div class="modal modal-primary fade" id="modal-import" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="container"><!-- container class is used to centered  the body of the browser with some decent width-->
                                             <div class="row"><!-- row class is used for grid system in Bootstrap-->
@@ -88,22 +99,44 @@
                                         <option></option>
                                     </select>
                                 </div>
+                                <div id="tblFilter">
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="topikTable">
+                                        <thead>
+                                            <tr>
+                                                <th>NRP</th>
+                                                <th>Nama</th>
+                                                <th>Pemb 1</th>
+                                                <th>Pemb 2</th>
+                                                <th>Topik</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                <table width="100%" class="table table-striped table-bordered table-hover" id="topikTable">
-                                    <thead>
-                                        <tr>
-                                            <th>NRP</th>
-                                            <th>Nama</th>
-                                            <th>Pemb 1</th>
-                                            <th>Pemb 2</th>
-                                            <th>Topik</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                        </tbody>
+                                    </table>
 
-                                    </tbody>
-                                </table>
+                                </div>
+                                <div id="tblAll">
+                                    <h4>Daftar Semua Topik</h4>
+                                    <table width="100%" class="table table-striped table-bordered table-hover" id="topikTableAll">
+                                        <thead>
+                                            <tr>
+                                                <th>NRP</th>
+                                                <th>Nama</th>
+                                                <th>Pemb 1</th>
+                                                <th>Pemb 2</th>
+                                                <th>Topik</th>
+                                                <th>Tahun Ajaran</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
 
                                 <!-- add modal -->
                                 <div class="modal fade" tabindex="-1" role="dialog" id="topikModal">
@@ -217,7 +250,12 @@
                     "scrollCollapse": true,
                     "select": true,
                     "lengthMenu": [5, 10, 15, "All"],
-                    columns: [
+                   "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                }, columns: [
                         {data: "nrp"},
                         {data: "name"}
                     ]
@@ -233,7 +271,12 @@
                 });
 
                 var table1 = $('#topikTable').DataTable({
-                    columns: [
+                    "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
                         {data: 'mahasiswa.nrp'},
                         {data: 'mahasiswa.name'},
                         {data: 'dosen_pembimbing1.name'},
@@ -249,6 +292,22 @@
                                 }
                             }
                         }
+                    ]
+                });
+
+                var table1 = $('#topikTableAll').DataTable({
+                    "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
+                        {data: 'mahasiswa.nrp'},
+                        {data: 'mahasiswa.name'},
+                        {data: 'dosen_pembimbing1.name'},
+                        {data: 'dosen_pembimbing2.name'},
+                        {data: 'judul_topik'},
+                        {data: 'tahun_ajaran.name'}
                     ]
                 });
             });

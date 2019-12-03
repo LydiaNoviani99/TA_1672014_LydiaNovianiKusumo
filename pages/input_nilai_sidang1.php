@@ -31,7 +31,8 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilai1Sidang1" type="text" class="form-control calculateSidang1" required=""/>
+
+                <input id="nilai1Sidang1" type="number" min="0" max="100" class="form-control calculateSidang1" required=""/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -51,7 +52,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilai2aSidang1" type="text" class="form-control calculateSidang1"required=""/>
+                <input id="nilai2aSidang1" type="number" min="0" max="100" class="form-control calculateSidang1"required=""/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -62,7 +63,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilai2bSidang1" type="text" class="form-control calculateSidang1" required=""/>
+                <input id="nilai2bSidang1" type="number" min="0" max="100" class="form-control calculateSidang1" required=""/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -83,7 +84,7 @@
                 Inisiatif untuk mendapatkan segala bentuk informasi dan referensi yang menunjang.
             </td>
             <td></td>
-            <td class="text-right"><input id="nilai3aSidang1" type="text" class="form-control calculateSidang1" required=""/></td>
+            <td class="text-right"><input id="nilai3aSidang1" type="number" min="0" max="100" class="form-control calculateSidang1" required=""/></td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
         <tr>
@@ -92,7 +93,7 @@
                 Pemahaman bidang ilmu yang menjadi dasar topik pembahasan serta ide/gagasan perancangan.
             </td>
             <td></td>
-            <td class="text-right"><input id="nilai3bSidang1" type="text" class="form-control calculateSidang1" required=""/></td>
+            <td class="text-right"><input id="nilai3bSidang1" type="number" min="0" max="100" class="form-control calculateSidang1" required=""/></td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
         <tr>
@@ -101,7 +102,7 @@
                 Pemilihan objek perancangan dan pemilihan site (site & building analysis)
             </td>
             <td></td>
-            <td class="text-right"><input id="nilai3cSidang1" type="text" class="form-control calculateSidang1" required=""/></td>
+            <td class="text-right"><input id="nilai3cSidang1" type="number" min="0" max="100" class="form-control calculateSidang1" required=""/></td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
         <tr>
@@ -110,7 +111,7 @@
                 Konsep perancangan, meliputi konsep elemen (bentuk, pola, tekstur, warna, material, pencahayaan, penghawaan, keamanan, dll)
             </td>
             <td></td>
-            <td class="text-right"><input id="nilai3dSidang1" type="text" class="form-control calculateSidang1" required=""/></td>
+            <td class="text-right"><input id="nilai3dSidang1" type="number" min="0" max="100" class="form-control calculateSidang1" required=""/></td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
         <tr>
@@ -119,7 +120,7 @@
                 Penataan ruang, sirkulasi, zoning-blocking  yang sesuai dengan kebutuhan perancangannya + sketsa
             </td>
             <td></td>
-            <td class="text-right"><input id="nilai3eSidang1" type="text" class="form-control calculateSidang1" required=""/></td>
+            <td class="text-right"><input id="nilai3eSidang1" type="number" min="0" max="100" class="form-control calculateSidang1" required=""/></td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
         <tr>
@@ -128,7 +129,7 @@
                 Sketsa ide(min.2)
             </td>
             <td></td>
-            <td class="text-right"><input id="nilai3fSidang1" type="text" class="form-control calculateSidang1" required=""/></td>
+            <td class="text-right"><input id="nilai3fSidang1" type="number" min="0" max="100" class="form-control calculateSidang1" required=""/></td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
 
@@ -148,7 +149,7 @@
                 Kreativitas penyampaian, kejelasan dan sistematika presentasi.Sikap dan kejelasan suara pada saat presentasi.
             </td>
             <td></td>
-            <td><input type="text" id="nilai4aSidang1" class="form-control calculateSidang1" required=""/></td>
+            <td><input type="number" min="0" max="100" id="nilai4aSidang1" class="form-control calculateSidang1" required=""/></td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
         <tr>
@@ -157,7 +158,7 @@
                 Sikap dan kejelasan suara pada saat presentasi.
             </td>
             <td></td>
-            <td><input type="text" id="nilai4bSidang1" class="form-control calculateSidang1" required=""/></td>
+            <td><input type="number" min="0" max="100" id="nilai4bSidang1" class="form-control calculateSidang1" required=""/></td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
 

@@ -26,7 +26,7 @@ function addComboTahun_Ajaran(data) {
                     .attr("value", "-")
                     .text("--Pilih Tahun Ajaran--"));
     $.each(data, function (key, value) {
-        if (value.status === "true") {
+        if (value.status === "Aktif") {
             $('#filterTahun_Ajaran')
                     .append($("<option></option>")
                             .attr("value", value.idx)
@@ -48,8 +48,6 @@ function addComboTahun_Ajaran(data) {
         view_topik_to_assign_sidang();
 
     });
-
-
 }
 
 function view_topik_to_assign_sidang() {
@@ -80,7 +78,6 @@ function view_topik_to_assign_sidang() {
                         'dosen_pembimbing2': c2.dosen_pembimbing2,
                         'dosen_penguji1': c2.dosen_penguji1,
                         'dosen_penguji2': c2.dosen_penguji2,
-                        'catatan_sidang': c2.catatan_sidang,
                         'nilaiSidang1': c2.nilaiSidang1,
                         'nilaiSidang2': c2.nilaiSidang2,
                         'nilaiSidang3': c2.nilaiSidang3,
@@ -190,7 +187,6 @@ var gDosenPeng2Name = "-";
 var gSidangTanggal = "-";
 var gSidangJam = "-";
 var gSidangRuangan = "-";
-var gSidangCatatan = "-";
 var idSidangDetail = "-";
 function lihatDetailSidang(id) {
     $('#lihatDetailSidang').modal('show');
@@ -244,7 +240,6 @@ function lihatDetailSidang(id) {
                                 gSidangTanggal = objSidang.tanggal;
                                 gSidangJam = objSidang.jam_mulai;
                                 gSidangRuangan = objSidang.ruangan;
-                                gSidangCatatan = objSidang.catatan;
                             }
                         });
 
@@ -262,21 +257,18 @@ function lihatDetailSidang(id) {
                             document.getElementById('lihatTanggalSidang').innerHTML = gSidangTanggal;
                             document.getElementById('lihatJamSidang').innerHTML = gSidangJam;
                             document.getElementById('lihatRuanganSidang').innerHTML = gSidangRuangan;
-                            document.getElementById('lihatCatatanSidang').innerHTML = gSidangCatatan;
                         } else if (gSidangName === "Sidang 2") {
                             document.getElementById('lihat2DosenPenguji1').innerHTML = gDosenPeng1Nik + " - " + gDosenPeng1Name;
                             document.getElementById('lihat2DosenPenguji2').innerHTML = gDosenPeng2Nik + " - " + gDosenPeng2Name;
                             document.getElementById('lihat2TanggalSidang').innerHTML = gSidangTanggal;
                             document.getElementById('lihat2JamSidang').innerHTML = gSidangJam;
                             document.getElementById('lihat2RuanganSidang').innerHTML = gSidangRuangan;
-                            document.getElementById('lihat2CatatanSidang').innerHTML = gSidangCatatan;
                         } else if (gSidangName === "Sidang 3") {
                             document.getElementById('lihat3DosenPenguji1').innerHTML = gDosenPeng1Nik + " - " + gDosenPeng1Name;
                             document.getElementById('lihat3DosenPenguji2').innerHTML = gDosenPeng2Nik + " - " + gDosenPeng2Name;
                             document.getElementById('lihat3TanggalSidang').innerHTML = gSidangTanggal;
                             document.getElementById('lihat3JamSidang').innerHTML = gSidangJam;
                             document.getElementById('lihat3RuanganSidang').innerHTML = gSidangRuangan;
-                            document.getElementById('lihat3CatatanSidang').innerHTML = gSidangCatatan;
                         }
                         $(".close").on("click", function () {
 
@@ -291,25 +283,26 @@ function lihatDetailSidang(id) {
                             document.getElementById('lihatTanggalSidang').innerHTML = "";
                             document.getElementById('lihatJamSidang').innerHTML = "";
                             document.getElementById('lihatRuanganSidang').innerHTML = "";
-                            document.getElementById('lihatCatatanSidang').innerHTML = "";
                             document.getElementById('lihat2DosenPenguji1').innerHTML = "";
                             document.getElementById('lihat2DosenPenguji2').innerHTML = "";
                             document.getElementById('lihat2TanggalSidang').innerHTML = "";
                             document.getElementById('lihat2JamSidang').innerHTML = "";
                             document.getElementById('lihat2RuanganSidang').innerHTML = "";
-                            document.getElementById('lihat2CatatanSidang').innerHTML = "";
                             document.getElementById('lihat3DosenPenguji1').innerHTML = "";
                             document.getElementById('lihat3DosenPenguji2').innerHTML = "";
                             document.getElementById('lihat3TanggalSidang').innerHTML = "";
                             document.getElementById('lihat3JamSidang').innerHTML = "";
                             document.getElementById('lihat3RuanganSidang').innerHTML = "";
-                            document.getElementById('lihat3CatatanSidang').innerHTML = "";
                         });
                     });
                 }
             });
         }
     });
+}
+
+function updateAssignSidang(idTopik) {
+
 }
 
 function assignSidang1(id, nrp, sidangId) {
@@ -546,7 +539,6 @@ $("#btnSaveSidang1").click(function () {
     var gSidangTanggal = $('#txtSidang1Tanggal').val();
     var gSidangJam = $('#txtSidang1Jam').val();
     var gSidangRuangan = $('#txtSidang1Ruangan').val();
-    var gSidangCatatan = $('#txtSidang1Catatan').val();
 
 
     var topikDataRef = firebase.database().ref('topik/' + tahun_ajaranGlobal);
@@ -585,7 +577,6 @@ $("#btnSaveSidang1").click(function () {
         tanggal: gSidangTanggal,
         jam_mulai: gSidangJam,
         ruangan: gSidangRuangan,
-        catatan: gSidangCatatan,
         idTopik: tempAmbilIdTopik
     });
     alert("Data berhasil tersimpan");

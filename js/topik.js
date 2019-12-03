@@ -1,6 +1,21 @@
 var tempKeyTopik;
 var tahun_ajaranGlobal;
 $(document).ready(function () {
+    $('#tblAll').hide();
+    $('#tblFilter').hide();
+    var tahun_AjaranDataRef = firebase.database().ref().child('tahun_ajaran');
+    tahun_AjaranDataRef.on('value', function (snap) {
+        if (snap.exists()) {
+            obj = [];
+            snap.forEach(function (childSnap) {
+                var c2 = childSnap.val();
+                obj2 = {'idx': c2.id, 'name': c2.name, 'status': c2.status};
+                obj.push(obj2);
+            });
+            addComboTahun_Ajaran(obj);
+        }
+    });
+
     $('#mahasiswaTableTopik').val('');
     var mahasiswaDataRef = firebase.database().ref('mahasiswa/');
     mahasiswaDataRef.on('value', function (snap) {
@@ -20,89 +35,7 @@ $(document).ready(function () {
         $('#mahasiswaTableTopik').DataTable().rows.add(data).draw();
     }
 
-    var tahun_AjaranDataRef = firebase.database().ref().child('tahun_ajaran');
-    tahun_AjaranDataRef.on('value', function (snap) {
-        if (snap.exists()) {
-            obj = [];
-            snap.forEach(function (childSnap) {
-                var c2 = childSnap.val();
-                obj2 = {'idx': c2.id, 'name': c2.name, 'status': c2.status};
-                obj.push(obj2);
-            });
-            addComboTahun_Ajaran(obj);
-        }
-    });
 
-    function addComboTahun_Ajaran(data) {
-        $('#filterTahun_Ajaran').empty();
-        $('#filterTahun_Ajaran')
-                .append($("<option></option>")
-                        .attr("value", "-")
-                        .text("--Pilih Tahun Ajaran--"));
-        $.each(data, function (key, value) {
-            if (value.status === "true") {
-                $('#filterTahun_Ajaran')
-                        .append($("<option></option>")
-                                .attr("value", value.idx)
-                                .attr("selected", "selected")
-                                .text(value.name));
-            } else {
-                $('#filterTahun_Ajaran')
-                        .append($("<option></option>")
-                                .attr("value", value.idx)
-                                .text(value.name));
-            }
-        });
-
-        var obj = [];
-        var obj2 = [];
-        var objMhs = [];
-        var obj2Mhs = [];
-
-        viewTopik();
-
-        function viewTopik() {
-
-            $('#topikTable').DataTable().clear().draw();
-            var p_id = $('#filterTahun_Ajaran option:selected').val();
-            $('#topikTable').DataTable().clear().draw();
-            tahun_ajaranGlobal = p_id;
-            console.log("TAHUN :" + tahun_ajaranGlobal);
-
-            if (p_id == "-") {
-                $('#topikTable').DataTable().clear().draw();
-            } else {
-                var topikDataRef = firebase.database().ref('topik/' + tahun_ajaranGlobal);
-                topikDataRef.on('value', function (snap) {
-                    obj = [];
-                    if (snap.exists()) {
-                        obj = [];
-                        snap.forEach(function (childSnap) {
-                            var c2 = childSnap.val();
-                            obj2 = {'id': c2.id,
-                                'judul_topik': c2.judul_topik,
-                                'mahasiswa': c2.mahasiswa,
-                                'dosen_pembimbing1': c2.dosen_pembimbing1,
-                                'dosen_pembimbing2': c2.dosen_pembimbing2,
-                                'nilaiMutu': c2.nilaiMutu
-                            };
-
-                            obj.push(obj2);
-                            addTopik(obj);
-                        });
-                    }
-                });
-            }
-        }
-
-        $("#filterTahun_Ajaran").change(function () {
-            viewTopik();
-        });
-        function addTopik(data) {
-            $('#topikTable').DataTable().clear().draw();
-            $('#topikTable').DataTable().rows.add(data).draw();
-        }
-    }
 
     $("#btn-newTopik").click(function () {
 //        $('#comboTahun_Ajaran').val('');
@@ -113,43 +46,105 @@ $(document).ready(function () {
     });
 });
 
-var tahun_AjaranDataRef = firebase.database().ref().child('tahun_ajaran');
-tahun_AjaranDataRef.on('value', function (snap) {
-    if (snap.exists()) {
-        obj = [];
-        snap.forEach(function (childSnap) {
-            var c2 = childSnap.val();
-//                console.log(c2);
-            obj2 = {'idx': c2.id, 'name': c2.name, 'status': c2.status};
-            obj.push(obj2);
-        });
-//            addTable(obj);
-        addComboTahun_Ajaran(obj);
-    }
-});
 function addComboTahun_Ajaran(data) {
-    $('#comboTahun_Ajaran').empty();
-    $('#comboTahun_Ajaran')
-            .append($("<option></option>")
-                    .attr("value", "-")
-                    .text("--Pilih Tahun Ajaran--"));
-    $.each(data, function (key, value) {
-        $('#comboTahun_Ajaran')
-                .append($("<option></option>")
-                        .attr("value", value.idx)
-                        .text(value.name));
-    });
     $('#filterTahun_Ajaran').empty();
     $('#filterTahun_Ajaran')
             .append($("<option></option>")
                     .attr("value", "-")
-                    .text("--Pilih Tahun Ajaran--"));
+                    .text("--Pilih Semua Tahun Ajaran--"));
     $.each(data, function (key, value) {
-        $('#filterTahun_Ajaran')
-                .append($("<option></option>")
-                        .attr("value", value.idx)
-                        .text(value.name));
+        if (value.status === "Aktif") {
+            $('#filterTahun_Ajaran')
+                    .append($("<option></option>")
+                            .attr("value", value.idx)
+                            .attr("selected", "selected")
+                            .text(value.name));
+        } else {
+            $('#filterTahun_Ajaran')
+                    .append($("<option></option>")
+                            .attr("value", value.idx)
+                            .text(value.name));
+
+        }
     });
+
+
+    viewTopik();
+
+    $("#filterTahun_Ajaran").change(function () {
+        viewTopik();
+    });
+}
+function viewTopik() {
+    $('#topikTable').DataTable().clear().draw();
+    var p_id = $('#filterTahun_Ajaran option:selected').val();
+    $('#topikTable').DataTable().clear().draw();
+    tahun_ajaranGlobal = p_id;
+    console.log("TAHUN :" + tahun_ajaranGlobal);
+
+    if (p_id == "-") {
+        $('#tblAll').show();
+        $('#tblFilter').hide();
+        $('#btn-newTopik').hide();
+        $('#btn-importTopik').hide();
+        var topikDataRef = firebase.database().ref('topik/');
+        topikDataRef.on('value', function (snap) {
+            objAll = [];
+            if (snap.exists()) {
+                obj = [];
+                snap.forEach(function (childSnap) {
+                    childSnap.forEach(function (childSnap2) {
+                        var c2 = childSnap2.val();
+                        obj2 = {'id': c2.id,
+                            'judul_topik': c2.judul_topik,
+                            'mahasiswa': c2.mahasiswa,
+                            'dosen_pembimbing1': c2.dosen_pembimbing1,
+                            'dosen_pembimbing2': c2.dosen_pembimbing2,
+                            'nilaiMutu': c2.nilaiMutu,
+                            'tahun_ajaran': c2.tahun_ajaran
+                        };
+                        objAll.push(obj2);
+                        addTopikAll(objAll);
+                    });
+                });
+            }
+        });
+    } else {
+        $('#tblFilter').show();
+        $('#tblAll').hide();
+        $('#btn-newTopik').show();
+        $('#btn-importTopik').show();
+        var topikDataRef = firebase.database().ref('topik/' + tahun_ajaranGlobal);
+        topikDataRef.on('value', function (snap) {
+            obj = [];
+            if (snap.exists()) {
+                obj = [];
+                snap.forEach(function (childSnap) {
+                    var c2 = childSnap.val();
+                    obj2 = {'id': c2.id,
+                        'judul_topik': c2.judul_topik,
+                        'mahasiswa': c2.mahasiswa,
+                        'dosen_pembimbing1': c2.dosen_pembimbing1,
+                        'dosen_pembimbing2': c2.dosen_pembimbing2,
+                        'nilaiMutu': c2.nilaiMutu,
+                        'tahun_ajaran': c2.tahun_ajaran
+                    };
+
+                    obj.push(obj2);
+                    addTopik(obj);
+                });
+            }
+        });
+    }
+}
+
+function addTopik(data) {
+    $('#topikTable').DataTable().clear().draw();
+    $('#topikTable').DataTable().rows.add(data).draw();
+}
+function addTopikAll(data) {
+    $('#topikTableAll').DataTable().clear().draw();
+    $('#topikTableAll').DataTable().rows.add(data).draw();
 }
 
 
@@ -225,6 +220,10 @@ $("#btnSaveTopik").click(function () {
             var nikTopikDosenPemb2 = "-";
             var nameTopikDosenPemb2 = "-";
 
+
+            var tahun_AjaranId = $('#filterTahun_Ajaran option:selected').val();
+            var tahun_AjaranName = $('#filterTahun_Ajaran option:selected').text();
+
             if (comboTopikDosenPemb1 === "--Pilih Dosen Pembimbing 1--") {
                 nikTopikDosenPemb1 = "-";
                 nameTopikDosenPemb1 = "-";
@@ -249,6 +248,10 @@ $("#btnSaveTopik").click(function () {
                     && nikTopikDosenPemb2 != ''
                     && nameTopikDosenPemb2 != '') {
                 firebase.database().ref('topik/').child(tahun_ajaranGlobal).child(idTopik).set({
+                    tahun_ajaran: {
+                        id: tahun_ajaranGlobal,
+                        name: tahun_AjaranName
+                    },
                     id: idTopik,
                     judul_topik: txtTopikJudul,
                     mahasiswa: {

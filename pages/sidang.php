@@ -19,6 +19,16 @@
         </script><script src="sweetalert2.all.min.js"></script>
         <script src="sweetalert2.min.js"></script>
         <link rel="stylesheet" href="sweetalert2.min.css">
+        
+        <style type="text/css">
+            div.dataTables_scrollBody thead th,
+            div.dataTables_scrollBody thead td {
+                line-height: 0;
+                opacity:0.0;
+                width: 0px;
+                height:0px;
+            }
+        </style>
     </head>
 
     <body>
@@ -81,7 +91,7 @@
 
                                     <h4><b> Data Seluruh Sidang </b> </h4> 
 
-                                    <h6><b> Sebagai Pembimbing 1 </b> </h6> 
+                                    <h6 style="color: red"><b> Sebagai Pembimbing 1 </b> </h6> 
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="viewSidangTablePemb1">
                                         <thead>
                                             <tr>
@@ -103,7 +113,7 @@
                                         </tbody>
                                     </table>
 
-                                    <h6><b> Sebagai Pembimbing 2 </b> </h6> 
+                                    <h6 style="color: red"><b> Sebagai Pembimbing 2 </b> </h6> 
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="viewSidangTablePemb2">
                                         <thead>
                                             <tr>
@@ -125,7 +135,7 @@
                                         </tbody>
                                     </table>
 
-                                    <h6><b> Sebagai Penguji 1 </b> </h6> 
+                                    <h6 style="color: red"><b> Sebagai Penguji 1 </b> </h6> 
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="viewSidangTablePeng1">
                                         <thead>
                                             <tr>
@@ -148,7 +158,7 @@
                                     </table>
 
 
-                                    <h6><b> Sebagai Penguji 2 </b> </h6> 
+                                    <h6 style="color: red"><b> Sebagai Penguji 2 </b> </h6> 
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="viewSidangTablePeng2">
                                         <thead>
                                             <tr>
@@ -256,7 +266,8 @@
                                         </div>
                                         <div id="sidang_3_tab" class="tab-pane fade">
                                             <?php include_once './input_nilai_sidang3.php'; ?>
-                                        </div> <div id="nilai_proses_sidang_1_tab" class="tab-pane fade">
+                                        </div> 
+                                        <div id="nilai_proses_sidang_1_tab" class="tab-pane fade">
                                             <?php include_once './input_nilai_proses_sidang1.php'; ?>
                                         </div>
                                         <div id="nilai_proses_sidang_2_tab" class="tab-pane fade">
@@ -303,7 +314,12 @@
         <script type='text/javascript'>
             $(document).ready(function () {
                 var tableTanggal = $('#viewSidangTableFilterTanggal').DataTable({
-                    columns: [
+                   "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                }, columns: [
                         {data: 'mahasiswa2.nrp'},
                         {data: 'mahasiswa2.name'},
                         {data: 'sidangName'},
@@ -313,7 +329,7 @@
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button type="button"  id="btnBeriNilai" class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\')">Beri Nilai</button>'
+                                return '<button type="button"  id="btnBeriNilai" class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\',\'' + row.dosen_penguji1.nik + '\',\'' + row.dosen_penguji2.nik + '\')">Beri Nilai</button>'
                             }
                         }
                     ]
@@ -321,7 +337,12 @@
 
 
                 var table = $('#viewSidangTablePemb1').DataTable({
-                    columns: [
+                    "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
                         {data: 'mahasiswa2.nrp'},
                         {data: 'mahasiswa2.name'},
                         {data: 'sidangName'},
@@ -335,13 +356,18 @@
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\')">Beri Nilai</button>'
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\',\'' + row.dosen_penguji1.nik + '\',\'' + row.dosen_penguji2.nik + '\')">Beri Nilai</button>'
                             }
                         }
                     ]
                 });
                 var table1 = $('#viewSidangTablePemb2').DataTable({
-                    columns: [
+                    "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
                         {data: 'mahasiswa2.nrp'},
                         {data: 'mahasiswa2.name'},
                         {data: 'sidangName'},
@@ -355,13 +381,18 @@
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\')">Beri Nilai</button>'
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\',\'' + row.dosen_penguji1.nik + '\',\'' + row.dosen_penguji2.nik + '\')">Beri Nilai</button>'
                             }
                         }
                     ]
                 });
                 var table2 = $('#viewSidangTablePeng1').DataTable({
-                    columns: [
+                    "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
                         {data: 'mahasiswa2.nrp'},
                         {data: 'mahasiswa2.name'},
                         {data: 'sidangName'},
@@ -375,13 +406,18 @@
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\')">Beri Nilai</button>'
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\',\'' + row.dosen_penguji1.nik + '\',\'' + row.dosen_penguji2.nik + '\')">Beri Nilai</button>'
                             }
                         }
                     ]
                 });
                 var table3 = $('#viewSidangTablePeng2').DataTable({
-                    columns: [
+                    "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
                         {data: 'mahasiswa2.nrp'},
                         {data: 'mahasiswa2.name'},
                         {data: 'sidangName'},
@@ -391,7 +427,7 @@
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\')">Beri Nilai</button>'
+                                return '<button type="button"  class="btn btn-warning" onClick="beriNilaiSidang(\'' + row.id_topik + '\',\'' + row.mahasiswa2.nrp + '\',\'' + row.sidangName + '\',\'' + row.sidangId + '\',\'' + row.tanggal + '\',\'' + row.dosen_penguji1.nik + '\',\'' + row.dosen_penguji2.nik + '\')">Beri Nilai</button>'
                             }
                         }
                     ]

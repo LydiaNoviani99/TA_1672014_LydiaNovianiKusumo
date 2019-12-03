@@ -23,7 +23,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilai1ProsesSidang3" type="text" class="form-control calculateSidangProses3"/>
+                <input id="nilai1ProsesSidang3" type="number" min="0" max="100" class="form-control calculateSidangProses3"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -34,7 +34,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilai2ProsesSidang3" type="text" class="form-control calculateSidangProses3"/>
+                <input id="nilai2ProsesSidang3" type="number" min="0" max="100" class="form-control calculateSidangProses3"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -45,7 +45,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilai3ProsesSidang3" type="text" class="form-control calculateSidangProses3"/>
+                <input id="nilai3ProsesSidang3" type="number" min="0" max="100" class="form-control calculateSidangProses3"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>

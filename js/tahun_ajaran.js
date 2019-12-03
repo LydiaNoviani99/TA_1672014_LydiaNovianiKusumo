@@ -5,7 +5,7 @@ var status;
 var bisaHapus = true;
 var tempKey;
 function fetchTahunAjaranData(callback, element) {
-    var tahun_AjaranDataRef = firebase.database().ref('tahun_ajaran/');
+    var tahun_AjaranDataRef = firebase.database().ref('tahun_ajaran/').orderByChild("status");
     tahun_AjaranDataRef.on('value', function (snap) {
         if (snap.exists()) {
             obj = [];
@@ -60,7 +60,7 @@ $("#btnSaveTahun_Ajaran").click(function () {
                     snap.forEach(function (childSnap) {
                         var c2 = childSnap.val();
                         obj2 = {'id': c2.id, 'name': c2.name, 'status': c2.status};
-                        if (tahun_AjaranStatus == "true" && c2.status == "true") {
+                        if (tahun_AjaranStatus == "Aktif" && c2.status == "Aktif") {
                             duplikat = true;
                         }
                     });
@@ -102,7 +102,7 @@ $("#btnSaveTahun_Ajaran").click(function () {
                     snap.forEach(function (childSnap) {
                         var c2 = childSnap.val();
                         obj2 = {'id': c2.id, 'name': c2.name, 'status': c2.status};
-                        if (tahun_AjaranStatus == "true" && c2.status == "true") {
+                        if (tahun_AjaranStatus == "Aktif" && c2.status == "Aktif") {
                             duplikat = true;
                         }
                     });

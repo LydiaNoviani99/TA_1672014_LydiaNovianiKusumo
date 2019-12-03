@@ -24,7 +24,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilai1ProsesSidang1" type="text" class="form-control calculateSidangProses1"/>
+                <input id="nilai1ProsesSidang1" type="number" min="0" max="100" class="form-control calculateSidangProses1"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -35,7 +35,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilai2ProsesSidang1" type="text" class="form-control calculateSidangProses1"/>
+                <input id="nilai2ProsesSidang1" type="number" min="0" max="100" class="form-control calculateSidangProses1"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -46,7 +46,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilai3ProsesSidang1" type="text" class="form-control calculateSidangProses1"/>
+                <input id="nilai3ProsesSidang1" type="number" min="0" max="100" class="form-control calculateSidangProses1"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -57,7 +57,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilai4ProsesSidang1" type="text" class="form-control calculateSidangProses1"/>
+                <input id="nilai4ProsesSidang1" type="number" min="0" max="100" class="form-control calculateSidangProses1"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>
@@ -68,7 +68,7 @@
             </td>
             <td></td>
             <td class="text-right">
-                <input id="nilai5ProsesSidang1" type="text" class="form-control calculateSidangProses1"/>
+                <input id="nilai5ProsesSidang1" type="number" min="0" max="100" class="form-control calculateSidangProses1"/>
             </td>
             <td style="color: red; font-size: 12px ">*wajib diisi</td>
         </tr>

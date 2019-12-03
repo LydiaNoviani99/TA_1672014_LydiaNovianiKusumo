@@ -27,7 +27,7 @@ function addComboTahun_Ajaran(data) {
                     .attr("value", "-")
                     .text("--Pilih Tahun Ajaran--"));
     $.each(data, function (key, value) {
-        if (value.status === "true") {
+        if (value.status === "Aktif") {
             $('#filterTahun_Ajaran')
                     .append($("<option></option>")
                             .attr("value", value.idx)

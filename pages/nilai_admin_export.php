@@ -20,6 +20,16 @@
         <link rel="stylesheet" type="text/css" href="../dist/css/dataTables.bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../dist/css/buttons.dataTables.min.css">
         <link rel="stylesheet" type="text/css" href="../dist/css/style.css">
+        
+        <style type="text/css">
+            div.dataTables_scrollBody thead th,
+            div.dataTables_scrollBody thead td {
+                line-height: 0;
+                opacity:0.0;
+                width: 0px;
+                height:0px;
+            }
+        </style>
     </head>
 
     <body>
@@ -112,7 +122,12 @@
                             download: 'open'
                         }
                     ],
-                    columns: [
+                    "sScrollX": "100%",
+                                                "sScrollXInner": "100%",
+                                                "bScrollCollapse": true,
+                                                "fixedColumns": {
+                                                    "leftColumns": 1
+                                                },columns: [
                         {data: 'mahasiswa.nrp'},
                         {data: 'mahasiswa.name'},
                         {

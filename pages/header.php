@@ -78,6 +78,9 @@
                     <label id="labelDosen"> Dosen </label>
                 </div>
                 <li>
+                    <a href="listBelumDinilai.php" id="page_belum_dinilai"><i class="fa fa-check-circle-o  "></i> List Belum Dinilai Dosen</a>
+                </li>
+                <li>
                     <a href="sidang.php" id="page_sidang"><i class="fa fa-check-circle-o  "></i> Sidang Dosen</a>
                 </li>
                 <li>
@@ -89,6 +92,9 @@
                 <div class="sidebar-heading">
                     <label id="labelAdmin"> Admin </label>
                 </div>
+                <li>
+                    <a href="listBelumDinilai_admin.php" id="page_belum_dinilai_admin"><i class="fa fa-check-circle-o  "></i> List Belum Dinilai</a>
+                </li>
                 <li>
                     <a href="topik.php" id="page_topik"><i class="fa fa-table "></i> Topik</a>
                 </li>
@@ -139,9 +145,6 @@
 <!-- DataTables CSS -->
 <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../vendor/datatables/css/select.dataTables.min.css" rel="stylesheet">
-<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
-<link href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
 
 
 
