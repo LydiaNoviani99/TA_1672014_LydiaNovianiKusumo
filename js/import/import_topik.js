@@ -39,15 +39,17 @@ $(document).ready(function () {
         tahun_ajaranGlobal = $('#filterTahun_Ajaran option:selected').val();
         tahun_ajaranGlobal_name = $('#filterTahun_Ajaran option:selected').text();
 
-        $("#filterTanggalSidang").change(function () {
-            ImportPengajuan(tahun_ajaranGlobal);
-        });
+        ImportPengajuan(tahun_ajaranGlobal,tahun_ajaranGlobal_name);
+//        $("#filterTanggalSidang").change(function () {
+////            alert("masuk");
+//            ImportPengajuan(tahun_ajaranGlobal);
+//        });
     }
 });
 
 
-function ImportPengajuan(tahun_ajaranGlobal) {
-    alert(tahun_ajaranGlobal)
+function ImportPengajuan(tahun_ajaranGlobal,tahun_ajaranGlobal_name) {
+//    alert(tahun_ajaranGlobal_name)
     var url_string = window.location.href;
     var url = new URL(url_string);
     var data = url.searchParams.get("data");
@@ -66,8 +68,8 @@ function ImportPengajuan(tahun_ajaranGlobal) {
 //            alert(v_nrp)
 //            alert(v_nama)
 //            alert(judul_topik)
-            alert(tahun_ajaran_id)
-            alert(tahun_ajaran_name)
+//            alert(tahun_ajaran_id)
+//            alert(tahun_ajaran_name)
             var idTopik = firebase.database().ref().child('topik').push().key;
 //            alert(idTopik)
             db.ref('topik/').child(tahun_ajaranGlobal).child(idTopik).set({
@@ -91,6 +93,6 @@ function ImportPengajuan(tahun_ajaranGlobal) {
                 }
             });
         });
-        alert("Import topik berhasil")
+        alert("Import topik berhasil");
     }
 }

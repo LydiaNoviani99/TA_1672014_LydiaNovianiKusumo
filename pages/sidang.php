@@ -316,6 +316,7 @@
                 var tableTanggal = $('#viewSidangTableFilterTanggal').DataTable({
                    "sScrollX": "100%",
                                                 "sScrollXInner": "100%",
+                                                responsive: true,
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
                                                     "leftColumns": 1
@@ -339,6 +340,7 @@
                 var table = $('#viewSidangTablePemb1').DataTable({
                     "sScrollX": "100%",
                                                 "sScrollXInner": "100%",
+                                                responsive: true,
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
                                                     "leftColumns": 1
@@ -364,6 +366,7 @@
                 var table1 = $('#viewSidangTablePemb2').DataTable({
                     "sScrollX": "100%",
                                                 "sScrollXInner": "100%",
+                                                responsive: true,
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
                                                     "leftColumns": 1
@@ -389,6 +392,7 @@
                 var table2 = $('#viewSidangTablePeng1').DataTable({
                     "sScrollX": "100%",
                                                 "sScrollXInner": "100%",
+                                                responsive: true,
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
                                                     "leftColumns": 1
@@ -414,6 +418,7 @@
                 var table3 = $('#viewSidangTablePeng2').DataTable({
                     "sScrollX": "100%",
                                                 "sScrollXInner": "100%",
+                                                responsive: true,
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
                                                     "leftColumns": 1

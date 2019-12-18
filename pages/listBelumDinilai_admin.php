@@ -28,8 +28,8 @@
             th {
                 text-align: center;
             }
-            
-            
+
+
             div.dataTables_scrollBody thead th,
             div.dataTables_scrollBody thead td {
                 line-height: 0;
@@ -61,7 +61,7 @@
                         </select>
                     </div>
 
-                    
+
                     <h4 style="color: red"><b> Daftar Seluruh Sidang yang Belum Dinilai </b> </h4>
                     <h5> Jumlah semua sidang belum dinilai : <label id="jmlBelumNilaiSemuaSidang"></label> </h5>
                     <br/><table width="100%" class="table table-striped table-bordered table-hover" id="belumNilaiSemuaTable">
@@ -154,11 +154,12 @@
                 $(document).ready(function () {
                     var table1 = $('#belumNilaiSemuaTable').DataTable({
                         "sScrollX": "100%",
-                                                "sScrollXInner": "100%",
-                                                "bScrollCollapse": true,
-                                                "fixedColumns": {
-                                                    "leftColumns": 1
-                                                },columns: [
+                        "sScrollXInner": "100%",
+                        "bScrollCollapse": true,
+                        "fixedColumns": {
+                            "leftColumns": 1
+                        }, 
+                                                responsive: true,columns: [
                             {data: 'mahasiswa.nrp'},
                             {data: 'mahasiswa.name'},
                             {data: 'sidangName'},
@@ -174,7 +175,13 @@
             <script type="text/javascript">
                 $(document).ready(function () {
                     var table = $('#belumNilaiTable').DataTable({
-                        columns: [
+                        "sScrollX": "100%",
+                        "sScrollXInner": "100%",
+                        "bScrollCollapse": true,
+                                                responsive: true,
+                        "fixedColumns": {
+                            "leftColumns": 1
+                        }, columns: [
                             {data: 'mahasiswa.nrp'},
                             {data: 'mahasiswa.name'},
                             {data: 'sidangName'},

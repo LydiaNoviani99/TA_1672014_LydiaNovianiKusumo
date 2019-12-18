@@ -136,6 +136,7 @@
 
                     var table = $('#sidangSebagaiPembimbing1').DataTable({
                         "sScrollX": "100%",
+                                                responsive: true,
                                                 "sScrollXInner": "100%",
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
@@ -156,6 +157,7 @@
 
                     var table = $('#sidangSebagaiPembimbing2').DataTable({
                         "sScrollX": "100%",
+                                                responsive: true,
                                                 "sScrollXInner": "100%",
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
@@ -176,6 +178,7 @@
 
                     var table2 = $('#sidangSebagaiPenguji1').DataTable({
                         "sScrollX": "100%",
+                                                responsive: true,
                                                 "sScrollXInner": "100%",
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
@@ -194,6 +197,7 @@
 
                     var table2 = $('#sidangSebagaiPenguji2').DataTable({
                         "sScrollX": "100%",
+                                                responsive: true,
                                                 "sScrollXInner": "100%",
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {

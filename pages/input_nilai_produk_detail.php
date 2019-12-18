@@ -5,7 +5,7 @@
 
 <br/>
 
-<table class="table table-striped" id="tblProdukDetail">
+<table class="table table-striped" id="tblProdukDetail" width="100%">
     <thead id="tblHead">
         <tr>
             <th width="5">No</th>

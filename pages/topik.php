@@ -13,8 +13,8 @@
 
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
-        
-        
+
+
         <style type="text/css">
             div.dataTables_scrollBody thead th,
             div.dataTables_scrollBody thead td {
@@ -245,17 +245,11 @@
         <script type='text/javascript'>
             $(document).ready(function () {
                 var table = $('#mahasiswaTableTopik').DataTable({
-                    responsive: true,
                     "pagingType": "full",
                     "scrollCollapse": true,
                     "select": true,
                     "lengthMenu": [5, 10, 15, "All"],
-                   "sScrollX": "100%",
-                                                "sScrollXInner": "100%",
-                                                "bScrollCollapse": true,
-                                                "fixedColumns": {
-                                                    "leftColumns": 1
-                                                }, columns: [
+                    columns: [
                         {data: "nrp"},
                         {data: "name"}
                     ]
@@ -272,11 +266,11 @@
 
                 var table1 = $('#topikTable').DataTable({
                     "sScrollX": "100%",
-                                                "sScrollXInner": "100%",
-                                                "bScrollCollapse": true,
-                                                "fixedColumns": {
-                                                    "leftColumns": 1
-                                                },columns: [
+                    "sScrollXInner": "100%",
+                    "bScrollCollapse": true,
+                    "fixedColumns": {
+                        "leftColumns": 1
+                    }, columns: [
                         {data: 'mahasiswa.nrp'},
                         {data: 'mahasiswa.name'},
                         {data: 'dosen_pembimbing1.name'},
@@ -297,11 +291,11 @@
 
                 var table1 = $('#topikTableAll').DataTable({
                     "sScrollX": "100%",
-                                                "sScrollXInner": "100%",
-                                                "bScrollCollapse": true,
-                                                "fixedColumns": {
-                                                    "leftColumns": 1
-                                                },columns: [
+                    "sScrollXInner": "100%",
+                    "bScrollCollapse": true,
+                    "fixedColumns": {
+                        "leftColumns": 1
+                    }, columns: [
                         {data: 'mahasiswa.nrp'},
                         {data: 'mahasiswa.name'},
                         {data: 'dosen_pembimbing1.name'},

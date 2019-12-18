@@ -75,7 +75,7 @@
                     <div class=" col-lg-offset-3 col-lg-6">
                         <div class="panel panel-default">
                             <div class="panel-body">
-                                <div class="row">
+<!--                                <div class="row">
                                     <div class="col-lg-12">
                                         <div class="row">
                                             <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
@@ -83,7 +83,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <div class="row">

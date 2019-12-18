@@ -126,6 +126,7 @@
                 "sScrollX": "100%",
                 "sScrollXInner": "100%",
                 "bScrollCollapse": true,
+                responsive: true,
                 "fixedColumns": {
                     "leftColumns": 1
                 }, columns: [
@@ -148,6 +149,7 @@
                 "sScrollX": "100%",
                 "sScrollXInner": "100%",
                 "bScrollCollapse": true,
+                responsive: true,
                 "fixedColumns": {
                     "leftColumns": 1
                 }, columns: [

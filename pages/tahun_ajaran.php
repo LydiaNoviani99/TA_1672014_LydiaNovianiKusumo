@@ -148,6 +148,7 @@
                     "order": [[ 1, "asc" ]],
                     "sScrollX": "100%",
                                                 "sScrollXInner": "100%",
+                                                responsive: true,
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
                                                     "leftColumns": 1

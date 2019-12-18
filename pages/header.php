@@ -8,6 +8,59 @@
         position: absolute;
         right: 0;
     } 
+    .blinking {
+        -webkit-animation: 1s blink ease infinite;
+        -moz-animation: 1s blink ease infinite;
+        -ms-animation: 1s blink ease infinite;
+        -o-animation: 1s blink ease infinite;
+        animation: 1s blink ease infinite;
+        color: red;
+    }
+
+    @keyframes "blink" {
+        from, to {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @-moz-keyframes blink {
+        from, to {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @-webkit-keyframes "blink" {
+        from, to {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @-ms-keyframes "blink" {
+        from, to {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+
+    @-o-keyframes "blink" {
+        from, to {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
 
 </style>
 
@@ -78,7 +131,10 @@
                     <label id="labelDosen"> Dosen </label>
                 </div>
                 <li>
-                    <a href="listBelumDinilai.php" id="page_belum_dinilai"><i class="fa fa-check-circle-o  "></i> List Belum Dinilai Dosen</a>
+                    <a href="listBelumDinilai.php" id="page_belum_dinilai" class="blinking"><i class="fa fa-check-circle-o "></i>
+                        List Belum Dinilai Dosen
+                    </a>
+
                 </li>
                 <li>
                     <a href="sidang.php" id="page_sidang"><i class="fa fa-check-circle-o  "></i> Sidang Dosen</a>
@@ -93,7 +149,10 @@
                     <label id="labelAdmin"> Admin </label>
                 </div>
                 <li>
-                    <a href="listBelumDinilai_admin.php" id="page_belum_dinilai_admin"><i class="fa fa-check-circle-o  "></i> List Belum Dinilai</a>
+                    <a href="listBelumDinilai_admin.php" id="page_belum_dinilai_admin" class="blinking"><i class="fa fa-check-circle-o  "></i> 
+                        List Belum Dinilai  
+                    </a>
+
                 </li>
                 <li>
                     <a href="topik.php" id="page_topik"><i class="fa fa-table "></i> Topik</a>
@@ -145,8 +204,6 @@
 <!-- DataTables CSS -->
 <link href="../vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet">
 <link href="../vendor/datatables/css/select.dataTables.min.css" rel="stylesheet">
-
-
 
 <!-- DataTables Responsive CSS -->
 <link href="../vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">

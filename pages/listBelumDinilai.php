@@ -107,6 +107,7 @@
 
                     var table = $('#belumNilaiTable').DataTable({
                        "sScrollX": "100%",
+                                                responsive: true,
                                                 "sScrollXInner": "100%",
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {

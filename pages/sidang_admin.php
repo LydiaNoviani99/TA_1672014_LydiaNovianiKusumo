@@ -14,7 +14,7 @@
 
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
-
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
 
 
         <style type="text/css">
@@ -62,7 +62,6 @@
                                         <b> Filter Tanggal </b> : 
                                         <input type="date" id="filterTanggalSidang" name="filterTanggalSidang" value="<?php echo date("Y-m-d"); ?>">
                                     </h5> 
-
                                     <table width="100%" class="table table-striped table-bordered table-hover" id="viewSidangTableFilterTanggal">
                                         <thead>
                                             <tr>
@@ -323,6 +322,7 @@
                                         $(document).ready(function () {
                                             var tableTanggal = $('#viewSidangTableFilterTanggal').DataTable({
                                                 "sScrollX": "100%",
+                                                responsive: true,
                                                 "sScrollXInner": "100%",
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
@@ -343,9 +343,20 @@
                                                 ]
                                             });
 
+                                            $('a.toggle-vis').on('click', function (e) {
+                                                e.preventDefault();
+
+                                                // Get the column API object
+                                                var column = table.column($(this).attr('data-column'));
+
+                                                // Toggle the visibility
+                                                column.visible(!column.visible());
+                                            });
+
 
                                             var table = $('#viewSidangTablePemb1').DataTable({
-                                               "sScrollX": "100%",
+                                                "sScrollX": "100%",
+                                                responsive: true,
                                                 "sScrollXInner": "100%",
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
@@ -371,11 +382,12 @@
                                             });
                                             var table1 = $('#viewSidangTablePemb2').DataTable({
                                                 "sScrollX": "100%",
+                                                responsive: true,
                                                 "sScrollXInner": "100%",
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
                                                     "leftColumns": 1
-                                                },columns: [
+                                                }, columns: [
                                                     {data: 'mahasiswa2.nrp'},
                                                     {data: 'mahasiswa2.name'},
                                                     {data: 'sidangName'},
@@ -395,12 +407,13 @@
                                                 ]
                                             });
                                             var table2 = $('#viewSidangTablePeng1').DataTable({
-                                              "sScrollX": "100%",
+                                                "sScrollX": "100%",
+                                                responsive: true,
                                                 "sScrollXInner": "100%",
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
                                                     "leftColumns": 1
-                                                },  columns: [
+                                                }, columns: [
                                                     {data: 'mahasiswa2.nrp'},
                                                     {data: 'mahasiswa2.name'},
                                                     {data: 'sidangName'},
@@ -420,7 +433,8 @@
                                                 ]
                                             });
                                             var table3 = $('#viewSidangTablePeng2').DataTable({
-                                               "sScrollX": "100%",
+                                                "sScrollX": "100%",
+                                                responsive: true,
                                                 "sScrollXInner": "100%",
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {

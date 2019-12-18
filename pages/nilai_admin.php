@@ -276,6 +276,7 @@
                                             var table = $('#nilaiAkhirTable').DataTable({
                                                 "sScrollX": "100%",
                                                 "sScrollXInner": "100%",
+                                                responsive: true,
                                                 "bScrollCollapse": true,
                                                 "fixedColumns": {
                                                     "leftColumns": 1

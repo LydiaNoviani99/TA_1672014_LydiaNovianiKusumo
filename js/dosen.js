@@ -58,14 +58,6 @@ $("#btnSaveDosen").click(function () {
                 }
             });
 
-//            dosenDataRef.on("value", function (snap) {
-//                $.each(snap.val(), function (index, element) {
-//                    if (dosenNik === element.nik) {
-//                        duplikat = false;
-//                    }
-//                });
-//            });
-
             if (duplikat) {
                 firebase.database().ref('dosen').child(dosenNik).set({
                     nik: dosenNik,

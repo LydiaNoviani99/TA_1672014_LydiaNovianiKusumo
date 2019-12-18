@@ -14,8 +14,8 @@
 
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-auth.js"></script>
-        
-        
+
+
         <style type="text/css">
             div.dataTables_scrollBody thead th,
             div.dataTables_scrollBody thead td {
@@ -25,6 +25,24 @@
                 height:0px;
             }
         </style>
+
+        <script src="https://smtpjs.com/v3/smtp.js"></script>
+        <script>
+
+            function sendEmail(emailTujuan) {
+                Email.send({
+                    Host: "smtp.gmail.com",
+                    Username: "sis2019.admtainterior@gmail.com",
+                    Password: "ukm12345*",
+                    To: emailTujuan,
+                    From: "sis2019.admtainterior@gmail.com",
+                    Subject: "Reminder Sidang",
+                    Body: "<html><h2>Reminder Sidang</h2><strong>Pada hari Senin 16 Desember pukul 13.00</strong><br></br><em>Sidang USTA : Lydia Noviani Kusumo</em><br></br>di Lab Adv 2</html>"
+                }).then(
+                        message => alert("Email berhasil terkirim")
+                );
+            }
+        </script>
     </head>
 
     <body>
@@ -91,8 +109,6 @@
                                     <br/>
                                 </div>
                             </div>
-
-                            <br/>
                             <br/>
                             <!-- /.panel-heading -->
                             <div class="panel-body">
@@ -189,29 +205,31 @@
         <script src="../js/import/import_dosen.js"></script>
 
         <script type='text/javascript'>
-            $(document).ready(function () {
-                fetchDosenData(putDosenDataToTable, 'dosenTable');
+                                $(document).ready(function () {
+                                    fetchDosenData(putDosenDataToTable, 'dosenTable');
 
-                var table = $('#dosenTable').DataTable({
-                    "sScrollX": "100%",
-                                                "sScrollXInner": "100%",
-                                                "bScrollCollapse": true,
-                                                "fixedColumns": {
-                                                    "leftColumns": 1
-                                                },columns: [
-                        {data: 'nik'},
-                        {data: 'name'},
-                        {data: 'email'},
-                        {data: 'nama_role'},
-                        {
-                            data: 'null',
-                            render: function (data, type, row) {
-                                return '<button type="button"  class="btn btn-warning" onClick="updateDosen(\'' + row.nik + '\')">Update</button>'
-                            }
-                        }
-                    ]
-                });
-            });
+                                    var table = $('#dosenTable').DataTable({
+                                        "sScrollX": "100%",
+                                        "sScrollXInner": "100%",
+                                        "bScrollCollapse": true,
+                                        "fixedColumns": {
+                                            "leftColumns": 1
+                                        },
+                                        responsive: true,
+                                        columns: [
+                                            {data: 'nik'},
+                                            {data: 'name'},
+                                            {data: 'email'},
+                                            {data: 'nama_role'},
+                                            {
+                                                data: 'null',
+                                                render: function (data, type, row) {
+                                                    return '<button type="button"  class="btn btn-warning" onClick="updateDosen(\'' + row.nik + '\')">Update</button>'
+                                                }
+                                            }
+                                        ]
+                                    });
+                                });
         </script>
     </body>
 </html>
