@@ -736,7 +736,6 @@ $("#btnSaveSidang1").click(function () {
                 ruangan: gSidangRuangan,
                 idTopik: tempAmbilIdTopik
             });
-            alert("Data berhasil tersimpan");
 
             var dosenDataRef = firebase.database().ref('dosen/');
             dosenDataRef.on('value', function (snap) {
@@ -764,12 +763,16 @@ $("#btnSaveSidang1").click(function () {
 //            alert(emailPeng1);
 //            alert(emailPeng2);
 
+
+
             var tanggalModif = new Date(gSidangTanggal).toDateString();
 //            alert(emailTujuan + nrp_topik + name_topik + gSidangTanggal + gSidangJam + gSidangRuangan + gSidangName)
             sendEmail(emailPemb1, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Pembimbing 1");
             sendEmail(emailPemb2, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Pembimbing 2");
             sendEmail(emailPeng1, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Penguji 1");
             sendEmail(emailPeng2, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Penguji 2");
+
+            alert("Data berhasil tersimpan");
 
         }
     } else {
@@ -995,7 +998,6 @@ $("#btnUpdateSidang1").click(function () {
                 jam_mulai: gSidangJam,
                 ruangan: gSidangRuangan
             });
-            alert("Data berhasil terbaharui");
             var dosenDataRef = firebase.database().ref('dosen/');
             dosenDataRef.on('value', function (snap) {
                 if (snap.exists()) {
@@ -1028,6 +1030,7 @@ $("#btnUpdateSidang1").click(function () {
             sendEmailUpdate(emailPeng1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 1", "Penguji 1");
             sendEmailUpdate(emailPeng2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 1", "Penguji 2");
 
+            alert("Data berhasil terbaharui");
         }
     } else {
         alert("Data belum lengkap. Tolong isi kembali dengan data yang lengkap.");

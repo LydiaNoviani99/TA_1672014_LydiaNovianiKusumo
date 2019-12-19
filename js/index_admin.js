@@ -727,7 +727,12 @@ function showGrafikJumlahTopik() {
                     text: "Grafik Jumlah Topik Setiap Tahun Ajaran"
                 },
                 axisY: {
-                    includeZero: false
+                    includeZero: false,
+                    title: "Jumlah Topik",
+                    titleFontColor: "#594a4e",
+                    lineColor: "#594a4e",
+                    labelFontColor: "#594a4e",
+                    tickColor: "#594a4e"
                 },
                 data: [{
                         type: "column",
