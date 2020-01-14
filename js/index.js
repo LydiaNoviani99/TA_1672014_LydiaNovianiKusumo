@@ -83,18 +83,18 @@ var mainApp = {};
                     $("#page_dashboardAdmin").show();
                     $("#page_dashboardDosen").hide();
                     $("#page_tahunAjaran").show();
-                    $("#page_dosen").show();
-                    $("#page_mahasiswa").show();
-                    $("#page_topik").show();
-                    $("#page_viewPembPeng").show();
-                    $("#page_assignSidang").show();
+                    $("#page_dosen").hide();
+                    $("#page_mahasiswa").hide();
+                    $("#page_topik").hide();
+                    $("#page_viewPembPeng").hide();
+                    $("#page_assignSidang").hide();
                     $("#page_sidang").hide();
                     $("#page_sidangAdmin").hide();
-                    $("#page_Nilai").show();
+                    $("#page_Nilai").hide();
                     $("#page_nilaiAdmin").show();
                     $("#labelDosen").hide();
                     $("#labelAdmin").show();
-                    $("#page_belum_dinilai_admin").show();
+                    $("#page_belum_dinilai_admin").hide();
                 }
                 //Dosen
                 else if (sessionStorage.getItem("role") === "5") {
