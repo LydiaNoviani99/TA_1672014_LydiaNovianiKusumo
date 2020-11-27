@@ -112,6 +112,24 @@ var mainApp = {};
                     $("#labelDosen").show();
                     $("#labelAdmin").hide();
                     $("#page_belum_dinilai").show();
+                } 
+                //Admin
+                else if (sessionStorage.getItem("role") === "6") {
+                    $("#page_dashboardAdmin").show();
+                    $("#page_dashboardDosen").hide();
+                    $("#page_tahunAjaran").show();
+                    $("#page_dosen").show();
+                    $("#page_mahasiswa").show();
+                    $("#page_topik").show();
+                    $("#page_viewPembPeng").show();
+                    $("#page_assignSidang").show();
+                    $("#page_sidang").show();
+                    $("#page_sidangAdmin").show();
+                    $("#page_Nilai").show();
+                    $("#page_nilaiAdmin").show();
+                    $("#labelDosen").show();
+                    $("#labelAdmin").show();
+                    $("#page_belum_dinilai_admin").show();
                 } else {
                     $("#page_dashboardAdmin").hide();
                     $("#page_dashboardDosen").hide();

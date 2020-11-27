@@ -1,0 +1,13 @@
+{
+  "name": "TA_1672014_LydiaNovianiKusumo",
+  "version": "1.0.0",
+  "description": "untuk reminder jadwal sidang",
+  "main": "index.js",
+  "author": "lydia",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "firebase": "^7.7.0",
+    "node-cron": "^2.0.3"
+  }
+}

@@ -589,44 +589,44 @@ function assignSidang3(id, nrp, sidangId) {
             });
         }
     });
-
 }
 
 
-function sendEmail(emailTujuan, nrp, nama, tanggal, jam, ruangan, sidangName, sebagai) {
-    Email.send({
-        Host: "smtp.gmail.com",
-        Username: "sis2019.admtainterior@gmail.com",
-        Password: "ukm12345*",
-        To: emailTujuan,
-        From: "sis2019.admtainterior@gmail.com",
-        Subject: "Reminder Sidang",
-        Body: "<html><h2>Reminder Sidang</h2><strong>Pada hari " + tanggal + " pukul " + jam + "</strong><br></br><em>" + sidangName + " : " + nama + " (" + nrp + ") </em><br></br> di " + ruangan + "<br></br> Sebagai : " + sebagai + "</html>"
-    }).then(function (message) {
-//        alert("Email ke dosen berhasil terkirim");
-        location.reload();
-        $('#comboSidangDosenPeng1').val('-');
-        $('#comboSidangDosenPeng2').val('-');
-        $('#txtSidang1Tanggal').val('');
-        $('#txtSidang1Jam').val('');
-        $('#txtSidang1Ruangan').val('');
-    });
-}
 
-function sendEmailUpdate(emailTujuan, nrp, nama, tanggal, jam, ruangan, sidangName, sebagai) {
-    Email.send({
-        Host: "smtp.gmail.com",
-        Username: "sis2019.admtainterior@gmail.com",
-        Password: "ukm12345*",
-        To: emailTujuan,
-        From: "sis2019.admtainterior@gmail.com",
-        Subject: "Reminder Sidang (Jadwal Baru)",
-        Body: "<html><h2>Reminder Sidang (Jadwal Baru)</h2><strong>Pada hari " + tanggal + " pukul " + jam + "</strong><br></br><em>" + sidangName + " : " + nama + " (" + nrp + ") </em><br></br> di " + ruangan + "<br></br> Sebagai : " + sebagai + "</html>"
-    }).then(function (message) {
-//        alert("Email update ke dosen berhasil terkirim");
-        location.reload();
-    });
-}
+// function sendEmail(emailTujuan, nrp, nama, tanggal, jam, ruangan, sidangName, sebagai) {
+//     Email.send({
+//         Host: "smtp.gmail.com",
+//         Username: "sis2019.admtainterior@gmail.com",
+//         Password: "ukm12345*",
+//         To: emailTujuan,
+//         From: "sis2019.admtainterior@gmail.com",
+//         Subject: "Reminder Sidang",
+//         Body: "<html><h2>Reminder Sidang</h2><strong>Pada hari " + tanggal + " pukul " + jam + "</strong><br></br><em>" + sidangName + " : " + nama + " (" + nrp + ") </em><br></br> di " + ruangan + "<br></br> Sebagai : " + sebagai + "</html>"
+//     }).then(function (message) {
+// //        alert("Email ke dosen berhasil terkirim");
+//         location.reload();
+//         $('#comboSidangDosenPeng1').val('-');
+//         $('#comboSidangDosenPeng2').val('-');
+//         $('#txtSidang1Tanggal').val('');
+//         $('#txtSidang1Jam').val('');
+//         $('#txtSidang1Ruangan').val('');
+//     });
+// }
+
+// function sendEmailUpdate(emailTujuan, nrp, nama, tanggal, jam, ruangan, sidangName, sebagai) {
+//     Email.send({
+//         Host: "smtp.gmail.com",
+//         Username: "sis2019.admtainterior@gmail.com",
+//         Password: "ukm12345*",
+//         To: emailTujuan,
+//         From: "sis2019.admtainterior@gmail.com",
+//         Subject: "Reminder Sidang (Jadwal Baru)",
+//         Body: "<html><h2>Reminder Sidang (Jadwal Baru)</h2><strong>Pada hari " + tanggal + " pukul " + jam + "</strong><br></br><em>" + sidangName + " : " + nama + " (" + nrp + ") </em><br></br> di " + ruangan + "<br></br> Sebagai : " + sebagai + "</html>"
+//     }).then(function (message) {
+// //        alert("Email update ke dosen berhasil terkirim");
+//         location.reload();
+//     });
+// }
 
 var idAssignSidang;
 var nrp_topik;
@@ -764,15 +764,16 @@ $("#btnSaveSidang1").click(function () {
 //            alert(emailPeng2);
 
 
-
             var tanggalModif = new Date(gSidangTanggal).toDateString();
-//            alert(emailTujuan + nrp_topik + name_topik + gSidangTanggal + gSidangJam + gSidangRuangan + gSidangName)
-            sendEmail(emailPemb1, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Pembimbing 1");
-            sendEmail(emailPemb2, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Pembimbing 2");
-            sendEmail(emailPeng1, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Penguji 1");
-            sendEmail(emailPeng2, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Penguji 2");
+            // alert(emailTujuan + nrp_topik + name_topik + gSidangTanggal + gSidangJam + gSidangRuangan + gSidangName)
+            // sendEmail(emailPemb1, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Pembimbing 1");
+            // sendEmail(emailPemb2, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Pembimbing 2");
+            // sendEmail(emailPeng1, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Penguji 1");
+            // sendEmail(emailPeng2, nrp_topik, name_topik, tanggalModif, gSidangJam, gSidangRuangan, gSidangName, "Penguji 2");
 
             alert("Data berhasil tersimpan");
+            
+        location.reload();
 
         }
     } else {
@@ -1025,12 +1026,14 @@ $("#btnUpdateSidang1").click(function () {
 //            alert(emailPeng2);
 
             var tanggalModif = new Date(gSidangTanggal).toDateString();
-            sendEmailUpdate(emailPemb1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 1", "Pembimbing 1");
-            sendEmailUpdate(emailPemb2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 1", "Pembimbing 2");
-            sendEmailUpdate(emailPeng1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 1", "Penguji 1");
-            sendEmailUpdate(emailPeng2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 1", "Penguji 2");
+            // sendEmailUpdate(emailPemb1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 1", "Pembimbing 1");
+            // sendEmailUpdate(emailPemb2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 1", "Pembimbing 2");
+            // sendEmailUpdate(emailPeng1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 1", "Penguji 1");
+            // sendEmailUpdate(emailPeng2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 1", "Penguji 2");
 
             alert("Data berhasil terbaharui");
+            
+        location.reload();
         }
     } else {
         alert("Data belum lengkap. Tolong isi kembali dengan data yang lengkap.");
@@ -1131,11 +1134,14 @@ $("#btnUpdateSidang2").click(function () {
 //            alert(emailPeng2);
 
             var tanggalModif = new Date(gSidangTanggal).toDateString();
-            sendEmailUpdate(emailPemb1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 2", "Pembimbing 1");
-            sendEmailUpdate(emailPemb2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 2", "Pembimbing 2");
-            sendEmailUpdate(emailPeng1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 2", "Penguji 1");
-            sendEmailUpdate(emailPeng2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 2", "Penguji 2");
+            // sendEmailUpdate(emailPemb1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 2", "Pembimbing 1");
+            // sendEmailUpdate(emailPemb2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 2", "Pembimbing 2");
+            // sendEmailUpdate(emailPeng1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 2", "Penguji 1");
+            // sendEmailUpdate(emailPeng2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 2", "Penguji 2");
 
+            alert("Data berhasil terbaharui");
+            
+        location.reload();
         }
     } else {
         alert("Data belum lengkap. Tolong isi kembali dengan data yang lengkap.");
@@ -1236,11 +1242,14 @@ $("#btnUpdateSidang3").click(function () {
 //            alert(emailPeng2);
 
             var tanggalModif = new Date(gSidangTanggal).toDateString();
-            sendEmailUpdate(emailPemb1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 3", "Pembimbing 1");
-            sendEmailUpdate(emailPemb2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 3", "Pembimbing 2");
-            sendEmailUpdate(emailPeng1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 3", "Penguji 1");
-            sendEmailUpdate(emailPeng2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 3", "Penguji 2");
+            // sendEmailUpdate(emailPemb1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 3", "Pembimbing 1");
+            // sendEmailUpdate(emailPemb2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 3", "Pembimbing 2");
+            // sendEmailUpdate(emailPeng1, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 3", "Penguji 1");
+            // sendEmailUpdate(emailPeng2, gNrp, gNama, tanggalModif, gSidangJam, gSidangRuangan, "Sidang 3", "Penguji 2");
 
+            alert("Data berhasil terbaharui");
+            
+        location.reload();
         }
     } else {
         alert("Data belum lengkap. Tolong isi kembali dengan data yang lengkap.");

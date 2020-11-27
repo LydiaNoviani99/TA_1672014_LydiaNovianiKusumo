@@ -57,7 +57,42 @@
                                         </select>
                                     </div>
 
+                                    <div class="col-sm-12" style="text-align: right;" id="btn-importNilaiAkhir">
+                                        <div class="modal modal-primary fade" id="modal-import" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                            <div class="container"><!-- container class is used to centered  the body of the browser with some decent width-->
+                                                <div class="row"><!-- row class is used for grid system in Bootstrap-->
+                                                    <div class="col-md-4 col-md-offset-4"><!--col-md-4 is used to create the no of colums in the grid also use for medimum and large devices-->
+                                                        <div class="login-panel panel panel-success">
+                                                            <div class="panel-heading"> 
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span></button> 
+                                                                <h3 class="panel-title">Upload Data Dari CSV</h3>
 
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <form method="post" action="import/import_nilaiakhir.php" enctype="multipart/form-data">
+                                                                    <fieldset>
+                                                                        <div class="form-group">
+                                                                            <a href="../template_import/form_input_nilaiakhir.csv" download>
+                                                                                - Download Template Disini -
+                                                                            </a>
+                                                                            <input type="file" name="file"/>
+                                                                        </div>
+                                                                        <input class="btn btn-success" type="submit" name="submit_file" value="Submit"/>
+                                                                    </fieldset>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button style="float: right" type="button" data-toggle="modal" data-target="#modal-import" id="btn-import" class=" btn btn-success ">
+                                            <span class="glyphicon glyphicon-import"></span> Upload Nilai Akhir Per Sidang dari CSV
+                                        </button>
+                                    </div>
+
+                                    <br/>
                                     <h5>
                                         <b> Filter Tanggal </b> : 
                                         <input type="date" id="filterTanggalSidang" name="filterTanggalSidang" value="<?php echo date("Y-m-d"); ?>">
@@ -317,6 +352,7 @@
 
         <script src="../js/fireBase.js"></script>
         <script src="../js/sidang_admin.js"></script>
+        <script src="../js/import/import_nilaiakhir.js"></script>
 
         <script type='text/javascript'>
                                         $(document).ready(function () {

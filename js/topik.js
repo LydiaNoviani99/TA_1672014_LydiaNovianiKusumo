@@ -104,9 +104,10 @@ function viewTopik() {
                             'tahun_ajaran': c2.tahun_ajaran
                         };
                         objAll.push(obj2);
-                        addTopikAll(objAll);
                     });
                 });
+                addTopikAll(objAll);
+                console.log(objAll);
             }
         });
     } else {
@@ -408,10 +409,12 @@ function updateTopik(id, nrp) {
 }
 
 function deleteTopik(id) {
-    var topikDataRef = firebase.database().ref().child('topik/' + tahun_ajaranGlobal).child(id);
-    if (!confirm('Apakah anda yakin akan menghapus ?')) {
+     if (!confirm('Apakah anda yakin akan menghapus seluruh data topik ini dan tidak dapat dikembalikan lagi?')) {
         return false;
+    } else {
+        var topikDataRef = firebase.database().ref().child('topik/' + tahun_ajaranGlobal).child(id);
+        topikDataRef.remove();
+        alert("Data berhasil terhapus");
     }
-    topikDataRef.remove();
-    alert("Data berhasil terhapus");
+    
 }

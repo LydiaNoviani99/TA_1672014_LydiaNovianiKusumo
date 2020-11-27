@@ -1,0 +1,59 @@
+//save dosen
+$("#btnSaveDosen").click(function () {
+    var action = $("#btnSaveDosen").text();
+    var dosenNik = $('#txtDosenNIK').val();
+    var dosenNama = $('#txtDosenNama').val();
+    var dosenEmail = $('#txtDosenEmail').val();
+    var jabatanId = $('#comboJabatan option:selected').val();
+    var jabatanName = $('#comboJabatan option:selected').text();
+
+    if (dosenNik != '' && dosenNama != '' && dosenEmail != '' && jabatanId != '' && jabatanName != '') {
+        if (action === "Simpan Dosen") {
+//        alert(action);
+            document.getElementById("tambah").innerHTML = "Tambah";
+
+            var duplikat = true;
+
+            var dosenDataRef = firebase.database().ref('dosen/');
+            dosenDataRef.on('value', function (snap) {
+                if (snap.exists()) {
+                    obj = [];
+                    snap.forEach(function (childSnap) {
+                        var c2 = childSnap.val();
+                        obj2 = {'nik': c2.nik, 'name': c2.name, 'email': c2.email, 'id_role': c2.id_role, 'nama_role': c2.nama_role};
+                        if (dosenNik === c2.nik) {
+                            duplikat = false;
+                        }
+                    });
+                }
+            });
+
+            if (duplikat) {
+                firebase.database().ref('dosen').child(dosenNik).set({
+                    nik: dosenNik,
+                    name: dosenNama,
+                    email: dosenEmail,
+                    id_role: jabatanId,
+                    nama_role: jabatanName
+                });
+                alert("Data berhasil tersimpan")
+            } else {
+                alert("NIK sudah pernah terdaftar")
+            }
+        } else {
+//        alert(action);
+            firebase.database().ref('dosen').child(dosenNik).update({
+                nik: dosenNik,
+                name: dosenNama,
+                email: dosenEmail,
+                id_role: jabatanId,
+                nama_role: jabatanName
+            });
+            alert("Data berhasil terbaharui");
+        }
+    } else {
+        alert("Data belum lengkap");
+    }
+    document.getElementById("formDosen").reset();
+    $('#dosenModal').modal('hide');
+});

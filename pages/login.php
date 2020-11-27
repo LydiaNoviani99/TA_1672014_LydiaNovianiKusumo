@@ -66,7 +66,7 @@
         <!-- Custom Theme JavaScript -->
         <script src="../dist/js/sb-admin-2.js"></script>
 
-        <script src="../js/firebase.js"></script>
+        <script src="../js/fireBase.js"></script>
         <script src="../js/login.js"></script>
 
     </body>

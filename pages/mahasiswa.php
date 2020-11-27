@@ -104,7 +104,7 @@
                                         <tr>
                                             <th>NRP</th>
                                             <th>Nama</th>
-                                            <th>Action</th>
+                                            <th colspan="2">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -176,13 +176,7 @@
             $(document).ready(function () {
                 fetchMahasiswaData(putMahasiswaDataToTable, 'mahasiswaTable')
                 $('#mahasiswaTable').DataTable({
-                    "sScrollX": "100%",
-                                                "sScrollXInner": "100%",
-                                                "bScrollCollapse": true,
-                                                responsive: true,
-                                                "fixedColumns": {
-                                                    "leftColumns": 1
-                                                },columns: [
+                    columns: [
                         {data: 'nrp'},
                         {data: 'name'},
 //                        {data: 'dosen.name'},
@@ -190,6 +184,12 @@
                             data: 'null',
                             render: function (data, type, row) {
                                 return '<button type="button"  class="btn btn-warning" onClick="updateMahasiswa(\'' + row.nrp + '\')">Update</button>'
+                            }
+                        },
+                        {
+                            data: 'null',
+                            render: function (data, type, row) {
+                                return '<button type="button" class="btn btn-danger" id="btnDel_mahasiswa" onClick="deleteMahasiswa(\'' + row.nrp + '\')">Delete</button>'
                             }
                         }
                     ]

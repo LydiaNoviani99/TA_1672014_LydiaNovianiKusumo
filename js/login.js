@@ -15,7 +15,7 @@
         signInOptions: [
             firebase.auth.EmailAuthProvider.PROVIDER_ID
         ],
-        tosUrl: 'dosen.php',
+        tosUrl: 'index.php',
         privacyPolicyUrl: '<your-privacy-policy-url>'
     };
 
