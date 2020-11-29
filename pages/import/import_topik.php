@@ -9,11 +9,11 @@ if (isset($_POST["submit_file"]) && $_FILES["file"]["tmp_name"] != null) {
         if ($numrow > 2) {
             $object = (object) [
                         'nrp' => $csv[0],
-                        'nama' => $csv[1],
-                        'judul_topik' => $csv[2],
-                        'nik_dosenPemb1' => $csv[3],
+                        'nama' => "-",
+                        'judul_topik' => $csv[1],
+                        'nik_dosenPemb1' => $csv[2],
                         'nama_dosenPemb1' => "-",
-                        'nik_dosenPemb2' => $csv[4],
+                        'nik_dosenPemb2' => $csv[3],
                         'nama_dosenPemb2' => "-"
             ];
             var_dump($object);

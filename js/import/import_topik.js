@@ -57,6 +57,7 @@ function ImportPengajuan(tahun_ajaranGlobal, tahun_ajaranGlobal_name) {
         var myobj = JSON.parse(data);
         $.each(myobj, function (key) {
             var v_nrp = myobj[key].nrp;
+//            var v_nama;
             var v_nama = myobj[key].nama;
             var judul_topik = myobj[key].judul_topik;
             var nik_dosenPemb1 = myobj[key].nik_dosenPemb1;
@@ -74,64 +75,77 @@ function ImportPengajuan(tahun_ajaranGlobal, tahun_ajaranGlobal_name) {
 //            alert(tahun_ajaran_id)
 //            alert(tahun_ajaran_name)
 
-            var DosenDataRef = firebase.database().ref().child('dosen');
-            DosenDataRef.on('value', function (snap) {
+            var mahasiswaDataRef = firebase.database().ref('mahasiswa');
+            mahasiswaDataRef.on('value', function (snap) {
                 if (snap.exists()) {
                     obj = [];
                     snap.forEach(function (childSnap) {
                         var c2 = childSnap.val();
-                        obj2 = {'nik': c2.nik, 'name': c2.name, 'email': c2.email, 'id_role': c2.id_role, 'nama_role': c2.nama_role};
+//                console.log(c2);
+                        obj2 = {'nrp': c2.nrp, 'name': c2.name};
 
-                        if (nik_dosenPemb1 == c2.nik) {
-                            nama_dosenPemb1 = c2.name;
-                        }
-                        if (nik_dosenPemb2 == c2.nik) {
-                            nama_dosenPemb2 = c2.name;
+                        if (v_nrp == c2.nrp) {
+                            v_nama = c2.name;
                         }
                     });
-                    if (nama_dosenPemb1 == "-") {
-                        nik_dosenPemb1 == "-"
-                    }
-                    if (nama_dosenPemb2 == "-") {
-                        nik_dosenPemb2 == "-"
-                    }
+                    
+                    var DosenDataRef = firebase.database().ref().child('dosen');
+                    DosenDataRef.on('value', function (snap) {
+                        if (snap.exists()) {
+                            obj = [];
+                            snap.forEach(function (childSnap) {
+                                var c2 = childSnap.val();
+                                obj2 = {'nik': c2.nik, 'name': c2.name, 'email': c2.email, 'id_role': c2.id_role, 'nama_role': c2.nama_role};
+
+                                if (nik_dosenPemb1 == c2.nik) {
+                                    nama_dosenPemb1 = c2.name;
+                                }
+                                if (nik_dosenPemb2 == c2.nik) {
+                                    nama_dosenPemb2 = c2.name;
+                                }
+                            });
+                            if (nama_dosenPemb1 == "-") {
+                                nik_dosenPemb1 == "-"
+                            }
+                            if (nama_dosenPemb2 == "-") {
+                                nik_dosenPemb2 == "-"
+                            }
 
 
 //                    alert(nik_dosenPemb1)
 //                    alert(nama_dosenPemb1)
 //                    alert(nik_dosenPemb2)
 //                    alert(nama_dosenPemb2)
-                    var idTopik = firebase.database().ref().child('topik').push().key;
+                            var idTopik = firebase.database().ref().child('topik').push().key;
 //            alert(idTopik)
-                    db.ref('topik/').child(tahun_ajaranGlobal).child(idTopik).set({
-                        id: idTopik,
-                        judul_topik: judul_topik,
-                        mahasiswa: {
-                            name: v_nama,
-                            nrp: v_nrp
-                        },
-                        dosen_pembimbing1: {
-                            name: nama_dosenPemb1,
-                            nik: nik_dosenPemb1
-                        },
-                        dosen_pembimbing2: {
-                            name: nama_dosenPemb2,
-                            nik: nik_dosenPemb2
-                        },
-                        tahun_ajaran: {
-                            id: tahun_ajaranGlobal,
-                            name: tahun_ajaranGlobal_name
-                        },
-                        nilaiSidang1: "-",
-                        nilaiSidang2: "-",
-                        nilaiSidang3: "-"
-                    });
+                            db.ref('topik/').child(tahun_ajaranGlobal).child(idTopik).set({
+                                id: idTopik,
+                                judul_topik: judul_topik,
+                                mahasiswa: {
+                                    name: v_nama,
+                                    nrp: v_nrp
+                                },
+                                dosen_pembimbing1: {
+                                    name: nama_dosenPemb1,
+                                    nik: nik_dosenPemb1
+                                },
+                                dosen_pembimbing2: {
+                                    name: nama_dosenPemb2,
+                                    nik: nik_dosenPemb2
+                                },
+                                tahun_ajaran: {
+                                    id: tahun_ajaranGlobal,
+                                    name: tahun_ajaranGlobal_name
+                                },
+                                nilaiSidang1: "-",
+                                nilaiSidang2: "-",
+                                nilaiSidang3: "-"
+                            });
 
+                        }
+                    });
                 }
             });
-
-
-
         });
         alert("Import topik berhasil");
     }
