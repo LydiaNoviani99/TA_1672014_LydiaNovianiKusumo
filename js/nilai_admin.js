@@ -1183,26 +1183,42 @@ function lihatDetailNilai(id, nrp) {
                     }
 
                     if (gTopikId == c2Sidang.idTopik) {
-                        if (c2Sidang.sidangName == "Sidang 1") {
-                            //TOTAL
+                        
                             document.getElementById('nilaiTotalSidang1').innerHTML = c2Sidang.totalSidang1;
                             document.getElementById('nilaiTotalProsesSidang1').innerHTML = c2Sidang.totalProsesSidang1;
-
-                        }
-                        if (c2Sidang.sidangName == "Sidang 2") {
-                            //TOTAL
                             document.getElementById('nilaiTotalSidang2').innerHTML = c2Sidang.totalSidang2;
                             document.getElementById('nilaiTotalProsesSidang2').innerHTML = c2Sidang.totalProsesSidang2;
-
-
-                        }
-                        if (c2Sidang.sidangName == "Sidang 3") {
-                            //TOTAL
                             document.getElementById('nilaiTotalSidang3').innerHTML = c2Sidang.totalSidang3;
                             document.getElementById('nilaiTotalProsesSidang3').innerHTML = c2Sidang.totalProsesSidang3;
                             document.getElementById('nilaiTotalProduk').innerHTML = c2Sidang.totalProduk;
-                        }
+//                        if (c2Sidang.sidangName == "Sidang 1") {
+//                            //TOTAL
+//                            document.getElementById('nilaiTotalSidang1').innerHTML = c2Sidang.totalSidang1;
+//                            document.getElementById('nilaiTotalProsesSidang1').innerHTML = c2Sidang.totalProsesSidang1;
+//                            document.getElementById('nilaiTotalSidang2').innerHTML = c2Sidang.totalSidang2;
+//                            document.getElementById('nilaiTotalProsesSidang2').innerHTML = c2Sidang.totalProsesSidang2;
+//                            document.getElementById('nilaiTotalSidang3').innerHTML = c2Sidang.totalSidang3;
+//                            document.getElementById('nilaiTotalProsesSidang3').innerHTML = c2Sidang.totalProsesSidang3;
+//                            document.getElementById('nilaiTotalProduk').innerHTML = c2Sidang.totalProduk;
+//                            
+//
+//                        }
+//                        if (c2Sidang.sidangName == "Sidang 2") {
+//                            //TOTAL
+//                            document.getElementById('nilaiTotalSidang2').innerHTML = c2Sidang.totalSidang2;
+//                            document.getElementById('nilaiTotalProsesSidang2').innerHTML = c2Sidang.totalProsesSidang2;
+//
+//
+//                        }
+//                        if (c2Sidang.sidangName == "Sidang 3") {
+//                            //TOTAL
+//                            document.getElementById('nilaiTotalSidang3').innerHTML = c2Sidang.totalSidang3;
+//                            document.getElementById('nilaiTotalProsesSidang3').innerHTML = c2Sidang.totalProsesSidang3;
+//                            document.getElementById('nilaiTotalProduk').innerHTML = c2Sidang.totalProduk;
+//                        }
                     }
+                    
+                    
 
 
                 });

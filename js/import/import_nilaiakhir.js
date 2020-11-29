@@ -81,17 +81,51 @@ function ImportPengajuan(tahun_ajaranGlobal, tahun_ajaranGlobal_name) {
                                 db.ref('topik/').child(tahun_ajaran_id).child(idKetemu).update({
                                     nilaiSidang1: nilaiAkhir
                                 });
-                            }if (jenis_sidang == "2") {
+                            }
+                            if (jenis_sidang == "2") {
                                 idKetemu = c2.id;
                                 db.ref('topik/').child(tahun_ajaran_id).child(idKetemu).update({
                                     nilaiSidang2: nilaiAkhir,
                                 });
-                            }if (jenis_sidang == "3") {
+                            }
+                            if (jenis_sidang == "3") {
                                 idKetemu = c2.id;
                                 db.ref('topik/').child(tahun_ajaran_id).child(idKetemu).update({
                                     nilaiSidang3: nilaiAkhir
                                 });
                             }
+
+                            var lihatSidangRef = firebase.database().ref('assign_sidang/' + tahun_ajaran_id);
+                            lihatSidangRef.on("value", function (snapSidang) {
+                                if (snapSidang.exists()) {
+                                    snapSidang.forEach(function (childSnapSidang) {
+                                        var c3Sidang = childSnapSidang.val();
+                                        if (idKetemu == c3Sidang.idTopik) {
+                                            idSidangKetemu = c3Sidang.sidangId;
+                                            if (jenis_sidang == "1") {
+                                                db.ref('assign_sidang/').child(tahun_ajaran_id).child(idSidangKetemu).update({
+                                                    totalSidang1: nilaiAkhir,
+                                                    totalProsesSidang1: nilaiAkhir
+                                                });
+                                            }
+                                            if (jenis_sidang == "2") {
+                                                db.ref('assign_sidang/').child(tahun_ajaran_id).child(idSidangKetemu).update({
+                                                    totalSidang2: nilaiAkhir,
+                                                    totalProsesSidang2: nilaiAkhir
+                                                });
+                                            }
+                                            if (jenis_sidang == "3") {
+                                                db.ref('assign_sidang/').child(tahun_ajaran_id).child(idSidangKetemu).update({
+                                                    totalSidang3: nilaiAkhir,
+                                                    totalProsesSidang3: nilaiAkhir,
+                                                    totalProduk: nilaiAkhir
+                                                });
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+
                         }
                     });
                 }
