@@ -272,6 +272,7 @@ $("#btnSaveTopik").click(function () {
                     nilaiSidang3: "-"
                 });
                 alert("Data berhasil tersimpan");
+        location.reload();
             } else {
                 alert("Masih belum lengkap");
             }
@@ -331,6 +332,7 @@ $("#btnSaveTopik").click(function () {
             });
             alert("Data berhasil terbaharui");
             $('#mahasiswaTableTopik').val('');
+        location.reload();
         } else {
             alert("Masih belum lengkap");
         }
@@ -409,12 +411,29 @@ function updateTopik(id, nrp) {
 }
 
 function deleteTopik(id) {
-     if (!confirm('Apakah anda yakin akan menghapus seluruh data topik ini dan tidak dapat dikembalikan lagi?')) {
+    if (!confirm('Apakah anda yakin akan menghapus seluruh data topik ini dan tidak dapat dikembalikan lagi?')) {
         return false;
     } else {
-        var topikDataRef = firebase.database().ref().child('topik/' + tahun_ajaranGlobal).child(id);
-        topikDataRef.remove();
-        alert("Data berhasil terhapus");
+        var lihatSidangRef = firebase.database().ref('assign_sidang/' + tahun_ajaranGlobal);
+        lihatSidangRef.on("value", function (snapSidang) {
+            if (snapSidang.exists()) {
+                snapSidang.forEach(function (childSnapSidang) {
+                    var c3Sidang = childSnapSidang.val();
+                    if (id == c3Sidang.idTopik) {
+                        idSidangHapus = c3Sidang.sidangId;
+                        var sidangHapusDataRef = firebase.database().ref().child('assign_sidang').child(tahun_ajaranGlobal).child(idSidangHapus);
+                        sidangHapusDataRef.remove();
+                        var topikHapusDataRef = firebase.database().ref().child('topik').child(tahun_ajaranGlobal).child(id);
+                        topikHapusDataRef.remove();
+                    }
+                });
+
+            }
+        });
+        var topikHapusDataRef = firebase.database().ref().child('topik').child(tahun_ajaranGlobal).child(id);
+        topikHapusDataRef.remove();
+        alert("Data Topik dan sidang topik ini berhasil terhapus");
+        location.reload();
     }
-    
+
 }

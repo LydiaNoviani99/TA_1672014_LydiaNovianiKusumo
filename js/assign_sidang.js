@@ -398,6 +398,9 @@ function lihatDetailSidang(id) {
 }
 
 function assignSidang1(id, nrp, sidangId) {
+    $('#txtSidang1Tanggal').val('');
+    $('#txtSidang1Jam').val('');
+    $('#txtSidang1Ruangan').val('');
     tempKeyTopik = id;
     $('#sidang1Modal').modal('show');
     var ta_id = $('#filterTahun_Ajaran option:selected').val();

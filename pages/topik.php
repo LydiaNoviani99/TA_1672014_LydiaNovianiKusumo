@@ -143,7 +143,7 @@
                                     <div class="modal-dialog" style="width: 50%" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="tombolSilang">
                                                     <span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title">
                                                     <span class="glyphicon glyphicon-plus-sign"></span>  
@@ -218,7 +218,7 @@
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal" id="btnClose">Close</button>
                                                         <button type="submit" id="btnSaveTopik" name="btnSaveTopik" class="btn btn-primary"><label id="update">Simpan</label> Topik</button>
                                                     </div>
                                             </form> 
@@ -263,6 +263,21 @@
                         $(this).addClass('selected');
                     }
                 });
+                var table1 = $('#topikTableAll').DataTable({
+                    "sScrollX": "100%",
+                    "sScrollXInner": "100%",
+                    "bScrollCollapse": true,
+                    "fixedColumns": {
+                        "leftColumns": 1
+                    }, columns: [
+                        {data: 'mahasiswa.nrp'},
+                        {data: 'mahasiswa.name'},
+                        {data: 'dosen_pembimbing1.name'},
+                        {data: 'dosen_pembimbing2.name'},
+                        {data: 'judul_topik'},
+                        {data: 'tahun_ajaran.name'}
+                    ]
+                });
 
                 var table1 = $('#topikTable').DataTable({
                     "sScrollX": "100%",
@@ -289,27 +304,13 @@
                         {
                             data: 'null',
                             render: function (data, type, row) {
-                                return '<button type="button" class="btn btn-danger" id="btnDel_topik" onClick="deleteTopik(\'' + row.id + '\')">Delete</button>'
+                                return '<button type="button" class="btn btn-danger" id="deleteTopik" onClick="deleteTopik(\'' + row.id + '\')">Delete</button>'
                             }
                         }
                     ]
                 });
 
-                var table1 = $('#topikTableAll').DataTable({
-                    "sScrollX": "100%",
-                    "sScrollXInner": "100%",
-                    "bScrollCollapse": true,
-                    "fixedColumns": {
-                        "leftColumns": 1
-                    }, columns: [
-                        {data: 'mahasiswa.nrp'},
-                        {data: 'mahasiswa.name'},
-                        {data: 'dosen_pembimbing1.name'},
-                        {data: 'dosen_pembimbing2.name'},
-                        {data: 'judul_topik'},
-                        {data: 'tahun_ajaran.name'}
-                    ]
-                });
+                
             });
         </script>
     </body>
